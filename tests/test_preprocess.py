@@ -4,6 +4,7 @@ import pandas as pd
 from credit_default_prediction.preprocess import (
     remove_missing_loan_interests_rows,
     remove_outliers,
+    replace_missing_emp_length,
 )
 
 
@@ -49,6 +50,33 @@ def test_remove_missing_loan_interests_rows():
     expected_clean_loan_data = pd.DataFrame(
         {"loan_int_rate": [11.84, 12.5, 7.14], "person_age": [20, 18, 65]},
         index=[0, 2, 3],
+    )
+    pd.testing.assert_frame_equal(
+        actual_clean_loan_data,
+        expected_clean_loan_data,
+    )
+
+
+def test_replace_missing_emp_length():
+    """Given credit loan data,
+    When we replace missing employment length,
+    Then all missing employment length values are replaced
+    with the median employment length."""
+
+    loan_data = pd.DataFrame(
+        {
+            "person_age": [40, 35, 50, 40, 19],
+            "person_emp_length": [np.nan, 12, 13, 25, 3],
+        }
+    )
+
+    actual_clean_loan_data = replace_missing_emp_length(loan_data)
+
+    expected_clean_loan_data = pd.DataFrame(
+        {
+            "person_age": [40, 35, 50, 40, 19],
+            "person_emp_length": [12.5, 12, 13, 25, 3],
+        }
     )
     pd.testing.assert_frame_equal(
         actual_clean_loan_data,

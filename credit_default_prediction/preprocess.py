@@ -23,9 +23,17 @@ def remove_missing_loan_interests_rows(
     return loan_data.drop(indices)
 
 
+def replace_missing_emp_length(loan_data: pd.DataFrame) -> pd.DataFrame:
+    loan_data["person_emp_length"] = loan_data["person_emp_length"].fillna(
+        loan_data["person_emp_length"].median()
+    )
+    return loan_data
+
+
 def main():
     loan_data = pd.read_csv(raw_data_path)
     loan_data = remove_outliers(loan_data)
+    loan_data = replace_missing_emp_length(loan_data)
     loan_data = remove_missing_loan_interests_rows(loan_data)
 
     loan_data.to_csv(preprocessed_data_path)
