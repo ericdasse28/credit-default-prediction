@@ -24,7 +24,7 @@ def split_data(loan_data):
 
 def save_loan_data(X, y, save_path):
     loan_data = pd.concat([X, y], axis=1)
-    loan_data.to_csv(save_path)
+    loan_data.to_csv(save_path, index=False)
 
 
 def _get_arguments():
