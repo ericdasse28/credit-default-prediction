@@ -1,0 +1,9 @@
+stages:
+  preprocess:
+    cmd: poetry run preprocess --raw-data-path data/raw/cr_loan2.csv --preprocessed-data-path
+      data/clean/clean_cr_loan.csv
+    deps:
+    - credit_default_prediction/preprocess.py
+    - data/raw/cr_loan2.csv
+    outs:
+    - data/clean/clean_cr_loan.csv
