@@ -30,10 +30,15 @@ def replace_missing_emp_length(loan_data: pd.DataFrame) -> pd.DataFrame:
     return loan_data
 
 
+def preprocess(loan_data: pd.DataFrame) -> pd.DataFrame:
+    clean_loan_data = remove_outliers(loan_data)
+    clean_loan_data = remove_missing_loan_interests_rows(clean_loan_data)
+    clean_loan_data = replace_missing_emp_length(clean_loan_data)
+
+    return clean_loan_data
+
+
 def main():
     loan_data = pd.read_csv(raw_data_path)
-    loan_data = remove_outliers(loan_data)
-    loan_data = replace_missing_emp_length(loan_data)
-    loan_data = remove_missing_loan_interests_rows(loan_data)
-
+    loan_data = preprocess(loan_data)
     loan_data.to_csv(preprocessed_data_path)

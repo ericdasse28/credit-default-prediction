@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 
 from credit_default_prediction.preprocess import (
+    preprocess,
     remove_missing_loan_interests_rows,
     remove_outliers,
     replace_missing_emp_length,
@@ -77,6 +78,48 @@ def test_replace_missing_emp_length():
             "person_age": [40, 35, 50, 40, 19],
             "person_emp_length": [12.5, 12, 13, 25, 3],
         }
+    )
+    pd.testing.assert_frame_equal(
+        actual_clean_loan_data,
+        expected_clean_loan_data,
+    )
+
+
+def test_preprocess():
+    """Given credit loan data,
+    When we preprocess it,
+    Then:
+        - Rows with outlier employment lengths are removed
+        - Missing employment lengths are replaced with median value
+        - Rows with missing loan interest rates are removed"""
+
+    loan_data = pd.DataFrame(
+        {
+            "person_emp_length": [60, 13, 45, 70, 80, 15, 12, 19, np.nan],
+            "loan_int_rate": [
+                12.5,
+                np.nan,
+                11.3,
+                14.5,
+                np.nan,
+                6.0,
+                7.0,
+                13,
+                19.8,
+            ],
+            "person_age": [80, 45, 75, 27, 12, 50, 30, 50, 90],
+        }
+    )
+
+    actual_clean_loan_data = preprocess(loan_data)
+
+    expected_clean_loan_data = pd.DataFrame(
+        {
+            "person_emp_length": [60, 45, 15, 12, 19, 19.0],
+            "loan_int_rate": [12.5, 11.3, 6.0, 7.0, 13, 19.8],
+            "person_age": [80, 75, 50, 30, 50, 90],
+        },
+        index=[0, 2, 5, 6, 7, 8],
     )
     pd.testing.assert_frame_equal(
         actual_clean_loan_data,
