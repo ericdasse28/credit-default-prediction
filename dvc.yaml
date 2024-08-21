@@ -7,3 +7,12 @@ stages:
     - data/raw/cr_loan2.csv
     outs:
     - data/clean/clean_cr_loan.csv
+  split:
+    cmd: poetry run split --preprocessed-data-path data/clean/clean_cr_loan.csv --train-path
+      data/train.csv --test-path data/test.csv
+    deps:
+    - credit_default_prediction/split.py
+    - data/clean/clean_cr_loan.csv
+    outs:
+    - data/test.csv
+    - data/train.csv
