@@ -5,9 +5,27 @@ import pandas as pd
 NORMAL_MAX_EMP_LENGTH = 60
 
 
-def remove_outliers(loan_data: pd.DataFrame):
+def remove_outliers(loan_data: pd.DataFrame) -> pd.DataFrame:
     """Remove outliers from `loan_data` in place."""
 
     outlier_filter = loan_data["person_emp_length"] > NORMAL_MAX_EMP_LENGTH
     indices = loan_data[outlier_filter].index
+
     return loan_data.drop(indices)
+
+
+def remove_missing_loan_interests_rows(
+    loan_data: pd.DataFrame,
+) -> pd.DataFrame:
+    missing_loan_int_filter = loan_data["loan_int_rate"].isnull()
+    indices = loan_data[missing_loan_int_filter].index
+
+    return loan_data.drop(indices)
+
+
+def main():
+    loan_data = pd.read_csv(raw_data_path)
+    loan_data = remove_outliers(loan_data)
+    loan_data = remove_missing_loan_interests_rows(loan_data)
+
+    loan_data.to_csv(preprocessed_data_path)
