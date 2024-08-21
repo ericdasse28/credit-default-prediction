@@ -6,6 +6,9 @@ authors = ["Eric Dasse <christ.gououi@gmail.com>"]
 license = "MIT"
 readme = "README.md"
 
+[tool.poetry.scripts]
+preprocess = "credit_default_prediction.preprocess:main"
+
 [tool.poetry.dependencies]
 python = "^3.10"
 scikit-learn = "^1.5.1"
