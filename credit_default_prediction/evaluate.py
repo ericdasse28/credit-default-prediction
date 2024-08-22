@@ -5,8 +5,7 @@ import argparse
 import joblib
 import pandas as pd
 from dvclive import Live
-from sklearn.base import accuracy_score
-from sklearn.metrics import precision_score, recall_score
+from sklearn.metrics import accuracy_score, precision_score, recall_score
 
 from credit_default_prediction.dataset import read_features_and_labels
 

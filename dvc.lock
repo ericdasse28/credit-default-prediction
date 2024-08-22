@@ -1,0 +1,57 @@
+schema: '2.0'
+stages:
+  preprocess:
+    cmd: poetry run preprocess --raw-data-path data/raw/cr_loan2.csv --preprocessed-data-path
+      data/clean/clean_cr_loan.csv
+    deps:
+    - path: credit_default_prediction/preprocess.py
+      hash: md5
+      md5: 3d6c5779d759c79d64826c34011e5aaa
+      size: 2013
+    - path: data/raw/cr_loan2.csv
+      hash: md5
+      md5: f55e028c4bc9d2bd4e4e0976599a8994
+      size: 1740274
+      isexec: true
+    outs:
+    - path: data/clean/clean_cr_loan.csv
+      hash: md5
+      md5: baadeab8488e51a6b9c1516f26e243fb
+      size: 4388483
+  split:
+    cmd: poetry run split --preprocessed-data-path data/clean/clean_cr_loan.csv --train-path
+      data/train.csv --test-path data/test.csv
+    deps:
+    - path: credit_default_prediction/split.py
+      hash: md5
+      md5: 9a6a52fe3101db887dea309b27116992
+      size: 1008
+    - path: data/clean/clean_cr_loan.csv
+      hash: md5
+      md5: baadeab8488e51a6b9c1516f26e243fb
+      size: 4388483
+    outs:
+    - path: data/test.csv
+      hash: md5
+      md5: 8f63cae98613a6ee01b95560f3c3dd9c
+      size: 1316918
+    - path: data/train.csv
+      hash: md5
+      md5: 5284d3e0cffbbc66a4fa93b192f6d2ce
+      size: 3072112
+  train:
+    cmd: poetry run train --train-dataset-path data/train.csv --model-path model.pkl
+    deps:
+    - path: credit_default_prediction/train.py
+      hash: md5
+      md5: c546e1560ca90e7927b13137d6f09287
+      size: 849
+    - path: data/train.csv
+      hash: md5
+      md5: 5284d3e0cffbbc66a4fa93b192f6d2ce
+      size: 3072112
+    outs:
+    - path: model.pkl
+      hash: md5
+      md5: 514cc7e84416c369b6f118f09b9b896a
+      size: 1087
