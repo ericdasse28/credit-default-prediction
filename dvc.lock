@@ -66,13 +66,17 @@ stages:
       hash: md5
       md5: 2d3e3588dc2e3ffab1b8d8345bc02072
       size: 1266874
+    - path: model.pkl
+      hash: md5
+      md5: 789e3f0a1aaf6b9b24108047e4145f6d
+      size: 4455588
     outs:
     - path: dvclive/metrics.json
       hash: md5
-      md5: bf77b6d62c5e9f8d484f3d2de220149a
-      size: 181
+      md5: 78ecbaa68c65df350846aa16d77610a3
+      size: 180
     - path: dvclive/plots/metrics
       hash: md5
-      md5: 750ba0d2b19501d2e4489de968a04450.dir
-      size: 138
+      md5: a74517d3e27826c46bb2f07136cc79fd.dir
+      size: 137
       nfiles: 4
