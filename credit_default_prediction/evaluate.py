@@ -4,10 +4,15 @@ import argparse
 
 import joblib
 import pandas as pd
-from dvclive import Live
-from sklearn.metrics import accuracy_score, precision_score, recall_score
+from sklearn.metrics import (  # noqa
+    accuracy_score,
+    precision_score,
+    recall_score,
+    roc_auc_score,
+)
 
 from credit_default_prediction.dataset import read_features_and_labels
+from dvclive import Live
 
 
 def evaluate(model, X: pd.Series, y: pd.Series) -> dict:
@@ -17,6 +22,7 @@ def evaluate(model, X: pd.Series, y: pd.Series) -> dict:
         "accuracy": accuracy_score(y, y_pred),
         "precision": precision_score(y, y_pred),
         "recall": recall_score(y, y_pred),
+        "ROC_AUC": roc_auc_score(y, y_pred),
     }
 
 
