@@ -6,7 +6,7 @@ import joblib
 import pandas as pd
 from sklearn.linear_model import LogisticRegression
 
-from credit_default_prediction.dataset import get_features_and_labels
+from credit_default_prediction.dataset import read_features_and_labels
 
 
 def train(X: pd.Series, y: pd.Series):
@@ -30,8 +30,7 @@ def _get_arguments():
 
 def main():
     args = _get_arguments()
-    loan_data = pd.read_csv(args.train_dataset_path)
-    X_train, y_train = get_features_and_labels(loan_data)
+    X_train, y_train = read_features_and_labels(args.train_dataset_path)
 
     model = train(X_train.values, y_train.values)
     save_model_artifact(model, args.model_path)
