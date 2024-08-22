@@ -25,6 +25,8 @@ def _get_arguments():
     parser.add_argument("--train-path")
     parser.add_argument("--test-path")
 
+    return parser.parse_args()
+
 
 def main():
     args = _get_arguments()
