@@ -3,15 +3,7 @@ import argparse
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
-
-def get_features_and_labels(loan_data: pd.DataFrame) -> tuple[
-    pd.Series,
-    pd.Series,
-]:
-    X = loan_data.drop("loan_status", axis=1)
-    y = loan_data["loan_status"]
-
-    return X, y
+from credit_default_prediction.dataset import get_features_and_labels
 
 
 def split_data(loan_data):
