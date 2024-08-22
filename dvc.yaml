@@ -16,3 +16,10 @@ stages:
     outs:
     - data/test.csv
     - data/train.csv
+  train:
+    cmd: poetry run train --train-dataset-path data/train.csv --model-path model.pkl
+    deps:
+    - credit_default_prediction/train.py
+    - data/train.csv
+    outs:
+    - model.pkl
