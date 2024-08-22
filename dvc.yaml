@@ -23,3 +23,10 @@ stages:
     - data/train.csv
     outs:
     - model.pkl
+  evaluate:
+    cmd: poetry run evaluate --model-path model.pkl --test-dataset-path data/test.csv
+    deps:
+    - credit_default_prediction/evaluate.py
+    - data/test.csv
+    outs:
+    - dvclive/metrics.json
