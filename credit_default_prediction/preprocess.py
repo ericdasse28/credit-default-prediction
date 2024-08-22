@@ -68,4 +68,4 @@ def main():
 
     loan_data = pd.read_csv(args.raw_data_path)
     loan_data = preprocess(loan_data)
-    loan_data.to_csv(args.preprocessed_data_path)
+    loan_data.to_csv(args.preprocessed_data_path, index=False)
