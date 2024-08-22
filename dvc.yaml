@@ -30,3 +30,9 @@ stages:
     - data/test.csv
     outs:
     - dvclive/metrics.json
+    - dvclive/plots/metrics
+metrics:
+- dvclive/metrics.json
+plots:
+- dvclive/plots/metrics:
+    x: step
