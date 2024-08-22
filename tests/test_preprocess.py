@@ -108,6 +108,17 @@ def test_preprocess():
                 19.8,
             ],
             "person_age": [80, 45, 75, 27, 12, 50, 30, 50, 90],
+            "loan_intent": [
+                "MEDICAL",
+                "PERSONAL",
+                "PERSONAL",
+                "OTHER",
+                "MEDICAL",
+                "OTHER",
+                "OTHER",
+                "PERSONAL",
+                "MEDICAL",
+            ],
         }
     )
 
@@ -118,6 +129,9 @@ def test_preprocess():
             "person_emp_length": [60, 45, 15, 12, 19, 19.0],
             "loan_int_rate": [12.5, 11.3, 6.0, 7.0, 13, 19.8],
             "person_age": [80, 75, 50, 30, 50, 90],
+            "loan_intent_MEDICAL": [True, False, False, False, False, True],
+            "loan_intent_OTHER": [False, False, True, True, False, False],
+            "loan_intent_PERSONAL": [False, True, False, False, True, False],
         },
         index=[0, 2, 5, 6, 7, 8],
     )

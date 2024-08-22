@@ -38,9 +38,19 @@ def remove_unnecessary_rows(loan_data):
     return clean_loan_data
 
 
+def onehot_encode_str_columns(loan_data: pd.DataFrame) -> pd.DataFrame:
+    loan_data_num = loan_data.select_dtypes(exclude=["object"])
+    loan_data_str = loan_data.select_dtypes(include=["object"])
+
+    loan_data_str_onehot = pd.get_dummies(loan_data_str)
+
+    return pd.concat([loan_data_num, loan_data_str_onehot], axis=1)
+
+
 def preprocess(loan_data: pd.DataFrame) -> pd.DataFrame:
     clean_loan_data = remove_unnecessary_rows(loan_data)
     clean_loan_data = replace_missing_emp_length(clean_loan_data)
+    clean_loan_data = onehot_encode_str_columns(clean_loan_data)
 
     return clean_loan_data
 
