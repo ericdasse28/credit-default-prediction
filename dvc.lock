@@ -44,7 +44,7 @@ stages:
     deps:
     - path: credit_default_prediction/train.py
       hash: md5
-      md5: f0328d8a6c7b44eb82295d0aa5a9e755
+      md5: 13295782773eab535372a942ae1011fb
       size: 863
     - path: data/train.csv
       hash: md5
@@ -53,7 +53,7 @@ stages:
     outs:
     - path: model.pkl
       hash: md5
-      md5: 593295b59877ba65a66ebc2f28de2c30
+      md5: 7844e0557ed3fa4d8454afb82ed59ade
       size: 4455588
   evaluate:
     cmd: poetry run evaluate --model-path model.pkl --test-dataset-path data/test.csv
@@ -68,15 +68,15 @@ stages:
       size: 1266874
     - path: model.pkl
       hash: md5
-      md5: 593295b59877ba65a66ebc2f28de2c30
+      md5: 7844e0557ed3fa4d8454afb82ed59ade
       size: 4455588
     outs:
     - path: dvclive/metrics.json
       hash: md5
-      md5: 56eb373dca4f432d40b0a5030d7cf421
+      md5: 1780dfeb79499a4ed892b0272cc9bc5a
       size: 181
     - path: dvclive/plots/metrics
       hash: md5
-      md5: 8f6f3aecfff6a9c05f34090fd93a177b.dir
+      md5: 7490ed3fa6b1ca894dca0a2596c81455.dir
       size: 138
       nfiles: 4
