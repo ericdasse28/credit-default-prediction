@@ -10,7 +10,7 @@ from credit_default_prediction.dataset import read_features_and_labels
 
 
 def train(X: pd.Series, y: pd.Series):
-    loan_default_classifier = KNeighborsClassifier(n_neighbors=3)
+    loan_default_classifier = KNeighborsClassifier(n_neighbors=5)
     loan_default_classifier.fit(X, y)
 
     return loan_default_classifier
