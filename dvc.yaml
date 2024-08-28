@@ -28,6 +28,7 @@ stages:
     deps:
     - credit_default_prediction/evaluate.py
     - data/test.csv
+    - model.pkl
     outs:
     - dvclive/metrics.json
     - dvclive/plots/metrics
