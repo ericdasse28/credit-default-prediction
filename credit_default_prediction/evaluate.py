@@ -3,6 +3,7 @@
 import argparse
 
 import joblib
+import numpy as np
 import pandas as pd
 from sklearn.metrics import (  # noqa
     accuracy_score,
@@ -14,15 +15,18 @@ from sklearn.metrics import (  # noqa
 from credit_default_prediction.dataset import read_features_and_labels
 from dvclive import Live
 
+THRESHOLD = 0.5
+
 
 def evaluate(model, X: pd.Series, y: pd.Series) -> dict:
-    y_pred = model.predict(X)
+    y_score = model.predict_proba(X)
+    y_pred = np.where(y_score[:, 1] > THRESHOLD, 1, 0)
 
     return {
         "accuracy": accuracy_score(y, y_pred),
         "precision": precision_score(y, y_pred),
         "recall": recall_score(y, y_pred),
-        "ROC_AUC": roc_auc_score(y, y_pred),
+        "ROC_AUC": roc_auc_score(y, y_score),
     }
 
 
