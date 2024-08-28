@@ -15,7 +15,7 @@ from sklearn.metrics import (  # noqa
 from credit_default_prediction.dataset import read_features_and_labels
 from dvclive import Live
 
-THRESHOLD = 0.25
+THRESHOLD = 0.3
 
 
 def evaluate(model, X: pd.Series, y: pd.Series) -> dict:
