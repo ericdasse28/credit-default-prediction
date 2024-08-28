@@ -19,8 +19,8 @@ THRESHOLD = 0.5
 
 
 def evaluate(model, X: pd.Series, y: pd.Series) -> dict:
-    y_score = model.predict_proba(X)
-    y_pred = np.where(y_score[:, 1] > THRESHOLD, 1, 0)
+    y_score = model.predict_proba(X)[:, 1]
+    y_pred = np.where(y_score > THRESHOLD, 1, 0)
 
     return {
         "accuracy": accuracy_score(y, y_pred),
