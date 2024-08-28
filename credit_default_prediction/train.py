@@ -4,13 +4,13 @@ import argparse
 
 import joblib
 import pandas as pd
-from sklearn.neighbors import KNeighborsClassifier
+import xgboost as xgb
 
 from credit_default_prediction.dataset import read_features_and_labels
 
 
 def train(X: pd.Series, y: pd.Series):
-    loan_default_classifier = KNeighborsClassifier(n_neighbors=7)
+    loan_default_classifier = xgb.XGBClassifier()
     loan_default_classifier.fit(X, y)
 
     return loan_default_classifier
