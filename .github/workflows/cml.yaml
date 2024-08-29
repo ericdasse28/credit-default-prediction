@@ -19,7 +19,7 @@ jobs:
         with:
           python-version: 3.12.3
           poetry-version: 1.8.2
-          install-args: --only main
+          install-args: --with dev
       - uses: iterative/setup-cml@v1
       - uses: iterative/setup-dvc@v1
       - name: Setup DagsHub DVC remote
