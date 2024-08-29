@@ -22,7 +22,7 @@ def evaluate(model, X: pd.Series, y: pd.Series) -> dict:
         "accuracy": accuracy_score(y, y_pred),
         "precision": precision_score(y, y_pred),
         "recall": recall_score(y, y_pred),
-        "ROC_AUC": roc_auc_score(y, y_pred),
+        "ROC_AUC": roc_auc_score(y, model.predict_proba(X)[:, 1]),
     }
 
 
