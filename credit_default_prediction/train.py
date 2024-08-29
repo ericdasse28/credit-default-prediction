@@ -3,6 +3,7 @@
 import argparse
 
 import joblib
+import numpy as np
 import pandas as pd
 import xgboost as xgb
 
@@ -32,5 +33,5 @@ def main():
     args = _get_arguments()
     X_train, y_train = read_features_and_labels(args.train_dataset_path)
 
-    model = train(X_train.values, y_train.values)
+    model = train(X_train, np.ravel(y_train))
     save_model_artifact(model, args.model_path)
