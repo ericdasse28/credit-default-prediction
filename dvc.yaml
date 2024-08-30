@@ -16,6 +16,8 @@ stages:
     outs:
     - data/test.csv
     - data/train.csv
+    params:
+    - split
   train:
     cmd: poetry run train --train-dataset-path data/train.csv --model-path model.pkl
     deps:
