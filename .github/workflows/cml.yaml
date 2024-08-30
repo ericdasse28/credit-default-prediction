@@ -66,4 +66,4 @@ jobs:
           vl2png vega.json -s 1.5 > confusion-plot.png || { echo 'vl2png failed'; exit 1; }
           echo '![](./confusion-plot.png "Confusion matrices comparison")' >> report.md
 
-          cml comment create report.md || { echo 'CML comment creation failed'; exit 1; }
+          cml comment create --publish=false report.md || { echo 'CML comment creation failed'; exit 1; }
