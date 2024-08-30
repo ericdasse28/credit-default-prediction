@@ -48,8 +48,8 @@ jobs:
         if: github.ref_name != 'main'
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DAGSHUB_USER: ${{ secrets.DAGSHUB_USER }}
-          DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.DAGSHUB_USER }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.DAGSHUB_TOKEN }}
         run: |
           echo "## Metrics: workflow vs. main" >> report.md
           git fetch --depth=1 origin main:main
