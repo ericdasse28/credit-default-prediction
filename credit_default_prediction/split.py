@@ -1,17 +1,36 @@
 import argparse
+from dataclasses import dataclass
 
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
 from credit_default_prediction.dataset import get_features_and_labels
+from credit_default_prediction.params import load_pipeline_params
 
 
-def split_data(loan_data):
+@dataclass
+class SplitParams:
+    test_size: float
+    random_state: int
+
+
+def split_data(loan_data: pd.DataFrame, split_params: SplitParams):
     X, y = get_features_and_labels(loan_data)
     X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.3, random_state=123
+        X,
+        y,
+        test_size=split_params.test_size,
+        random_state=split_params.random_state,
     )
     return X_train, X_test, y_train, y_test
+
+
+def load_split_params() -> SplitParams:
+    pipeline_params = load_pipeline_params()
+    return SplitParams(
+        test_size=pipeline_params["test_size"],
+        random_state=pipeline_params["random_state"],
+    )
 
 
 def save_loan_data(X, y, save_path):
@@ -32,7 +51,8 @@ def main():
     args = _get_arguments()
 
     loan_data = pd.read_csv(args.preprocessed_data_path)
-    X_train, X_test, y_train, y_test = split_data(loan_data)
+    split_params = load_split_params()
+    X_train, X_test, y_train, y_test = split_data(loan_data, split_params)
 
     save_loan_data(X_train, y_train, args.train_path)
     save_loan_data(X_test, y_test, args.test_path)
