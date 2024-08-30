@@ -55,6 +55,7 @@ jobs:
           dvc metrics diff --md main >> report.md
 
           echo "## Plots" >> report.md
+          echo "Generating confusion matrices..."
           echo "### Class confusions" >> report.md
           dvc plots diff \
             --target dvclive/plots/custom/confusion_matrix.json \
@@ -65,6 +66,7 @@ jobs:
           vl2png vega.json -s 1.5 > confusion-plot.png
           echo '![](./confusion-plot.png "Confusion matrices comparison")' >> report.md
 
+          echo "Generating ROC curves..."
           echo "### ROC curves" >> report.md
           dvc plots diff \
             --target dvclive/plots/sklearn/roc.json \
