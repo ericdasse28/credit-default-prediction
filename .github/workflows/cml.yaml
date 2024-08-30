@@ -58,6 +58,9 @@ jobs:
           echo "### Class confusions" >> report.md
           dvc plots diff \
             --target dvclive/plots/custom/confusion_matrix.json \
+            --template confusion \
+            -x actual \
+            -y predicted \
             --show-vega main > vega.json
           vl2png vega.json -s 1.5 > confusion-plot.png
           echo '![](./confusion-plot.png "Confusion matrices comparison")' >> report.md
