@@ -48,6 +48,8 @@ jobs:
         if: github.ref_name != 'main'
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DAGSHUB_USER: ${{ secrets.DAGSHUB_USER }}
+          DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }}
         run: |
           echo "## Metrics: workflow vs. main" >> report.md
           git fetch --depth=1 origin main:main
@@ -66,4 +68,4 @@ jobs:
           vl2png vega.json -s 1.5 > confusion-plot.png || { echo 'vl2png failed'; exit 1; }
           echo '![](./confusion-plot.png "Confusion matrices comparison")' >> report.md
 
-          cml comment create --publish=false report.md || { echo 'CML comment creation failed'; exit 1; }
+          cml comment create report.md || { echo 'CML comment creation failed'; exit 1; }
