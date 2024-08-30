@@ -32,6 +32,24 @@ def save_model_metrics(metrics: dict):
             live.log_metric(f"test/{metric}", metrics[metric])
 
 
+def log_confusion_matrix(model, X: pd.DataFrame, y: pd.DataFrame):
+    with Live() as live:
+        predictions = model.predict(X)
+        preds_df = pd.DataFrame()
+        preds_df["actual"] = y.values
+        preds_df["predicted"] = predictions
+
+        live.log_plot(
+            "confusion_matrix",
+            preds_df,
+            x="actual",
+            y="predicted",
+            template="confusion",
+            x_label="Actual labels",
+            y_label="Predicted labels",
+        )
+
+
 def _get_arguments():
     parser = argparse.ArgumentParser()
     parser.add_argument("--model-path")
@@ -48,3 +66,4 @@ def main():
 
     metrics = evaluate(model, X_test.values, y_test.values)
     save_model_metrics(metrics)
+    log_confusion_matrix(model, X_test, y_test)
