@@ -34,6 +34,12 @@ stages:
 plots:
 - dvclive/plots/metrics:
     x: step
+- dvclive/plots/custom/confusion_matrix.json:
+    template: confusion
+    x: actual
+    y: predicted
+    x_label: Actual labels
+    y_label: Predicted labels
 - dvclive/plots/sklearn/roc.json:
     template: simple
     x: fpr
