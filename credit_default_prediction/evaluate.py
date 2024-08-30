@@ -32,28 +32,32 @@ def save_model_metrics(metrics: dict):
             live.log_metric(f"test/{metric}", metrics[metric])
 
 
-def log_confusion_matrix(model, X: pd.DataFrame, y: pd.DataFrame):
+def log_confusion_matrix(model, X: pd.DataFrame, y: pd.DataFrame, live: Live):
+    predictions = model.predict(X)
+    preds_df = pd.DataFrame()
+    preds_df["actual"] = y.values
+    preds_df["predicted"] = predictions
+
+    live.log_plot(
+        "confusion_matrix",
+        preds_df,
+        x="actual",
+        y="predicted",
+        template="confusion",
+        x_label="Actual labels",
+        y_label="Predicted labels",
+    )
+
+
+def log_roc_curve(model, X: pd.DataFrame, y: pd.DataFrame, live: Live):
+    y_score = model.predict_proba(X)[:, 1].astype(float)
+    live.log_sklearn_plot("roc", y, y_score)
+
+
+def log_plots(model, X: pd.DataFrame, y: pd.DataFrame):
     with Live(resume=True) as live:
-        predictions = model.predict(X)
-        preds_df = pd.DataFrame()
-        preds_df["actual"] = y.values
-        preds_df["predicted"] = predictions
-
-        live.log_plot(
-            "confusion_matrix",
-            preds_df,
-            x="actual",
-            y="predicted",
-            template="confusion",
-            x_label="Actual labels",
-            y_label="Predicted labels",
-        )
-
-
-def log_roc_curve(model, X: pd.DataFrame, y: pd.DataFrame):
-    with Live(resume=True) as live:
-        y_score = model.predict_proba(X)[:, 1].astype(float)
-        live.log_sklearn_plot("roc", y, y_score)
+        log_confusion_matrix(model, X, y, live)
+        log_roc_curve(model, X, y, live)
 
 
 def _get_arguments():
@@ -72,5 +76,4 @@ def main():
 
     metrics = evaluate(model, X_test.values, y_test.values)
     save_model_metrics(metrics)
-    log_confusion_matrix(model, X_test, y_test)
-    log_roc_curve(model, X_test, y_test)
+    log_plots(model, X_test, y_test)
