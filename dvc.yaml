@@ -25,6 +25,8 @@ stages:
     - data/train.csv
     outs:
     - model.pkl
+    params:
+    - train
   evaluate:
     cmd: poetry run evaluate --model-path model.pkl --test-dataset-path data/test.csv
     deps:
