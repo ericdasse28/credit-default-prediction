@@ -5,7 +5,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 
 from credit_default_prediction.dataset import get_features_and_labels
-from credit_default_prediction.params import load_pipeline_params
+from credit_default_prediction.params import load_stage_params
 
 
 @dataclass
@@ -26,7 +26,7 @@ def split_data(loan_data: pd.DataFrame, split_params: SplitParams):
 
 
 def load_split_params() -> SplitParams:
-    pipeline_params = load_pipeline_params()
+    pipeline_params = load_stage_params("split")
     return SplitParams(
         test_size=pipeline_params["test_size"],
         random_state=pipeline_params["random_state"],
