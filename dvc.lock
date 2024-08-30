@@ -75,7 +75,7 @@ stages:
       hash: md5
       md5: af82fe939cf1b206f4c011d928bb72ce
       size: 181
-    - path: dvclive/plots/metrics
+    - path: dvclive/plots/metrics/
       hash: md5
       md5: 557d19d680721d59ab972044c5bbc872.dir
       size: 138
