@@ -52,7 +52,8 @@ def log_confusion_matrix(model, X: pd.DataFrame, y: pd.DataFrame):
 
 def log_roc_curve(model, X: pd.DataFrame, y: pd.DataFrame):
     with Live(resume=True) as live:
-        live.log_sklearn_plot("roc", y, model.predict_proba(X)[:, 1])
+        y_score = model.predict_proba(X)[:, 1].astype(float)
+        live.log_sklearn_plot("roc", y, y_score)
 
 
 def _get_arguments():
