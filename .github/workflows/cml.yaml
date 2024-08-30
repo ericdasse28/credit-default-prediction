@@ -62,8 +62,8 @@ jobs:
             --template confusion \
             -x actual \
             -y predicted \
-            --show-vega main > vega.json
-          vl2png vega.json -s 1.5 > confusion-plot.png
+            --show-vega main > vega.json || { echo 'Plot diff failed'; exit 1; }
+          vl2png vega.json -s 1.5 > confusion-plot.png || { echo 'vl2png failed'; exit 1; }
           echo '![](./confusion-plot.png "Confusion matrices comparison")' >> report.md
 
-          cml comment create report.md
+          cml comment create report.md || { echo 'CML comment creation failed'; exit 1; }
