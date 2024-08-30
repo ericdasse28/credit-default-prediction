@@ -29,9 +29,11 @@ stages:
     - credit_default_prediction/evaluate.py
     - data/test.csv
     - model.pkl
-    outs:
-    - dvclive/metrics.json
-    - dvclive/plots/metrics
+    metrics:
+    - dvclive/metrics.json:
+        cache: false
+    - dvclive/plots/metrics/:
+        cache: false
 metrics:
 - dvclive/metrics.json
 plots:
