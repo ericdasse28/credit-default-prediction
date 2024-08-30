@@ -50,6 +50,11 @@ def log_confusion_matrix(model, X: pd.DataFrame, y: pd.DataFrame):
         )
 
 
+def log_roc_curve(model, X: pd.DataFrame, y: pd.DataFrame):
+    with Live(resume=True) as live:
+        live.log_sklearn_plot("roc", y, model.predict_proba(X)[:, 1])
+
+
 def _get_arguments():
     parser = argparse.ArgumentParser()
     parser.add_argument("--model-path")
@@ -67,3 +72,4 @@ def main():
     metrics = evaluate(model, X_test.values, y_test.values)
     save_model_metrics(metrics)
     log_confusion_matrix(model, X_test, y_test)
+    log_roc_curve(model, X_test, y_test)
