@@ -27,13 +27,13 @@ def evaluate(model, X: pd.Series, y: pd.Series) -> dict:
 
 
 def save_model_metrics(metrics: dict):
-    with Live() as live:
+    with Live(resume=True) as live:
         for metric in metrics.keys():
             live.log_metric(f"test/{metric}", metrics[metric])
 
 
 def log_confusion_matrix(model, X: pd.DataFrame, y: pd.DataFrame):
-    with Live() as live:
+    with Live(resume=True) as live:
         predictions = model.predict(X)
         preds_df = pd.DataFrame()
         preds_df["actual"] = y.values

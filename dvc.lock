@@ -65,8 +65,8 @@ stages:
     deps:
     - path: credit_default_prediction/evaluate.py
       hash: md5
-      md5: 0c50acc59d7fc73ff0e96b94c866de64
-      size: 1203
+      md5: 7b5d2a470f5df04840c5953ecd60df9e
+      size: 1772
     - path: data/test.csv
       hash: md5
       md5: 2d3e3588dc2e3ffab1b8d8345bc02072
@@ -78,8 +78,8 @@ stages:
     outs:
     - path: dvclive/metrics.json
       hash: md5
-      md5: af82fe939cf1b206f4c011d928bb72ce
-      size: 181
+      md5: 7f51e64a9a0d86692f7c3e4b406bbe72
+      size: 196
     - path: dvclive/plots/metrics/
       hash: md5
       md5: 557d19d680721d59ab972044c5bbc872.dir

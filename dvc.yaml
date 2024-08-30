@@ -31,13 +31,14 @@ stages:
     - credit_default_prediction/evaluate.py
     - data/test.csv
     - model.pkl
-    metrics:
-    - dvclive/metrics.json:
-        cache: false
-    - dvclive/plots/metrics/:
-        cache: false
-metrics:
-- dvclive/metrics.json
 plots:
 - dvclive/plots/metrics:
     x: step
+- dvclive/plots/custom/confusion_matrix.json:
+    template: confusion
+    x: actual
+    y: predicted
+    x_label: Actual labels
+    y_label: Predicted labels
+metrics:
+- dvclive/metrics.json
