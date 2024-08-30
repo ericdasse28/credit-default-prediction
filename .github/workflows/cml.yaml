@@ -53,4 +53,13 @@ jobs:
           git fetch --depth=1 origin main:main
 
           dvc metrics diff --md main >> report.md
+
+          echo "## Plots" >> report.md
+          echo "### Class confusions" >> report.md
+          dvc plots diff \
+            --target dvclive/plots/custom/confusion_matrix.json
+            --show-vega main > vega.json
+          vl2png vega.json -s 1.5 > plot.png
+          echo '![](./plot.png "Confusion matrix")' >> report.md
+
           cml comment create report.md
