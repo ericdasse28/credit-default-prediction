@@ -48,24 +48,9 @@ jobs:
         if: github.ref_name != 'main'
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.DAGSHUB_USER }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.DAGSHUB_TOKEN }}
         run: |
           echo "## Metrics: workflow vs. main" >> report.md
           git fetch --depth=1 origin main:main
 
           dvc metrics diff --md main >> report.md
-
-          echo "## Plots" >> report.md
-          echo "Generating confusion matrices..."
-          echo "### Class confusions" >> report.md
-          dvc plots diff \
-            --target dvclive/plots/custom/confusion_matrix.json \
-            --template confusion \
-            -x actual \
-            -y predicted \
-            --show-vega main > vega.json || { echo 'Plot diff failed'; exit 1; }
-          vl2png vega.json -s 1.5 > confusion-plot.png || { echo 'vl2png failed'; exit 1; }
-          echo '![](./confusion-plot.png "Confusion matrices comparison")' >> report.md
-
           cml comment create report.md || { echo 'CML comment creation failed'; exit 1; }
