@@ -4,6 +4,7 @@ import argparse
 
 import joblib
 import pandas as pd
+import xgboost as xgb
 from sklearn.metrics import (  # noqa
     accuracy_score,
     precision_score,
@@ -52,6 +53,16 @@ def log_confusion_matrix(model, X: pd.DataFrame, y: pd.DataFrame, live: Live):
 def log_roc_curve(model, X: pd.DataFrame, y: pd.DataFrame, live: Live):
     y_score = model.predict_proba(X)[:, 1].astype(float)
     live.log_sklearn_plot("roc", y, y_score)
+
+
+def generate_feature_importance_data(model: xgb.XGBClassifier) -> pd.DataFrame:
+    importance_per_feature = model.get_booster().get_score()
+    feature_importance = pd.DataFrame(
+        importance_per_feature.items(),
+        columns=["feature_name", "feature_importance"],
+    )
+
+    return feature_importance
 
 
 def log_feature_importance(model, live: Live):
