@@ -6,8 +6,8 @@ stages:
     deps:
     - path: credit_default_prediction/preprocess.py
       hash: md5
-      md5: 554e59883d544c2ca3fcc953412f22aa
-      size: 2026
+      md5: 1fd9ed1af3c5a7d75d4a98ee986141f3
+      size: 2363
     - path: data/raw/cr_loan2.csv
       hash: md5
       md5: f55e028c4bc9d2bd4e4e0976599a8994
@@ -16,8 +16,8 @@ stages:
     outs:
     - path: data/clean/clean_cr_loan.csv
       hash: md5
-      md5: 19b5a11e203e98520da86918dfe652e2
-      size: 4221789
+      md5: 314ecf3291ecd1e758714414a8f3051c
+      size: 916722
   split:
     cmd: poetry run split --preprocessed-data-path data/clean/clean_cr_loan.csv --train-path
       data/train.csv --test-path data/test.csv
@@ -28,8 +28,8 @@ stages:
       size: 1563
     - path: data/clean/clean_cr_loan.csv
       hash: md5
-      md5: 19b5a11e203e98520da86918dfe652e2
-      size: 4221789
+      md5: 314ecf3291ecd1e758714414a8f3051c
+      size: 916722
     params:
       params.yaml:
         split:
@@ -38,12 +38,12 @@ stages:
     outs:
     - path: data/test.csv
       hash: md5
-      md5: 2d3e3588dc2e3ffab1b8d8345bc02072
-      size: 1266874
+      md5: 4fd24839e98aedd1f26832e324563ae9
+      size: 275012
     - path: data/train.csv
       hash: md5
-      md5: f4351463bed8a3e8e063da3a9c521b08
-      size: 2955441
+      md5: 7aa8015580c062d4dd798089bb475b63
+      size: 641809
   train:
     cmd: poetry run train --train-dataset-path data/train.csv --model-path model.pkl
     deps:
@@ -53,8 +53,8 @@ stages:
       size: 1006
     - path: data/train.csv
       hash: md5
-      md5: f4351463bed8a3e8e063da3a9c521b08
-      size: 2955441
+      md5: 7aa8015580c062d4dd798089bb475b63
+      size: 641809
     params:
       params.yaml:
         train:
@@ -64,8 +64,8 @@ stages:
     outs:
     - path: model.pkl
       hash: md5
-      md5: c22bf949b74f49f44d0248b6c347b418
-      size: 241029
+      md5: 387a27b31bb1ca7ba3b11625d3e77a16
+      size: 274577
   evaluate:
     cmd: poetry run evaluate --model-path model.pkl --test-dataset-path data/test.csv
     deps:
@@ -75,9 +75,9 @@ stages:
       size: 2726
     - path: data/test.csv
       hash: md5
-      md5: 2d3e3588dc2e3ffab1b8d8345bc02072
-      size: 1266874
+      md5: 4fd24839e98aedd1f26832e324563ae9
+      size: 275012
     - path: model.pkl
       hash: md5
-      md5: c22bf949b74f49f44d0248b6c347b418
-      size: 241029
+      md5: 387a27b31bb1ca7ba3b11625d3e77a16
+      size: 274577
