@@ -6,6 +6,7 @@ from credit_default_prediction.preprocess import (
     remove_missing_loan_interests_rows,
     remove_outliers,
     replace_missing_emp_length,
+    select_important_features,
 )
 
 
@@ -85,10 +86,39 @@ def test_replace_missing_emp_length():
     )
 
 
+def test_select_important_features():
+    loan_data = pd.DataFrame(
+        {
+            "person_age": [40, 35, 50, 40, 19],
+            "person_emp_length": [np.nan, 12, 13, 25, 3],
+            "loan_intent": [
+                "MEDICAL",
+                "PERSONAL",
+                "PERSONAL",
+                "MEDICAL",
+                "MEDICAL",
+            ],
+            "loan_grade": ["A", "A", "B", "G", "E"],
+        }
+    )
+    important_features = ["person_age", "person_emp_length"]
+
+    actual_loan_data = select_important_features(loan_data, important_features)
+
+    expected_loan_data = pd.DataFrame(
+        {
+            "person_age": [40, 35, 50, 40, 19],
+            "person_emp_length": [np.nan, 12, 13, 25, 3],
+        }
+    )
+    pd.testing.assert_frame_equal(actual_loan_data, expected_loan_data)
+
+
 def test_preprocess():
     """Given credit loan data,
     When we preprocess it,
     Then:
+        - Select important features
         - Rows with outlier employment lengths are removed
         - Missing employment lengths are replaced with median value
         - Rows with missing loan interest rates are removed"""
@@ -121,8 +151,11 @@ def test_preprocess():
             ],
         }
     )
+    important_features = ["person_emp_length", "loan_int_rate"]
 
-    actual_clean_loan_data = preprocess(loan_data)
+    actual_clean_loan_data = preprocess(
+        loan_data, important_features=important_features
+    )
 
     expected_clean_loan_data = pd.DataFrame(
         {

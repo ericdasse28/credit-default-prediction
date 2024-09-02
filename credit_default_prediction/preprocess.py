@@ -47,7 +47,20 @@ def onehot_encode_str_columns(loan_data: pd.DataFrame) -> pd.DataFrame:
     return pd.concat([loan_data_num, loan_data_str_onehot], axis=1)
 
 
-def preprocess(loan_data: pd.DataFrame) -> pd.DataFrame:
+def select_important_features(
+    loan_data: pd.DataFrame,
+    important_features: list[str],
+):
+    return loan_data[important_features]
+
+
+def preprocess(
+    loan_data: pd.DataFrame,
+    important_features: list[str],
+) -> pd.DataFrame:
+    clean_loan_data = select_important_features(
+        loan_data, important_features=important_features
+    )
     clean_loan_data = remove_unnecessary_rows(loan_data)
     clean_loan_data = replace_missing_emp_length(clean_loan_data)
     clean_loan_data = onehot_encode_str_columns(clean_loan_data)
