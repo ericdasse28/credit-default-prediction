@@ -1,3 +1,12 @@
+preprocess:
+  important_features:
+    - person_income
+    - person_emp_length
+    - person_age
+    - loan_percent_income
+    - loan_int_rate
+    - loan_amnt
+
 split:
   test_size: 0.3
   random_state: 123
