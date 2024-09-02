@@ -57,7 +57,7 @@ def log_roc_curve(model, X: pd.DataFrame, y: pd.DataFrame, live: Live):
 def log_feature_importance(model, live: Live):
     feature_importance = pd.Series(model.get_booster().get_score())
     feature_importance = feature_importance.reset_index()
-    feature_importance.rename(
+    feature_importance = feature_importance.rename(
         columns={"index": "feature_name", 0: "feature_importance"}
     )
 
