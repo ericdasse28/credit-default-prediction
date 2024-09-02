@@ -41,12 +41,7 @@ def remove_unnecessary_rows(loan_data):
 
 
 def onehot_encode_str_columns(loan_data: pd.DataFrame) -> pd.DataFrame:
-    loan_data_num = loan_data.select_dtypes(exclude=["object"])
-    loan_data_str = loan_data.select_dtypes(include=["object"])
-
-    loan_data_str_onehot = pd.get_dummies(loan_data_str)
-
-    return pd.concat([loan_data_num, loan_data_str_onehot], axis=1)
+    return pd.get_dummies(loan_data)
 
 
 def select_important_features(
