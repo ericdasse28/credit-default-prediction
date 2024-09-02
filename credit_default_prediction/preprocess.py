@@ -63,7 +63,7 @@ def preprocess(
     clean_loan_data = select_important_features(
         loan_data, important_features=important_features
     )
-    clean_loan_data = remove_unnecessary_rows(loan_data)
+    clean_loan_data = remove_unnecessary_rows(clean_loan_data)
     clean_loan_data = replace_missing_emp_length(clean_loan_data)
     clean_loan_data = onehot_encode_str_columns(clean_loan_data)
 
