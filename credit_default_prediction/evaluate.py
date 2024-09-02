@@ -66,11 +66,7 @@ def generate_feature_importance_data(model: xgb.XGBClassifier) -> pd.DataFrame:
 
 
 def log_feature_importance(model, live: Live):
-    feature_importance = pd.Series(model.get_booster().get_score())
-    feature_importance = feature_importance.reset_index()
-    feature_importance = feature_importance.rename(
-        columns={"index": "feature_name", 0: "feature_importance"}
-    )
+    feature_importance = generate_feature_importance_data(model)
 
     live.log_plot(
         "feature_importance",
