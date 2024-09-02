@@ -4,6 +4,8 @@ import argparse
 
 import pandas as pd
 
+from credit_default_prediction import params
+
 NORMAL_MAX_EMP_LENGTH = 60
 
 
@@ -68,6 +70,11 @@ def preprocess(
     return clean_loan_data
 
 
+def get_important_features():
+    preprocess_params = params.load_stage_params("preprocess")
+    return preprocess_params["important_features"]
+
+
 def _get_arguments():
     parser = argparse.ArgumentParser()
     parser.add_argument("--raw-data-path")
@@ -80,5 +87,6 @@ def main():
     args = _get_arguments()
 
     loan_data = pd.read_csv(args.raw_data_path)
-    loan_data = preprocess(loan_data)
+    important_features = get_important_features()
+    loan_data = preprocess(loan_data, important_features)
     loan_data.to_csv(args.preprocessed_data_path, index=False)
