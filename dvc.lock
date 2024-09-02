@@ -71,7 +71,7 @@ stages:
     deps:
     - path: credit_default_prediction/evaluate.py
       hash: md5
-      md5: faa044728fc846d4c3407dfa63d4947a
+      md5: 7032a9733f6f52ffb6d5f228cd99cb3f
       size: 2544
     - path: data/test.csv
       hash: md5

@@ -51,7 +51,7 @@ plots:
     y_label: True Positive Rate
 - dvclive/plots/custom/feature_importance.json:
     template: bar_horizontal
-    x: feature_name
-    y: feature_importance
+    x: feature_importance
+    y: feature_name
 metrics:
 - dvclive/metrics.json
