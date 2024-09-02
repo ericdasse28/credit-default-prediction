@@ -59,12 +59,12 @@ stages:
       params.yaml:
         train:
           learning_rate: 0.7
-          max_depth: 120
+          max_depth: 3
     outs:
     - path: model.pkl
       hash: md5
-      md5: 19f825080cdcd5a20d0d2254c64139be
-      size: 1045641
+      md5: 8d4b6a284cfec5faf0306e0f94caf42f
+      size: 119578
   evaluate:
     cmd: poetry run evaluate --model-path model.pkl --test-dataset-path data/test.csv
     deps:
@@ -78,5 +78,5 @@ stages:
       size: 1266874
     - path: model.pkl
       hash: md5
-      md5: 19f825080cdcd5a20d0d2254c64139be
-      size: 1045641
+      md5: 8d4b6a284cfec5faf0306e0f94caf42f
+      size: 119578
