@@ -64,8 +64,8 @@ def log_feature_importance(model, live: Live):
     live.log_plot(
         "feature_importance",
         feature_importance,
-        x="feature_name",
-        y="feature_importance",
+        x="feature_importance",
+        y="feature_name",
         template="bar_horizontal",
     )
 
