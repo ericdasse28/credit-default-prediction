@@ -65,7 +65,7 @@ def generate_feature_importance_data(model: xgb.XGBClassifier) -> pd.DataFrame:
     return feature_importance
 
 
-def log_feature_importance(model, live: Live):
+def log_feature_importance_plot(model, live: Live):
     feature_importance = generate_feature_importance_data(model)
 
     live.log_plot(
@@ -81,7 +81,7 @@ def log_plots(model, X: pd.DataFrame, y: pd.DataFrame):
     with Live(resume=True) as live:
         log_confusion_matrix(model, X, y, live)
         log_roc_curve(model, X, y, live)
-        log_feature_importance(model, live)
+        log_feature_importance_plot(model, live)
 
 
 def _get_arguments():
