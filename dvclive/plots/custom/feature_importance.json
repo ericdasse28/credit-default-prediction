@@ -1,0 +1,94 @@
+[
+    {
+        "index": "person_age",
+        "0": 196.0
+    },
+    {
+        "index": "person_income",
+        "0": 646.0
+    },
+    {
+        "index": "person_emp_length",
+        "0": 169.0
+    },
+    {
+        "index": "loan_amnt",
+        "0": 220.0
+    },
+    {
+        "index": "loan_int_rate",
+        "0": 381.0
+    },
+    {
+        "index": "loan_percent_income",
+        "0": 228.0
+    },
+    {
+        "index": "cb_person_cred_hist_length",
+        "0": 98.0
+    },
+    {
+        "index": "person_home_ownership_MORTGAGE",
+        "0": 42.0
+    },
+    {
+        "index": "person_home_ownership_OWN",
+        "0": 56.0
+    },
+    {
+        "index": "person_home_ownership_RENT",
+        "0": 69.0
+    },
+    {
+        "index": "loan_intent_DEBTCONSOLIDATION",
+        "0": 44.0
+    },
+    {
+        "index": "loan_intent_EDUCATION",
+        "0": 23.0
+    },
+    {
+        "index": "loan_intent_HOMEIMPROVEMENT",
+        "0": 46.0
+    },
+    {
+        "index": "loan_intent_MEDICAL",
+        "0": 47.0
+    },
+    {
+        "index": "loan_intent_PERSONAL",
+        "0": 15.0
+    },
+    {
+        "index": "loan_intent_VENTURE",
+        "0": 31.0
+    },
+    {
+        "index": "loan_grade_B",
+        "0": 14.0
+    },
+    {
+        "index": "loan_grade_C",
+        "0": 48.0
+    },
+    {
+        "index": "loan_grade_D",
+        "0": 36.0
+    },
+    {
+        "index": "loan_grade_E",
+        "0": 14.0
+    },
+    {
+        "index": "loan_grade_F",
+        "0": 3.0
+    },
+    {
+        "index": "loan_grade_G",
+        "0": 3.0
+    },
+    {
+        "index": "cb_person_default_on_file_N",
+        "0": 23.0
+    }
+]

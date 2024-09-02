@@ -49,5 +49,9 @@ plots:
     title: Receiver operating characteristic (ROC)
     x_label: False Positive Rate
     y_label: True Positive Rate
+- dvclive/plots/custom/feature_importance.json:
+    template: bar_horizontal
+    x: feature_name
+    y: feature_importance
 metrics:
 - dvclive/metrics.json
