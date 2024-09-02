@@ -54,10 +54,27 @@ def log_roc_curve(model, X: pd.DataFrame, y: pd.DataFrame, live: Live):
     live.log_sklearn_plot("roc", y, y_score)
 
 
+def log_feature_importance(model, live: Live):
+    feature_importance = pd.Series(model.get_booster().get_score())
+    feature_importance = feature_importance.reset_index()
+    feature_importance.rename(
+        columns={"index": "feature_name", 0: "feature_importance"}
+    )
+
+    live.log_plot(
+        "feature_importance",
+        feature_importance,
+        x="feature_name",
+        y="feature_importance",
+        template="bar_horizontal",
+    )
+
+
 def log_plots(model, X: pd.DataFrame, y: pd.DataFrame):
     with Live(resume=True) as live:
         log_confusion_matrix(model, X, y, live)
         log_roc_curve(model, X, y, live)
+        log_feature_importance(model, live)
 
 
 def _get_arguments():
