@@ -67,7 +67,7 @@ def preprocess(
 
 def get_important_features():
     preprocess_params = params.load_stage_params("preprocess")
-    return preprocess_params["important_features"]
+    return preprocess_params["important_columns"]
 
 
 def _get_arguments():
