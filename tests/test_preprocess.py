@@ -6,7 +6,7 @@ from credit_default_prediction.preprocess import (
     remove_missing_loan_interests_rows,
     remove_outliers,
     replace_missing_emp_length,
-    select_important_features,
+    select_important_columns,
 )
 
 
@@ -103,7 +103,7 @@ def test_select_important_features():
     )
     important_features = ["person_age", "person_emp_length"]
 
-    actual_loan_data = select_important_features(loan_data, important_features)
+    actual_loan_data = select_important_columns(loan_data, important_features)
 
     expected_loan_data = pd.DataFrame(
         {
@@ -151,10 +151,11 @@ def test_preprocess():
             ],
         }
     )
-    important_features = ["person_emp_length", "loan_int_rate", "loan_intent"]
+    important_columns = ["person_emp_length", "loan_int_rate", "loan_intent"]
 
     actual_clean_loan_data = preprocess(
-        loan_data, important_features=important_features
+        loan_data,
+        important_columns=important_columns,
     )
 
     expected_clean_loan_data = pd.DataFrame(

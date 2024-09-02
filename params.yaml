@@ -1,11 +1,12 @@
 preprocess:
-  important_features:
+  important_columns:
     - person_income
     - person_emp_length
     - person_age
     - loan_percent_income
     - loan_int_rate
     - loan_amnt
+    - loan_status
 
 split:
   test_size: 0.3
