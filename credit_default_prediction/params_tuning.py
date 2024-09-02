@@ -25,6 +25,5 @@ def main():
         param_grid=params_to_test,
         scoring="roc_auc",
     )
-    breakpoint()
     gsearch.fit(X_train, y_train)
     print(gsearch.best_params_, gsearch.best_score_)
