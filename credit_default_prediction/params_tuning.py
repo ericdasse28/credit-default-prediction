@@ -18,10 +18,14 @@ def main():
     params_to_test = {
         "learning_rate": np.arange(0, 1, 0.1),
         "max_depth": range(3, 10),
+        "min_child_weight": range(1, 6),
     }
 
     gsearch = GridSearchCV(
-        estimator=xgb.XGBClassifier(),
+        estimator=xgb.XGBClassifier(
+            learning_rate=0.3,
+            max_depth=5,
+        ),
         param_grid=params_to_test,
         scoring="roc_auc",
     )
