@@ -4,6 +4,8 @@ import argparse
 
 import pandas as pd
 
+from credit_default_prediction import params
+
 NORMAL_MAX_EMP_LENGTH = 60
 
 
@@ -39,20 +41,33 @@ def remove_unnecessary_rows(loan_data):
 
 
 def onehot_encode_str_columns(loan_data: pd.DataFrame) -> pd.DataFrame:
-    loan_data_num = loan_data.select_dtypes(exclude=["object"])
-    loan_data_str = loan_data.select_dtypes(include=["object"])
-
-    loan_data_str_onehot = pd.get_dummies(loan_data_str)
-
-    return pd.concat([loan_data_num, loan_data_str_onehot], axis=1)
+    return pd.get_dummies(loan_data)
 
 
-def preprocess(loan_data: pd.DataFrame) -> pd.DataFrame:
-    clean_loan_data = remove_unnecessary_rows(loan_data)
+def select_important_columns(
+    loan_data: pd.DataFrame,
+    important_columns: list[str],
+):
+    return loan_data[important_columns]
+
+
+def preprocess(
+    loan_data: pd.DataFrame,
+    important_columns: list[str],
+) -> pd.DataFrame:
+    clean_loan_data = select_important_columns(
+        loan_data, important_columns=important_columns
+    )
+    clean_loan_data = remove_unnecessary_rows(clean_loan_data)
     clean_loan_data = replace_missing_emp_length(clean_loan_data)
     clean_loan_data = onehot_encode_str_columns(clean_loan_data)
 
     return clean_loan_data
+
+
+def get_important_features():
+    preprocess_params = params.load_stage_params("preprocess")
+    return preprocess_params["important_columns"]
 
 
 def _get_arguments():
@@ -67,5 +82,6 @@ def main():
     args = _get_arguments()
 
     loan_data = pd.read_csv(args.raw_data_path)
-    loan_data = preprocess(loan_data)
+    important_features = get_important_features()
+    loan_data = preprocess(loan_data, important_features)
     loan_data.to_csv(args.preprocessed_data_path, index=False)

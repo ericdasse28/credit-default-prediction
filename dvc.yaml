@@ -7,6 +7,8 @@ stages:
     - data/raw/cr_loan2.csv
     outs:
     - data/clean/clean_cr_loan.csv
+    params:
+    - preprocess
   split:
     cmd: poetry run split --preprocessed-data-path data/clean/clean_cr_loan.csv --train-path
       data/train.csv --test-path data/test.csv
@@ -25,6 +27,8 @@ stages:
     - data/train.csv
     outs:
     - model.pkl
+    params:
+    - train
   evaluate:
     cmd: poetry run evaluate --model-path model.pkl --test-dataset-path data/test.csv
     deps:
@@ -47,5 +51,9 @@ plots:
     title: Receiver operating characteristic (ROC)
     x_label: False Positive Rate
     y_label: True Positive Rate
+- dvclive/plots/custom/feature_importance.json:
+    template: bar_horizontal
+    x: feature_importance
+    y: feature_name
 metrics:
 - dvclive/metrics.json

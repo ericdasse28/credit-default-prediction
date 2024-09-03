@@ -6,18 +6,32 @@ stages:
     deps:
     - path: credit_default_prediction/preprocess.py
       hash: md5
-      md5: 554e59883d544c2ca3fcc953412f22aa
-      size: 2026
+      md5: 1fd9ed1af3c5a7d75d4a98ee986141f3
+      size: 2363
     - path: data/raw/cr_loan2.csv
       hash: md5
       md5: f55e028c4bc9d2bd4e4e0976599a8994
       size: 1740274
       isexec: true
+    params:
+      params.yaml:
+        preprocess:
+          important_columns:
+          - person_income
+          - person_emp_length
+          - person_age
+          - loan_percent_income
+          - loan_int_rate
+          - loan_grade
+          - loan_amnt
+          - loan_intent
+          - person_home_ownership
+          - loan_status
     outs:
     - path: data/clean/clean_cr_loan.csv
       hash: md5
-      md5: 19b5a11e203e98520da86918dfe652e2
-      size: 4221789
+      md5: d0fb3132ed5427059f016d13cb06b1e4
+      size: 3833903
   split:
     cmd: poetry run split --preprocessed-data-path data/clean/clean_cr_loan.csv --train-path
       data/train.csv --test-path data/test.csv
@@ -28,8 +42,8 @@ stages:
       size: 1563
     - path: data/clean/clean_cr_loan.csv
       hash: md5
-      md5: 19b5a11e203e98520da86918dfe652e2
-      size: 4221789
+      md5: d0fb3132ed5427059f016d13cb06b1e4
+      size: 3833903
     params:
       params.yaml:
         split:
@@ -38,40 +52,46 @@ stages:
     outs:
     - path: data/test.csv
       hash: md5
-      md5: 2d3e3588dc2e3ffab1b8d8345bc02072
-      size: 1266874
+      md5: 00fcb9cf8afafb35dea30393b01b8f99
+      size: 1150417
     - path: data/train.csv
       hash: md5
-      md5: f4351463bed8a3e8e063da3a9c521b08
-      size: 2955441
+      md5: 26b8483322a7e9a7d79792c4e53309ef
+      size: 2683929
   train:
     cmd: poetry run train --train-dataset-path data/train.csv --model-path model.pkl
     deps:
     - path: credit_default_prediction/train.py
       hash: md5
-      md5: 6de5d4249b81db9d8bb2b084cd1d2319
-      size: 833
+      md5: 3f9ce0f79ecce93a6bfc383dd791fc16
+      size: 1006
     - path: data/train.csv
       hash: md5
-      md5: f4351463bed8a3e8e063da3a9c521b08
-      size: 2955441
+      md5: 26b8483322a7e9a7d79792c4e53309ef
+      size: 2683929
+    params:
+      params.yaml:
+        train:
+          learning_rate: 0.3
+          max_depth: 4
+          min_child_weight: 1
     outs:
     - path: model.pkl
       hash: md5
-      md5: 2f319cbf0018be49f7369f83ac162aa4
-      size: 301679
+      md5: ce2f9f8ef2986355a1584fd24e2be84d
+      size: 159760
   evaluate:
     cmd: poetry run evaluate --model-path model.pkl --test-dataset-path data/test.csv
     deps:
     - path: credit_default_prediction/evaluate.py
       hash: md5
-      md5: 43d4d5a18e56a3a3cc5f9c622991d660
-      size: 2044
+      md5: 853c1f3b13c84c162edd95761de10c24
+      size: 2726
     - path: data/test.csv
       hash: md5
-      md5: 2d3e3588dc2e3ffab1b8d8345bc02072
-      size: 1266874
+      md5: 00fcb9cf8afafb35dea30393b01b8f99
+      size: 1150417
     - path: model.pkl
       hash: md5
-      md5: 2f319cbf0018be49f7369f83ac162aa4
-      size: 301679
+      md5: ce2f9f8ef2986355a1584fd24e2be84d
+      size: 159760
