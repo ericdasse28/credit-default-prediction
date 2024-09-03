@@ -6,6 +6,7 @@ preprocess:
     - loan_percent_income
     - loan_int_rate
     - loan_amnt
+    - loan_intent
     - loan_status
 
 split:
