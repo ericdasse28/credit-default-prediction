@@ -13,11 +13,23 @@ stages:
       md5: f55e028c4bc9d2bd4e4e0976599a8994
       size: 1740274
       isexec: true
+    params:
+      params.yaml:
+        preprocess:
+          important_columns:
+          - person_income
+          - person_emp_length
+          - person_age
+          - loan_percent_income
+          - loan_int_rate
+          - loan_amnt
+          - loan_intent
+          - loan_status
     outs:
     - path: data/clean/clean_cr_loan.csv
       hash: md5
-      md5: 314ecf3291ecd1e758714414a8f3051c
-      size: 916722
+      md5: d4f5850f490f46a8fc5b583c514622c5
+      size: 1948068
   split:
     cmd: poetry run split --preprocessed-data-path data/clean/clean_cr_loan.csv --train-path
       data/train.csv --test-path data/test.csv
@@ -28,8 +40,8 @@ stages:
       size: 1563
     - path: data/clean/clean_cr_loan.csv
       hash: md5
-      md5: 314ecf3291ecd1e758714414a8f3051c
-      size: 916722
+      md5: d4f5850f490f46a8fc5b583c514622c5
+      size: 1948068
     params:
       params.yaml:
         split:
@@ -38,12 +50,12 @@ stages:
     outs:
     - path: data/test.csv
       hash: md5
-      md5: 4fd24839e98aedd1f26832e324563ae9
-      size: 275012
+      md5: aa06845aa667afeb1e646f64858bb4d0
+      size: 584518
     - path: data/train.csv
       hash: md5
-      md5: 7aa8015580c062d4dd798089bb475b63
-      size: 641809
+      md5: 56b1a9021195be4e5c3d335b96c46ae3
+      size: 1363790
   train:
     cmd: poetry run train --train-dataset-path data/train.csv --model-path model.pkl
     deps:
@@ -53,8 +65,8 @@ stages:
       size: 1006
     - path: data/train.csv
       hash: md5
-      md5: 7aa8015580c062d4dd798089bb475b63
-      size: 641809
+      md5: 56b1a9021195be4e5c3d335b96c46ae3
+      size: 1363790
     params:
       params.yaml:
         train:
@@ -64,8 +76,8 @@ stages:
     outs:
     - path: model.pkl
       hash: md5
-      md5: 387a27b31bb1ca7ba3b11625d3e77a16
-      size: 274577
+      md5: 36911286cfaeb7f0acdfc3d80e41f219
+      size: 278542
   evaluate:
     cmd: poetry run evaluate --model-path model.pkl --test-dataset-path data/test.csv
     deps:
@@ -75,9 +87,9 @@ stages:
       size: 2726
     - path: data/test.csv
       hash: md5
-      md5: 4fd24839e98aedd1f26832e324563ae9
-      size: 275012
+      md5: aa06845aa667afeb1e646f64858bb4d0
+      size: 584518
     - path: model.pkl
       hash: md5
-      md5: 387a27b31bb1ca7ba3b11625d3e77a16
-      size: 274577
+      md5: 36911286cfaeb7f0acdfc3d80e41f219
+      size: 278542
