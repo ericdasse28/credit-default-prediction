@@ -5,6 +5,7 @@ preprocess:
     - person_age
     - loan_percent_income
     - loan_int_rate
+    - loan_grade
     - loan_amnt
     - loan_intent
     - person_home_ownership
