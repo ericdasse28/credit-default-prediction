@@ -1,9 +1,7 @@
 stages:
   preprocess:
-    cmd: poetry run preprocess --raw-data-path data/raw/cr_loan2.csv --preprocess-data-path
-      data/clean/clean_cr_loan.csv LICENSE README.md credit_default_prediction data
-      dvc.lock dvc.yaml dvclive model.pkl params.yaml poetry.lock pyproject.toml setup.cfg
-      tests
+    cmd: poetry run preprocess --raw-data-path data/raw/cr_loan2.csv --preprocessed-data-path
+      data/clean/clean_cr_loan.csv
     deps:
     - credit_default_prediction/preprocess.py
     - data/raw/cr_loan2.csv
