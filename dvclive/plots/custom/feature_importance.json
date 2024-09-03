@@ -1,66 +1,86 @@
 [
     {
         "feature_name": "person_income",
-        "feature_importance": 697.0
+        "feature_importance": 665.0
     },
     {
         "feature_name": "person_emp_length",
-        "feature_importance": 202.0
+        "feature_importance": 189.0
     },
     {
         "feature_name": "person_age",
-        "feature_importance": 224.0
+        "feature_importance": 219.0
     },
     {
         "feature_name": "loan_percent_income",
-        "feature_importance": 249.0
+        "feature_importance": 234.0
     },
     {
         "feature_name": "loan_int_rate",
-        "feature_importance": 513.0
+        "feature_importance": 377.0
     },
     {
         "feature_name": "loan_amnt",
-        "feature_importance": 211.0
+        "feature_importance": 219.0
+    },
+    {
+        "feature_name": "loan_grade_B",
+        "feature_importance": 17.0
+    },
+    {
+        "feature_name": "loan_grade_C",
+        "feature_importance": 50.0
+    },
+    {
+        "feature_name": "loan_grade_D",
+        "feature_importance": 40.0
+    },
+    {
+        "feature_name": "loan_grade_E",
+        "feature_importance": 18.0
+    },
+    {
+        "feature_name": "loan_grade_F",
+        "feature_importance": 5.0
+    },
+    {
+        "feature_name": "loan_grade_G",
+        "feature_importance": 3.0
     },
     {
         "feature_name": "loan_intent_DEBTCONSOLIDATION",
-        "feature_importance": 46.0
+        "feature_importance": 41.0
     },
     {
         "feature_name": "loan_intent_EDUCATION",
-        "feature_importance": 23.0
+        "feature_importance": 21.0
     },
     {
         "feature_name": "loan_intent_HOMEIMPROVEMENT",
-        "feature_importance": 44.0
+        "feature_importance": 43.0
     },
     {
         "feature_name": "loan_intent_MEDICAL",
-        "feature_importance": 63.0
+        "feature_importance": 54.0
     },
     {
         "feature_name": "loan_intent_PERSONAL",
-        "feature_importance": 15.0
+        "feature_importance": 14.0
     },
     {
         "feature_name": "loan_intent_VENTURE",
-        "feature_importance": 33.0
+        "feature_importance": 34.0
     },
     {
         "feature_name": "person_home_ownership_MORTGAGE",
-        "feature_importance": 35.0
-    },
-    {
-        "feature_name": "person_home_ownership_OTHER",
-        "feature_importance": 2.0
+        "feature_importance": 37.0
     },
     {
         "feature_name": "person_home_ownership_OWN",
-        "feature_importance": 52.0
+        "feature_importance": 60.0
     },
     {
         "feature_name": "person_home_ownership_RENT",
-        "feature_importance": 73.0
+        "feature_importance": 72.0
     }
 ]

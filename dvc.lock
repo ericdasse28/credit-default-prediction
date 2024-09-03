@@ -22,6 +22,7 @@ stages:
           - person_age
           - loan_percent_income
           - loan_int_rate
+          - loan_grade
           - loan_amnt
           - loan_intent
           - person_home_ownership
@@ -29,8 +30,8 @@ stages:
     outs:
     - path: data/clean/clean_cr_loan.csv
       hash: md5
-      md5: ce91ef7ee2b7694ba4f0a24b306cee1d
-      size: 2625829
+      md5: d0fb3132ed5427059f016d13cb06b1e4
+      size: 3833903
   split:
     cmd: poetry run split --preprocessed-data-path data/clean/clean_cr_loan.csv --train-path
       data/train.csv --test-path data/test.csv
@@ -41,8 +42,8 @@ stages:
       size: 1563
     - path: data/clean/clean_cr_loan.csv
       hash: md5
-      md5: ce91ef7ee2b7694ba4f0a24b306cee1d
-      size: 2625829
+      md5: d0fb3132ed5427059f016d13cb06b1e4
+      size: 3833903
     params:
       params.yaml:
         split:
@@ -51,12 +52,12 @@ stages:
     outs:
     - path: data/test.csv
       hash: md5
-      md5: 93c1092b978c8b08cc64d3368058c79c
-      size: 787927
+      md5: 00fcb9cf8afafb35dea30393b01b8f99
+      size: 1150417
     - path: data/train.csv
       hash: md5
-      md5: d251c02489989bf222f300b7bec1c1f3
-      size: 1838254
+      md5: 26b8483322a7e9a7d79792c4e53309ef
+      size: 2683929
   train:
     cmd: poetry run train --train-dataset-path data/train.csv --model-path model.pkl
     deps:
@@ -66,8 +67,8 @@ stages:
       size: 1006
     - path: data/train.csv
       hash: md5
-      md5: d251c02489989bf222f300b7bec1c1f3
-      size: 1838254
+      md5: 26b8483322a7e9a7d79792c4e53309ef
+      size: 2683929
     params:
       params.yaml:
         train:
@@ -77,8 +78,8 @@ stages:
     outs:
     - path: model.pkl
       hash: md5
-      md5: e4d582bb98ece33e66a45b020d27cfa3
-      size: 242694
+      md5: abf7356654b07672b77c74dff31c16ea
+      size: 238164
   evaluate:
     cmd: poetry run evaluate --model-path model.pkl --test-dataset-path data/test.csv
     deps:
@@ -88,9 +89,9 @@ stages:
       size: 2726
     - path: data/test.csv
       hash: md5
-      md5: 93c1092b978c8b08cc64d3368058c79c
-      size: 787927
+      md5: 00fcb9cf8afafb35dea30393b01b8f99
+      size: 1150417
     - path: model.pkl
       hash: md5
-      md5: e4d582bb98ece33e66a45b020d27cfa3
-      size: 242694
+      md5: abf7356654b07672b77c74dff31c16ea
+      size: 238164
