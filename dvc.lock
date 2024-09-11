@@ -6,34 +6,20 @@ stages:
     deps:
     - path: credit_default_prediction/preprocess.py
       hash: md5
-      md5: 1fd9ed1af3c5a7d75d4a98ee986141f3
-      size: 2363
+      md5: 5adb0db2b96dd8344655882a6716774a
+      size: 1888
     - path: data/raw/cr_loan2.csv
       hash: md5
       md5: f55e028c4bc9d2bd4e4e0976599a8994
       size: 1740274
       isexec: true
-    params:
-      params.yaml:
-        preprocess:
-          important_columns:
-          - person_income
-          - person_emp_length
-          - person_age
-          - loan_percent_income
-          - loan_int_rate
-          - loan_grade
-          - loan_amnt
-          - loan_intent
-          - person_home_ownership
-          - loan_status
     outs:
     - path: data/clean/clean_cr_loan.csv
       hash: md5
-      md5: d0fb3132ed5427059f016d13cb06b1e4
-      size: 3833903
+      md5: 930227f4cc3cbe8e61779f316280da98
+      size: 1617694
   split:
-    cmd: poetry run split --preprocessed-data-path data/clean/clean_cr_loan.csv --train-path
+    cmd: poetry run split --preprocessed-data-path data/clean/feature_store.csv --train-path
       data/train.csv --test-path data/test.csv
     deps:
     - path: credit_default_prediction/split.py
@@ -42,8 +28,8 @@ stages:
       size: 1563
     - path: data/clean/clean_cr_loan.csv
       hash: md5
-      md5: d0fb3132ed5427059f016d13cb06b1e4
-      size: 3833903
+      md5: 930227f4cc3cbe8e61779f316280da98
+      size: 1617694
     params:
       params.yaml:
         split:
@@ -95,3 +81,34 @@ stages:
       hash: md5
       md5: ce2f9f8ef2986355a1584fd24e2be84d
       size: 159760
+  feature_engineering:
+    cmd: poetry run feature_engineering --preprocessed-data-path data/clean/clean_cr_loan.csv
+      --feature-store-path data/clean/feature_store.csv
+    deps:
+    - path: credit_default_prediction/feature_engineering.py
+      hash: md5
+      md5: 364b7c18bc14ac96d45e8eafdbd0f380
+      size: 680
+    - path: data/clean/clean_cr_loan.csv
+      hash: md5
+      md5: 930227f4cc3cbe8e61779f316280da98
+      size: 1617694
+    params:
+      params.yaml:
+        feature_engineering:
+          important_columns:
+          - person_income
+          - person_emp_length
+          - person_age
+          - loan_percent_income
+          - loan_int_rate
+          - loan_grade
+          - loan_amnt
+          - loan_intent
+          - person_home_ownership
+          - loan_status
+    outs:
+    - path: data/clean/feature_store.csv
+      hash: md5
+      md5: d0fb3132ed5427059f016d13cb06b1e4
+      size: 3833903

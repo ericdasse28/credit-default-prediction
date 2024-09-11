@@ -7,10 +7,18 @@ stages:
     - data/raw/cr_loan2.csv
     outs:
     - data/clean/clean_cr_loan.csv
+  feature_engineering:
+    cmd: poetry run feature_engineering --preprocessed-data-path data/clean/clean_cr_loan.csv
+      --feature-store-path data/clean/feature_store.csv
+    deps:
+    - credit_default_prediction/feature_engineering.py
+    - data/clean/clean_cr_loan.csv
     params:
-    - preprocess
+    - feature_engineering
+    outs:
+    - data/clean/feature_store.csv
   split:
-    cmd: poetry run split --preprocessed-data-path data/clean/clean_cr_loan.csv --train-path
+    cmd: poetry run split --preprocessed-data-path data/clean/feature_store.csv --train-path
       data/train.csv --test-path data/test.csv
     deps:
     - credit_default_prediction/split.py
@@ -35,6 +43,7 @@ stages:
     - credit_default_prediction/evaluate.py
     - data/test.csv
     - model.pkl
+  
 plots:
 - dvclive/plots/metrics:
     x: step

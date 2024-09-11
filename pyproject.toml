@@ -12,6 +12,8 @@ split = "credit_default_prediction.split:main"
 train = "credit_default_prediction.train:main"
 evaluate = "credit_default_prediction.evaluate:main"
 params_tuning = "credit_default_prediction.params_tuning:main"
+feature_engineering = "credit_default_prediction.feature_engineering:main"
+
 
 [tool.poetry.dependencies]
 python = "^3.10"
