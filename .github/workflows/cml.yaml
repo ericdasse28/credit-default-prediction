@@ -35,7 +35,7 @@ jobs:
           poetry run pytest
       - name: Train Model
         run: |
-          dvc pull --run-cache
+          dvc pull --run-cache --allow-missing
           dvc repro
           dvc commit --force
           dvc push
