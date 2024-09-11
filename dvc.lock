@@ -6,32 +6,18 @@ stages:
     deps:
     - path: credit_default_prediction/preprocess.py
       hash: md5
-      md5: 1fd9ed1af3c5a7d75d4a98ee986141f3
-      size: 2363
+      md5: 5adb0db2b96dd8344655882a6716774a
+      size: 1888
     - path: data/raw/cr_loan2.csv
       hash: md5
       md5: f55e028c4bc9d2bd4e4e0976599a8994
       size: 1740274
       isexec: true
-    params:
-      params.yaml:
-        preprocess:
-          important_columns:
-          - person_income
-          - person_emp_length
-          - person_age
-          - loan_percent_income
-          - loan_int_rate
-          - loan_grade
-          - loan_amnt
-          - loan_intent
-          - person_home_ownership
-          - loan_status
     outs:
     - path: data/clean/clean_cr_loan.csv
       hash: md5
-      md5: d0fb3132ed5427059f016d13cb06b1e4
-      size: 3833903
+      md5: 930227f4cc3cbe8e61779f316280da98
+      size: 1617694
   split:
     cmd: poetry run split --preprocessed-data-path data/clean/clean_cr_loan.csv --train-path
       data/train.csv --test-path data/test.csv
