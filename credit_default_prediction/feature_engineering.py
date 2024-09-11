@@ -17,6 +17,6 @@ def main():
     args = parser.parse_args()
 
     preprocessed_data = pd.read_csv(args.preprocessed_data_path)
-    preprocessed_data = pd.get_dummies(preprocessed_data)
     preprocessed_data = preprocessed_data[get_important_features()]
+    preprocessed_data = pd.get_dummies(preprocessed_data)
     preprocessed_data.to_csv(args.feature_store_path, index=False)
