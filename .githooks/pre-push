@@ -32,7 +32,6 @@ do
 		echo "deleting stuff, nothing to do"
 	else
 		deactivate || true
-		poetry shell
 		make lint
 		pytest
 	fi
