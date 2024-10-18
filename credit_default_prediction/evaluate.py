@@ -12,7 +12,7 @@ from sklearn.metrics import (  # noqa
     roc_auc_score,
 )
 
-from credit_default_prediction.dataset import read_features_and_labels
+from credit_default_prediction.dataset import get_features_and_labels_from_path
 from dvclive import Live
 
 
@@ -96,7 +96,7 @@ def main():
 
     args = _get_arguments()
     model = joblib.load(args.model_path)
-    X_test, y_test = read_features_and_labels(args.test_dataset_path)
+    X_test, y_test = get_features_and_labels_from_path(args.test_dataset_path)
 
     metrics = evaluate(model, X_test.values, y_test.values)
     save_model_metrics(metrics)
