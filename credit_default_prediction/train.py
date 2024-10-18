@@ -8,7 +8,7 @@ import pandas as pd
 import xgboost as xgb
 
 from credit_default_prediction.dataset import get_features_and_labels_from_path
-from credit_default_prediction.params import load_stage_params
+from credit_default_prediction.tools import params
 
 
 def train(X: pd.Series, y: pd.Series, hyper_parameters: dict):
@@ -36,6 +36,6 @@ def main():
         args.train_dataset_path,
     )
 
-    hyper_parameters = load_stage_params("train")
+    hyper_parameters = params.load_stage_params("train")
     model = train(X_train, np.ravel(y_train), hyper_parameters)
     save_model_artifact(model, args.model_path)
