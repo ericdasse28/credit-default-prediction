@@ -20,7 +20,7 @@ All the experiments performed across this project can be retrieved [here](https:
 
 To get started on this project:
 
-1. Clone or fork the project
+1. Clone or fork this repository
 
 2. Install the dependencies
 
