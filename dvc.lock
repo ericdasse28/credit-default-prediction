@@ -49,8 +49,8 @@ stages:
     deps:
     - path: credit_default_prediction/train.py
       hash: md5
-      md5: 3f9ce0f79ecce93a6bfc383dd791fc16
-      size: 1006
+      md5: 862f0992246cc11ead49d921c28e628e
+      size: 1027
     - path: data/train.csv
       hash: md5
       md5: 26b8483322a7e9a7d79792c4e53309ef
@@ -71,8 +71,8 @@ stages:
     deps:
     - path: credit_default_prediction/evaluate.py
       hash: md5
-      md5: 853c1f3b13c84c162edd95761de10c24
-      size: 2726
+      md5: 7791611aab72dbe04fd4654bb6d70b58
+      size: 2744
     - path: data/test.csv
       hash: md5
       md5: 00fcb9cf8afafb35dea30393b01b8f99

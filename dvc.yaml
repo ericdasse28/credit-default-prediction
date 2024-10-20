@@ -43,7 +43,7 @@ stages:
     - credit_default_prediction/evaluate.py
     - data/test.csv
     - model.pkl
-  
+
 plots:
 - dvclive/plots/metrics:
     x: step
