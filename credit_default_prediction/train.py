@@ -36,6 +36,6 @@ def main():
         args.train_dataset_path,
     )
 
-    hyper_parameters = params.load_stage_params("train")
-    model = train(X_train, np.ravel(y_train), hyper_parameters)
+    hyperparameters = params.get_hyperparameters()
+    model = train(X_train, np.ravel(y_train), hyperparameters)
     save_model_artifact(model, args.model_path)
