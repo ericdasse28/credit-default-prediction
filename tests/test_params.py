@@ -40,3 +40,7 @@ def test_get_hyperparameters(mocker):
         params.PARAMS_FILE_PATH,
     )
     assert fake_expected_hyperparameters == actual_hyperparameters
+
+
+def test_params_file_presence():
+    assert params.PARAMS_FILE_PATH.exists()
