@@ -33,7 +33,7 @@ do
 	else
 		deactivate || true
 		make lint
-		pytest
+		poetry run pytest
 	fi
 done
 

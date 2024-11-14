@@ -36,16 +36,25 @@ git config --local core.hooksPath .githooks/
 
 ## Training pipeline
 
+### Exploratory Data Analysis
+
+Notebook: https://colab.research.google.com/drive/1t5E7FJKD-UvGw3-vXyJKsJ8LM2fazLns?usp=sharing
+
 ### Data preprocessing
 
 The **data preprocessing** phase is all about cleaning and preparing raw data to ensure it's in a usable format for modeling. In this project, the data preprocessing is done following these steps:
 
 1. Missing values handling: Imputing missing data or removing rows/columns with too many missing values (or missing values at suspicious locations)
 2. Outlier treatment
-3. Log transformation of features with a large distribution (`person_income`)
-4. Min-max scaling of the numerical features
-5. One-hot encoding of the categorical features
+3. Turn `cb_person_default_on_file` into an actual boolean feature
+4. Log transformation of features with a large distribution (`person_income`)
+5. Min-max scaling of the numerical features
+6. One-hot encoding of the categorical features
 
 ### Data split
 
 Once the data have been preprocessed, we split them into training and test sets.
+
+## Testing the pipeline
+
+TODO
