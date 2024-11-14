@@ -46,13 +46,6 @@ def handle_outliers(loan_data: pd.DataFrame) -> pd.DataFrame:
     return clean_loan_data
 
 
-def remove_missing_loan_interests_rows(
-    loan_data: pd.DataFrame,
-) -> pd.DataFrame:
-
-    return loan_data.dropna(subset=["loan_int_rate"])
-
-
 def replace_missing_emp_length(loan_data: pd.DataFrame) -> pd.DataFrame:
     loan_data["person_emp_length"] = loan_data["person_emp_length"].fillna(
         loan_data["person_emp_length"].median()
