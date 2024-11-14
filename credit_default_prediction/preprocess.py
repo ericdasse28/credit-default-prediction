@@ -75,17 +75,6 @@ def remove_unnecessary_rows(loan_data):
     return clean_loan_data
 
 
-def onehot_encode_str_columns(loan_data: pd.DataFrame) -> pd.DataFrame:
-    return pd.get_dummies(loan_data)
-
-
-def select_important_columns(
-    loan_data: pd.DataFrame,
-    important_columns: list[str],
-):
-    return loan_data[important_columns]
-
-
 def preprocess(
     loan_data: pd.DataFrame,
 ) -> pd.DataFrame:
