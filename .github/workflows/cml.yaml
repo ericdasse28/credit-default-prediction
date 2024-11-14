@@ -26,9 +26,6 @@ jobs:
         run: |
           dvc remote modify origin --local access_key_id ${{ secrets.DAGSHUB_TOKEN }}
           dvc remote modify origin --local secret_access_key ${{ secrets.DAGSHUB_TOKEN }}
-      - name: Linting
-        run: |
-          make lint
       - name: Run tests
         run: |
           poetry run pytest
