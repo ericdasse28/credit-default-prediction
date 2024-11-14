@@ -36,7 +36,7 @@ git config --local core.hooksPath .githooks/
 
 ## Training pipeline
 
-## Exploratory Data Analysis
+### Exploratory Data Analysis
 
 Notebook: https://colab.research.google.com/drive/1t5E7FJKD-UvGw3-vXyJKsJ8LM2fazLns?usp=sharing
 
@@ -54,3 +54,7 @@ The **data preprocessing** phase is all about cleaning and preparing raw data to
 ### Data split
 
 Once the data have been preprocessed, we split them into training and test sets.
+
+## Testing the pipeline
+
+TODO
