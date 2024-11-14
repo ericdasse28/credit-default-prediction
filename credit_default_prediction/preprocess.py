@@ -7,6 +7,20 @@ import pandas as pd
 NORMAL_MAX_EMP_LENGTH = 60
 
 
+def handle_missing_values(loan_data: pd.DataFrame) -> pd.DataFrame:
+    """Handle missing values with the credit applications data."""
+
+    # Drop rows with missing loan interest rates
+    clean_loan_data = loan_data.dropna(subset=["loan_int_rate"])
+
+    # Impute missing employment lengths
+    clean_loan_data = clean_loan_data.fillna(
+        {"person_emp_length": clean_loan_data["person_emp_length"].median()},
+    )
+
+    return clean_loan_data
+
+
 def remove_outliers(loan_data: pd.DataFrame) -> pd.DataFrame:
     """Remove outliers from `loan_data` in place."""
 
