@@ -21,6 +21,31 @@ def handle_missing_values(loan_data: pd.DataFrame) -> pd.DataFrame:
     return clean_loan_data
 
 
+def _get_emp_length_outlier_indices(loan_data: pd.DataFrame) -> pd.Index:
+    """Returns indices of rows that contain outlier
+    employment lengths.
+
+    Here, an employment length is considered an outlier
+    if it exceeds 60 years old."""
+
+    EMP_LENGTH_THRESHOLD = 60
+
+    outlier_filter = loan_data["person_emp_length"] > EMP_LENGTH_THRESHOLD
+    indices = loan_data[outlier_filter].index
+
+    return indices
+
+
+def handle_outliers(loan_data: pd.DataFrame) -> pd.DataFrame:
+    """Handle outlier values within the loan applications data."""
+
+    # Drop rows with outlier employment lengths
+    indices = _get_emp_length_outlier_indices(loan_data)
+    clean_loan_data = loan_data.drop(index=indices)
+
+    return clean_loan_data
+
+
 def remove_outliers(loan_data: pd.DataFrame) -> pd.DataFrame:
     """Remove outliers from `loan_data` in place."""
 

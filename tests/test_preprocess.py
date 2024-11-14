@@ -3,6 +3,7 @@ import pandas as pd
 
 from credit_default_prediction.preprocess import (
     handle_missing_values,
+    handle_outliers,
     remove_missing_loan_interests_rows,
     remove_outliers,
     replace_missing_emp_length,
@@ -166,6 +167,30 @@ def test_handle_missing_values_should_impute_missing_emp_length():
             "loan_int_rate": [11.5, 8.3, 4.5, 6.9, 7.8],
             "person_emp_length": [median_emp_length, 12, 13, 25, 3],
         }
+    )
+    pd.testing.assert_frame_equal(
+        actual_clean_loan_data,
+        expected_clean_loan_data,
+    )
+
+
+def test_handle_outliers_should_drop_rows_with_outlier_emp_length():
+    """Given a dataframe containing loan applications data,
+    When handling outliers,
+    Then it should drop rows with outlier employment lengths."""
+
+    loan_data = pd.DataFrame(
+        {
+            "person_emp_length": [3, 0, 70, 60, 120],
+            "loan_status": [1, 1, 0, 0, 1],
+        }
+    )
+
+    actual_clean_loan_data = handle_outliers(loan_data)
+
+    expected_clean_loan_data = pd.DataFrame(
+        {"person_emp_length": [3, 0, 60], "loan_status": [1, 1, 0]},
+        index=[0, 1, 3],
     )
     pd.testing.assert_frame_equal(
         actual_clean_loan_data,
