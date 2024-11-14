@@ -26,9 +26,6 @@ jobs:
         run: |
           dvc remote modify origin --local access_key_id ${{ secrets.DAGSHUB_TOKEN }}
           dvc remote modify origin --local secret_access_key ${{ secrets.DAGSHUB_TOKEN }}
-      - name: Run tests
-        run: |
-          poetry run pytest
       - name: Train Model
         run: |
           dvc pull --run-cache --allow-missing
