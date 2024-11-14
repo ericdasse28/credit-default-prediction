@@ -89,8 +89,15 @@ def select_important_columns(
 def preprocess(
     loan_data: pd.DataFrame,
 ) -> pd.DataFrame:
-    clean_loan_data = remove_unnecessary_rows(loan_data)
-    clean_loan_data = replace_missing_emp_length(clean_loan_data)
+
+    preprocess_steps = [
+        remove_unnecessary_rows,
+        replace_missing_emp_length,
+    ]
+    clean_loan_data = loan_data
+
+    for preprocess_step in preprocess_steps:
+        clean_loan_data = preprocess_step(clean_loan_data)
 
     return clean_loan_data
 
