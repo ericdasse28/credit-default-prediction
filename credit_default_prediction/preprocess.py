@@ -80,8 +80,8 @@ def preprocess(
 ) -> pd.DataFrame:
 
     preprocess_steps = [
-        remove_unnecessary_rows,
-        replace_missing_emp_length,
+        handle_missing_values,
+        handle_outliers,
     ]
     clean_loan_data = loan_data
 
