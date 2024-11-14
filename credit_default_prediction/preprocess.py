@@ -46,15 +46,6 @@ def handle_outliers(loan_data: pd.DataFrame) -> pd.DataFrame:
     return clean_loan_data
 
 
-def remove_outliers(loan_data: pd.DataFrame) -> pd.DataFrame:
-    """Remove outliers from `loan_data` in place."""
-
-    outlier_filter = loan_data["person_emp_length"] > NORMAL_MAX_EMP_LENGTH
-    indices = loan_data[outlier_filter].index
-
-    return loan_data.drop(indices)
-
-
 def remove_missing_loan_interests_rows(
     loan_data: pd.DataFrame,
 ) -> pd.DataFrame:
