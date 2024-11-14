@@ -46,12 +46,6 @@ def handle_outliers(loan_data: pd.DataFrame) -> pd.DataFrame:
     return clean_loan_data
 
 
-def remove_unnecessary_rows(loan_data):
-    clean_loan_data = remove_outliers(loan_data)
-    clean_loan_data = remove_missing_loan_interests_rows(clean_loan_data)
-    return clean_loan_data
-
-
 def preprocess(
     loan_data: pd.DataFrame,
 ) -> pd.DataFrame:
