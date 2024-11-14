@@ -19,10 +19,8 @@ def remove_outliers(loan_data: pd.DataFrame) -> pd.DataFrame:
 def remove_missing_loan_interests_rows(
     loan_data: pd.DataFrame,
 ) -> pd.DataFrame:
-    missing_loan_int_filter = loan_data["loan_int_rate"].isnull()
-    indices = loan_data[missing_loan_int_filter].index
 
-    return loan_data.drop(indices)
+    return loan_data.dropna(subset=["loan_int_rate"])
 
 
 def replace_missing_emp_length(loan_data: pd.DataFrame) -> pd.DataFrame:
