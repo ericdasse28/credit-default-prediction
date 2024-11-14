@@ -6,8 +6,8 @@ stages:
     deps:
     - path: credit_default_prediction/preprocess.py
       hash: md5
-      md5: 5adb0db2b96dd8344655882a6716774a
-      size: 1888
+      md5: f430bf21dad21d85703f041558b0d18e
+      size: 2837
     - path: data/raw/cr_loan2.csv
       hash: md5
       md5: f55e028c4bc9d2bd4e4e0976599a8994
