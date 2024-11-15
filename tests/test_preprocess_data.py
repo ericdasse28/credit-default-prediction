@@ -110,11 +110,11 @@ def test_preprocess_pipeline_executes_steps_in_the_right_order(mocker):
     data_after_outlier_treatment = sample_loan_data.copy()
     # Mock
     mock_handle_missing_values = mocker.patch(
-        "credit_default_prediction.preprocess.handle_missing_values",
+        "credit_default_prediction.preprocess_data.handle_missing_values",
         return_value=data_after_missing_values,
     )
     mock_handle_outliers = mocker.patch(
-        "credit_default_prediction.preprocess.handle_outliers",
+        "credit_default_prediction.preprocess_data.handle_outliers",
         return_value=data_after_outlier_treatment,
     )
 
