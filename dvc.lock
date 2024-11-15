@@ -1,13 +1,13 @@
 schema: '2.0'
 stages:
   preprocess:
-    cmd: poetry run preprocess --raw-data-path data/raw/cr_loan2.csv --preprocessed-data-path
+    cmd: poetry run preprocess_data --raw-data-path data/raw/cr_loan2.csv --preprocessed-data-path
       data/clean/clean_cr_loan.csv
     deps:
-    - path: credit_default_prediction/preprocess.py
+    - path: credit_default_prediction/preprocess_data.py
       hash: md5
-      md5: 9699e74e64ded4a6bb361e968e632262
-      size: 2824
+      md5: c6d861e6aaf39ecfe4dc6d59fc695680
+      size: 1995
     - path: data/raw/cr_loan2.csv
       hash: md5
       md5: f55e028c4bc9d2bd4e4e0976599a8994
