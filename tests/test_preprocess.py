@@ -1,7 +1,11 @@
 import numpy as np
 import pandas as pd
 
-from credit_default_prediction.preprocess import handle_missing_values, handle_outliers
+from credit_default_prediction.preprocess import (
+    handle_missing_values,
+    handle_outliers,
+    preprocess,
+)
 
 
 def test_handle_missing_values_should_drop_rows_with_missing_loan_interests():
@@ -84,4 +88,43 @@ def test_handle_outliers_should_drop_rows_with_outlier_emp_length():
     pd.testing.assert_frame_equal(
         actual_clean_loan_data,
         expected_clean_loan_data,
+    )
+
+
+def test_preprocess_pipeline_executes_steps_in_the_right_order(mocker):
+    """Given a dataframe containing loan applications data,
+    When applying data preprocessing function to it,
+    Then the function should:
+        1. Handle missing values
+        2. Handle outliers
+    In that order."""
+
+    # Arrange
+    sample_loan_data = pd.DataFrame(
+        {
+            "loan_int_rate": [11.84, np.nan, 12.5, 7.14, np.nan],
+            "person_emp_length": [3, 0, 70, 60, 120],
+        }
+    )
+    data_after_missing_values = sample_loan_data.copy()
+    data_after_outlier_treatment = sample_loan_data.copy()
+    # Mock
+    mock_handle_missing_values = mocker.patch(
+        "credit_default_prediction.preprocess.handle_missing_values",
+        return_value=data_after_missing_values,
+    )
+    mock_handle_outliers = mocker.patch(
+        "credit_default_prediction.preprocess.handle_outliers",
+        return_value=data_after_outlier_treatment,
+    )
+
+    # Act
+    clean_loan_data = preprocess(sample_loan_data)
+
+    # Assert
+    mock_handle_missing_values.assert_called_once_with(sample_loan_data)
+    mock_handle_outliers.assert_called_once_with(data_after_missing_values)
+    pd.testing.assert_frame_equal(
+        clean_loan_data,
+        data_after_outlier_treatment,
     )
