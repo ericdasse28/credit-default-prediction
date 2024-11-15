@@ -3,6 +3,9 @@ on:
   push:
     paths:
       - credit_default_prediction/**
+      - pyproject.toml
+      - dvc.yaml
+      - dvc.lock
 permissions:
   # Essential to allow CML to write in pull requests via the GitHub token
   pull-requests: write
