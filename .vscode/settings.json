@@ -6,9 +6,6 @@
             "source.organizeImports": "explicit"
         }
     },
-    "isort.args": [
-        "--profile", "black"
-    ],
     "python.testing.pytestArgs": [
         "tests"
     ],

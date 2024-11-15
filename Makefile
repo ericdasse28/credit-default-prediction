@@ -3,6 +3,6 @@ tune-train-params:
 
 lint:
 	poetry run black --check .
-	poetry run isort --check . --profile black
+	poetry run isort --check .
 	poetry run flake8
 
