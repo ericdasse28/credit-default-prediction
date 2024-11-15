@@ -1,10 +1,10 @@
 import numpy as np
 import pandas as pd
 
-from credit_default_prediction.preprocess import (
+from credit_default_prediction.preprocess_data import (
     handle_missing_values,
     handle_outliers,
-    preprocess,
+    preprocess_data,
 )
 
 
@@ -119,7 +119,7 @@ def test_preprocess_pipeline_executes_steps_in_the_right_order(mocker):
     )
 
     # Act
-    clean_loan_data = preprocess(sample_loan_data)
+    clean_loan_data = preprocess_data(sample_loan_data)
 
     # Assert
     mock_handle_missing_values.assert_called_once_with(sample_loan_data)

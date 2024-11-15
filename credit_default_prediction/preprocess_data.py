@@ -46,7 +46,7 @@ def handle_outliers(loan_data: pd.DataFrame) -> pd.DataFrame:
     return clean_loan_data
 
 
-def preprocess(
+def preprocess_data(
     loan_data: pd.DataFrame,
 ) -> pd.DataFrame:
 
@@ -74,5 +74,5 @@ def main():
     args = _get_arguments()
 
     loan_data = pd.read_csv(args.raw_data_path)
-    loan_data = preprocess(loan_data)
+    loan_data = preprocess_data(loan_data)
     loan_data.to_csv(args.preprocessed_data_path, index=False)
