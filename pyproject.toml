@@ -33,6 +33,7 @@ ipython = "^8.26.0"
 pytest-mock = "^3.14.0"
 pandas-stubs = "^2.2.3.241009"
 mypy = "^1.13.0"
+types-pyyaml = "^6.0.12.20240917"
 
 [tool.isort]
 profile = "black"
