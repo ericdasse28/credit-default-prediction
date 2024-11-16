@@ -51,11 +51,13 @@ def make_cb_person_default_on_file_boolean(
 ) -> pd.DataFrame:
 
     CB_DEFAULT_ON_FILE_COL = "cb_person_default_on_file"
-    loan_data[CB_DEFAULT_ON_FILE_COL] = loan_data[CB_DEFAULT_ON_FILE_COL].map(
-        {"Y": True, "N": False}
-    )
+    clean_loan_data = loan_data.copy()
 
-    return loan_data
+    clean_loan_data[CB_DEFAULT_ON_FILE_COL] = clean_loan_data[
+        CB_DEFAULT_ON_FILE_COL
+    ].map({"Y": True, "N": False})
+
+    return clean_loan_data
 
 
 def preprocess_data(
