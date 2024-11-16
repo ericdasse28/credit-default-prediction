@@ -49,6 +49,8 @@ def handle_outliers(loan_data: pd.DataFrame) -> pd.DataFrame:
 def handle_features_types(
     loan_data: pd.DataFrame,
 ) -> pd.DataFrame:
+    """Makes sure the features in `loan_data`
+    have the right typing."""
 
     # Turn cb_person_default_on_file into boolean
     CB_DEFAULT_ON_FILE_COL = "cb_person_default_on_file"
