@@ -6,6 +6,12 @@ on:
       - pyproject.toml
       - dvc.yaml
       - dvc.lock
+  workflow_run:
+    workflows:
+      - Code quality
+      - Unit tests
+    types:
+      - completed
 permissions:
   # Essential to allow CML to write in pull requests via the GitHub token
   pull-requests: write
