@@ -175,5 +175,5 @@ def test_preprocess_pipeline_executes_steps_in_the_right_order(mocker: MockerFix
     )
     pd.testing.assert_frame_equal(
         clean_loan_data,
-        data_after_outlier_treatment,
+        data_after_cb_default_on_file_as_boolean,
     )
