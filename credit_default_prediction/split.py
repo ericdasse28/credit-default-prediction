@@ -5,7 +5,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 
 from credit_default_prediction.dataset import get_features_and_labels
-from credit_default_prediction.params import load_stage_params
+from credit_default_prediction.tools.params import load_stage_params
 
 
 @dataclass
