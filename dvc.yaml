@@ -66,3 +66,7 @@ plots:
     y: feature_name
 metrics:
 - dvclive/metrics.json
+artifacts:
+  credit-default-predictor:
+    path: model.pkl
+    type: model
