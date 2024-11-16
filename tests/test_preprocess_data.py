@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from pandas.api.types import is_bool_dtype
+from pandas.api.types import is_integer_dtype
 from pytest_mock import MockerFixture
 
 from credit_default_prediction import preprocess_data as preprocess_module
@@ -99,7 +99,7 @@ def test_handle_features_types_make_cb_person_default_on_file_a_boolean_column()
     """Given a dataframe containing loan applications data,
     When applying `handle_features_types`,
     Then the column `cb_person_default_on_file` turns into
-    a boolean."""
+    an integer column."""
 
     CB_DEFAULT_ON_FILE_COL = "cb_person_default_on_file"
     original_dataframe = pd.DataFrame(
@@ -116,10 +116,10 @@ def test_handle_features_types_make_cb_person_default_on_file_a_boolean_column()
     expected_dataframe = pd.DataFrame(
         {
             "person_age": [22, 50, 21],
-            CB_DEFAULT_ON_FILE_COL: [True, False, True],
+            CB_DEFAULT_ON_FILE_COL: [1, 0, 1],
         }
     )
-    assert is_bool_dtype(actual_dataframe[CB_DEFAULT_ON_FILE_COL])
+    assert is_integer_dtype(actual_dataframe[CB_DEFAULT_ON_FILE_COL])
     pd.testing.assert_frame_equal(expected_dataframe, actual_dataframe)
 
 

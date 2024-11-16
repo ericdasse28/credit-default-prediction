@@ -52,13 +52,13 @@ def handle_features_types(
     """Makes sure the features in `loan_data`
     have the right typing."""
 
-    # Turn cb_person_default_on_file into boolean
+    # Turn cb_person_default_on_file into integer column
     CB_DEFAULT_ON_FILE_COL = "cb_person_default_on_file"
     clean_loan_data = loan_data.copy()
 
     clean_loan_data[CB_DEFAULT_ON_FILE_COL] = clean_loan_data[
         CB_DEFAULT_ON_FILE_COL
-    ].map({"Y": True, "N": False})
+    ].map({"Y": 1, "N": 0})
 
     return clean_loan_data
 
