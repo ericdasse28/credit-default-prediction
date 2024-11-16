@@ -1,7 +1,9 @@
 import numpy as np
 import pandas as pd
 from pandas.api.types import is_bool_dtype
+from pytest_mock import MockerFixture
 
+from credit_default_prediction import preprocess_data as preprocess_module
 from credit_default_prediction.preprocess_data import (
     handle_missing_values,
     handle_outliers,
@@ -121,7 +123,7 @@ def test_make_cb_person_default_on_file_a_boolean_column():
     pd.testing.assert_frame_equal(expected_dataframe, actual_dataframe)
 
 
-def test_preprocess_pipeline_executes_steps_in_the_right_order(mocker):
+def test_preprocess_pipeline_executes_steps_in_the_right_order(mocker: MockerFixture):
     """Given a dataframe containing loan applications data,
     When applying data preprocessing function to it,
     Then the function should:
@@ -134,26 +136,43 @@ def test_preprocess_pipeline_executes_steps_in_the_right_order(mocker):
         {
             "loan_int_rate": [11.84, np.nan, 12.5, 7.14, np.nan],
             "person_emp_length": [3, 0, 70, 60, 120],
+            "cb_person_default_on_file": ["Y", "N", "N", "Y", "N"],
         }
     )
-    data_after_missing_values = sample_loan_data.copy()
-    data_after_outlier_treatment = sample_loan_data.copy()
-    # Mock
-    mock_handle_missing_values = mocker.patch(
-        "credit_default_prediction.preprocess_data.handle_missing_values",
-        return_value=data_after_missing_values,
+    data_after_missing_values = handle_missing_values(sample_loan_data)
+    data_after_outlier_treatment = handle_outliers(data_after_missing_values)
+    data_after_cb_default_on_file_as_boolean = make_cb_person_default_on_file_boolean(
+        data_after_outlier_treatment
     )
-    mock_handle_outliers = mocker.patch(
-        "credit_default_prediction.preprocess_data.handle_outliers",
-        return_value=data_after_outlier_treatment,
+    # Spy test doubles
+    spy_handle_missing_values = mocker.spy(
+        preprocess_module,
+        "handle_missing_values",
+    )
+    spy_handle_outliers = mocker.spy(
+        preprocess_module,
+        "handle_outliers",
+    )
+    spy_cb_default_type_change = mocker.spy(
+        preprocess_module,
+        "make_cb_person_default_on_file_boolean",
     )
 
     # Act
     clean_loan_data = preprocess_data(sample_loan_data)
 
     # Assert
-    mock_handle_missing_values.assert_called_once_with(sample_loan_data)
-    mock_handle_outliers.assert_called_once_with(data_after_missing_values)
+    pd.testing.assert_frame_equal(
+        spy_handle_missing_values.spy_return,
+        data_after_missing_values,
+    )
+    pd.testing.assert_frame_equal(
+        spy_handle_outliers.spy_return, data_after_outlier_treatment
+    )
+    pd.testing.assert_frame_equal(
+        spy_cb_default_type_change.spy_return,
+        data_after_cb_default_on_file_as_boolean,
+    )
     pd.testing.assert_frame_equal(
         clean_loan_data,
         data_after_outlier_treatment,
