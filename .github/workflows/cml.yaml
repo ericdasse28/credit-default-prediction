@@ -4,6 +4,7 @@ on:
     paths:
       - credit_default_prediction/**
       - pyproject.toml
+      - poetry.lock
       - dvc.yaml
       - dvc.lock
   workflow_run:
