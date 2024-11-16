@@ -33,7 +33,7 @@ def save_model_metrics(metrics: dict):
             live.log_metric(f"test/{metric}", metrics[metric])
 
 
-def log_confusion_matrix(model, X: pd.DataFrame, y: pd.DataFrame, live: Live):
+def log_confusion_matrix(model, X: pd.DataFrame, y: pd.Series, live: Live):
     predictions = model.predict(X)
     preds_df = pd.DataFrame()
     preds_df["actual"] = y.values
@@ -50,9 +50,10 @@ def log_confusion_matrix(model, X: pd.DataFrame, y: pd.DataFrame, live: Live):
     )
 
 
-def log_roc_curve(model, X: pd.DataFrame, y: pd.DataFrame, live: Live):
+def log_roc_curve(model, X: pd.DataFrame, y: pd.Series, live: Live):
     y_score = model.predict_proba(X)[:, 1].astype(float)
-    live.log_sklearn_plot("roc", y, y_score)
+    y_true = y.tolist()
+    live.log_sklearn_plot("roc", y_true, y_score)
 
 
 def generate_feature_importance_data(model: xgb.XGBClassifier) -> pd.DataFrame:
@@ -77,7 +78,7 @@ def log_feature_importance_plot(model, live: Live):
     )
 
 
-def log_plots(model, X: pd.DataFrame, y: pd.DataFrame):
+def log_plots(model, X: pd.DataFrame, y: pd.Series):
     with Live(resume=True) as live:
         log_confusion_matrix(model, X, y, live)
         log_roc_curve(model, X, y, live)
