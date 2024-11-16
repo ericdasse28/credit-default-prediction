@@ -1,5 +1,14 @@
 name: CML
-on: [push]
+on:
+  push:
+    paths:
+      - credit_default_prediction/**
+      - pyproject.toml
+      - poetry.lock
+      - dvc.yaml
+      - dvc.lock
+  workflow_dispatch:
+
 permissions:
   # Essential to allow CML to write in pull requests via the GitHub token
   pull-requests: write

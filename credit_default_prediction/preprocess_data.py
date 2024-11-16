@@ -46,42 +46,31 @@ def handle_outliers(loan_data: pd.DataFrame) -> pd.DataFrame:
     return clean_loan_data
 
 
-def remove_outliers(loan_data: pd.DataFrame) -> pd.DataFrame:
-    """Remove outliers from `loan_data` in place."""
-
-    outlier_filter = loan_data["person_emp_length"] > NORMAL_MAX_EMP_LENGTH
-    indices = loan_data[outlier_filter].index
-
-    return loan_data.drop(indices)
-
-
-def remove_missing_loan_interests_rows(
+def handle_features_types(
     loan_data: pd.DataFrame,
 ) -> pd.DataFrame:
+    """Makes sure the features in `loan_data`
+    have the right typing."""
 
-    return loan_data.dropna(subset=["loan_int_rate"])
+    # Turn cb_person_default_on_file into boolean
+    CB_DEFAULT_ON_FILE_COL = "cb_person_default_on_file"
+    clean_loan_data = loan_data.copy()
 
+    clean_loan_data[CB_DEFAULT_ON_FILE_COL] = clean_loan_data[
+        CB_DEFAULT_ON_FILE_COL
+    ].map({"Y": True, "N": False})
 
-def replace_missing_emp_length(loan_data: pd.DataFrame) -> pd.DataFrame:
-    loan_data["person_emp_length"] = loan_data["person_emp_length"].fillna(
-        loan_data["person_emp_length"].median()
-    )
-    return loan_data
-
-
-def remove_unnecessary_rows(loan_data):
-    clean_loan_data = remove_outliers(loan_data)
-    clean_loan_data = remove_missing_loan_interests_rows(clean_loan_data)
     return clean_loan_data
 
 
-def preprocess(
+def preprocess_data(
     loan_data: pd.DataFrame,
 ) -> pd.DataFrame:
 
     preprocess_steps = [
-        remove_unnecessary_rows,
-        replace_missing_emp_length,
+        handle_missing_values,
+        handle_outliers,
+        handle_features_types,
     ]
     clean_loan_data = loan_data
 
@@ -103,5 +92,5 @@ def main():
     args = _get_arguments()
 
     loan_data = pd.read_csv(args.raw_data_path)
-    loan_data = preprocess(loan_data)
+    loan_data = preprocess_data(loan_data)
     loan_data.to_csv(args.preprocessed_data_path, index=False)

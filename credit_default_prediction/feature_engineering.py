@@ -2,7 +2,7 @@ import argparse
 
 import pandas as pd
 
-from credit_default_prediction import params
+from credit_default_prediction.tools import params
 
 
 def get_important_features():

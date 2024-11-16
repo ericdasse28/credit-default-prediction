@@ -7,7 +7,7 @@ license = "MIT"
 readme = "README.md"
 
 [tool.poetry.scripts]
-preprocess = "credit_default_prediction.preprocess:main"
+preprocess_data = "credit_default_prediction.preprocess_data:main"
 split = "credit_default_prediction.split:main"
 train = "credit_default_prediction.train:main"
 evaluate = "credit_default_prediction.evaluate:main"
@@ -33,6 +33,13 @@ ipython = "^8.26.0"
 pytest-mock = "^3.14.0"
 pandas-stubs = "^2.2.3.241009"
 mypy = "^1.13.0"
+types-pyyaml = "^6.0.12.20240917"
+
+[tool.isort]
+profile = "black"
+
+[tool.mypy]
+ignore_missing_imports = true
 
 [build-system]
 requires = ["poetry-core"]
