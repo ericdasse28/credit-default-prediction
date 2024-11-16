@@ -131,6 +131,7 @@ def test_preprocess_pipeline_executes_steps_in_the_right_order(
     Then the function should:
         1. Handle missing values
         2. Handle outliers
+        3. Handle features types
     In that order."""
 
     # Arrange
