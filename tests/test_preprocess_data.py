@@ -1,9 +1,11 @@
 import numpy as np
 import pandas as pd
+from pandas.api.types import is_bool_dtype
 
 from credit_default_prediction.preprocess_data import (
     handle_missing_values,
     handle_outliers,
+    make_cb_person_default_on_file_boolean,
     preprocess_data,
 )
 
@@ -89,6 +91,34 @@ def test_handle_outliers_should_drop_rows_with_outlier_emp_length():
         actual_clean_loan_data,
         expected_clean_loan_data,
     )
+
+
+def test_make_cb_person_default_on_file_a_boolean_column():
+    """Given a dataframe containing loan applications data,
+    When applying `make_cb_person_default_on_file_boolean`,
+    Then the column `cb_person_default_on_file` turns into
+    a boolean."""
+
+    CB_DEFAULT_ON_FILE_COL = "cb_person_default_on_file"
+    original_dataframe = pd.DataFrame(
+        {
+            "person_age": [22, 50, 21],
+            CB_DEFAULT_ON_FILE_COL: ["Y", "N", "Y"],
+        }
+    )
+
+    actual_dataframe = make_cb_person_default_on_file_boolean(
+        original_dataframe,
+    )
+
+    expected_dataframe = pd.DataFrame(
+        {
+            "person_age": [22, 50, 21],
+            CB_DEFAULT_ON_FILE_COL: [True, False, True],
+        }
+    )
+    assert is_bool_dtype(actual_dataframe[CB_DEFAULT_ON_FILE_COL])
+    pd.testing.assert_frame_equal(expected_dataframe, actual_dataframe)
 
 
 def test_preprocess_pipeline_executes_steps_in_the_right_order(mocker):

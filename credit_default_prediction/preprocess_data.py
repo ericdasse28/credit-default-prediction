@@ -46,6 +46,16 @@ def handle_outliers(loan_data: pd.DataFrame) -> pd.DataFrame:
     return clean_loan_data
 
 
+def make_cb_person_default_on_file_boolean(
+    loan_data: pd.DataFrame,
+) -> pd.DataFrame:
+
+    clean_loan_data = loan_data.replace(
+        {"cb_person_default_on_file": {"Y": True, "N": False}}
+    )
+    return clean_loan_data
+
+
 def preprocess_data(
     loan_data: pd.DataFrame,
 ) -> pd.DataFrame:
