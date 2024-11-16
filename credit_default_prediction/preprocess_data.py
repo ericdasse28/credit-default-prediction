@@ -46,10 +46,11 @@ def handle_outliers(loan_data: pd.DataFrame) -> pd.DataFrame:
     return clean_loan_data
 
 
-def make_cb_person_default_on_file_boolean(
+def handle_features_types(
     loan_data: pd.DataFrame,
 ) -> pd.DataFrame:
 
+    # Turn cb_person_default_on_file into boolean
     CB_DEFAULT_ON_FILE_COL = "cb_person_default_on_file"
     clean_loan_data = loan_data.copy()
 
@@ -67,7 +68,7 @@ def preprocess_data(
     preprocess_steps = [
         handle_missing_values,
         handle_outliers,
-        make_cb_person_default_on_file_boolean,
+        handle_features_types,
     ]
     clean_loan_data = loan_data
 

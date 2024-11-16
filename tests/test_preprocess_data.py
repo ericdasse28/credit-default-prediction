@@ -5,9 +5,9 @@ from pytest_mock import MockerFixture
 
 from credit_default_prediction import preprocess_data as preprocess_module
 from credit_default_prediction.preprocess_data import (
+    handle_features_types,
     handle_missing_values,
     handle_outliers,
-    make_cb_person_default_on_file_boolean,
     preprocess_data,
 )
 
@@ -95,9 +95,9 @@ def test_handle_outliers_should_drop_rows_with_outlier_emp_length():
     )
 
 
-def test_make_cb_person_default_on_file_a_boolean_column():
+def test_handle_features_types_make_cb_person_default_on_file_a_boolean_column():  # noqa
     """Given a dataframe containing loan applications data,
-    When applying `make_cb_person_default_on_file_boolean`,
+    When applying `handle_features_types`,
     Then the column `cb_person_default_on_file` turns into
     a boolean."""
 
@@ -109,7 +109,7 @@ def test_make_cb_person_default_on_file_a_boolean_column():
         }
     )
 
-    actual_dataframe = make_cb_person_default_on_file_boolean(
+    actual_dataframe = handle_features_types(
         original_dataframe,
     )
 
@@ -123,7 +123,9 @@ def test_make_cb_person_default_on_file_a_boolean_column():
     pd.testing.assert_frame_equal(expected_dataframe, actual_dataframe)
 
 
-def test_preprocess_pipeline_executes_steps_in_the_right_order(mocker: MockerFixture):
+def test_preprocess_pipeline_executes_steps_in_the_right_order(
+    mocker: MockerFixture,
+):
     """Given a dataframe containing loan applications data,
     When applying data preprocessing function to it,
     Then the function should:
@@ -141,7 +143,7 @@ def test_preprocess_pipeline_executes_steps_in_the_right_order(mocker: MockerFix
     )
     data_after_missing_values = handle_missing_values(sample_loan_data)
     data_after_outlier_treatment = handle_outliers(data_after_missing_values)
-    data_after_cb_default_on_file_as_boolean = make_cb_person_default_on_file_boolean(
+    data_after_default_on_file_as_boolean = handle_features_types(
         data_after_outlier_treatment
     )
     # Spy test doubles
@@ -155,7 +157,7 @@ def test_preprocess_pipeline_executes_steps_in_the_right_order(mocker: MockerFix
     )
     spy_cb_default_type_change = mocker.spy(
         preprocess_module,
-        "make_cb_person_default_on_file_boolean",
+        "handle_features_types",
     )
 
     # Act
@@ -171,9 +173,9 @@ def test_preprocess_pipeline_executes_steps_in_the_right_order(mocker: MockerFix
     )
     pd.testing.assert_frame_equal(
         spy_cb_default_type_change.spy_return,
-        data_after_cb_default_on_file_as_boolean,
+        data_after_default_on_file_as_boolean,
     )
     pd.testing.assert_frame_equal(
         clean_loan_data,
-        data_after_cb_default_on_file_as_boolean,
+        data_after_default_on_file_as_boolean,
     )
