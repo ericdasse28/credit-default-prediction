@@ -50,10 +50,12 @@ def make_cb_person_default_on_file_boolean(
     loan_data: pd.DataFrame,
 ) -> pd.DataFrame:
 
-    clean_loan_data = loan_data.replace(
-        {"cb_person_default_on_file": {"Y": True, "N": False}}
+    CB_DEFAULT_ON_FILE_COL = "cb_person_default_on_file"
+    loan_data[CB_DEFAULT_ON_FILE_COL] = loan_data[CB_DEFAULT_ON_FILE_COL].map(
+        {"Y": True, "N": False}
     )
-    return clean_loan_data
+
+    return loan_data
 
 
 def preprocess_data(
@@ -63,6 +65,7 @@ def preprocess_data(
     preprocess_steps = [
         handle_missing_values,
         handle_outliers,
+        make_cb_person_default_on_file_boolean,
     ]
     clean_loan_data = loan_data
 
