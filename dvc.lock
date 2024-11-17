@@ -6,8 +6,8 @@ stages:
     deps:
     - path: credit_default_prediction/preprocess_data.py
       hash: md5
-      md5: 59c7c6a3a83fc627b36b5f5ec53b65e7
-      size: 2484
+      md5: f725b27dfd7d89bb80192d06423065ac
+      size: 2820
     - path: data/raw/cr_loan2.csv
       hash: md5
       md5: f55e028c4bc9d2bd4e4e0976599a8994
@@ -16,8 +16,8 @@ stages:
     outs:
     - path: data/clean/clean_cr_loan.csv
       hash: md5
-      md5: 603fe2ed53ad63d66b99853e269048a2
-      size: 1617694
+      md5: 7e659c8cdbd852a3c55cb88b98729dd5
+      size: 2171991
   split:
     cmd: poetry run split --preprocessed-data-path data/clean/feature_store.csv --train-path
       data/train.csv --test-path data/test.csv
@@ -28,8 +28,8 @@ stages:
       size: 1569
     - path: data/clean/clean_cr_loan.csv
       hash: md5
-      md5: 603fe2ed53ad63d66b99853e269048a2
-      size: 1617694
+      md5: 7e659c8cdbd852a3c55cb88b98729dd5
+      size: 2171991
     params:
       params.yaml:
         split:
@@ -91,8 +91,8 @@ stages:
       size: 686
     - path: data/clean/clean_cr_loan.csv
       hash: md5
-      md5: 603fe2ed53ad63d66b99853e269048a2
-      size: 1617694
+      md5: 7e659c8cdbd852a3c55cb88b98729dd5
+      size: 2171991
     params:
       params.yaml:
         feature_engineering:
