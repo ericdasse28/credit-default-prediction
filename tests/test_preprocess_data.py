@@ -8,6 +8,7 @@ from credit_default_prediction.preprocess_data import (
     handle_features_types,
     handle_missing_values,
     handle_outliers,
+    log_transform_large_features,
     preprocess_data,
 )
 
@@ -121,6 +122,33 @@ def test_handle_features_types_make_cb_person_default_on_file_a_boolean_column()
     )
     assert is_integer_dtype(actual_dataframe[CB_DEFAULT_ON_FILE_COL])
     pd.testing.assert_frame_equal(expected_dataframe, actual_dataframe)
+
+
+def test_log_transformation_for_income_feature():
+    """Given a dataframe containing loan applications data,
+    When applying log transformation to it,
+    Then the income feature is log scaled."""
+
+    loan_data = pd.DataFrame(
+        {
+            "person_income": [59000, 9600, 80000, 6000000],
+            "person_age": [22, 35, 50, 27],
+        }
+    )
+
+    actual_clean_loan_data = log_transform_large_features(loan_data)
+
+    expected_clean_loan_data = pd.DataFrame(
+        {
+            "person_income": [59000, 9600, 80000, 6000000],
+            "person_age": [22, 35, 50, 27],
+            "log_person_income": np.log(loan_data["person_income"]),
+        }
+    )
+    pd.testing.assert_frame_equal(
+        expected_clean_loan_data,
+        actual_clean_loan_data,
+    )
 
 
 def test_preprocess_pipeline_executes_steps_in_the_right_order(

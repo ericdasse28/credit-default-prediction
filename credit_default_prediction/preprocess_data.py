@@ -2,6 +2,7 @@
 
 import argparse
 
+import numpy as np
 import pandas as pd
 
 NORMAL_MAX_EMP_LENGTH = 60
@@ -59,6 +60,15 @@ def handle_features_types(
     clean_loan_data[CB_DEFAULT_ON_FILE_COL] = clean_loan_data[
         CB_DEFAULT_ON_FILE_COL
     ].map({"Y": 1, "N": 0})
+
+    return clean_loan_data
+
+
+def log_transform_large_features(loan_data: pd.DataFrame) -> pd.DataFrame:
+    """Applies log transformation to large features."""
+
+    clean_loan_data = loan_data.copy()
+    clean_loan_data["log_person_income"] = np.log(loan_data["person_income"])
 
     return clean_loan_data
 
