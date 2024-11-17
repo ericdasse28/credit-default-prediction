@@ -81,6 +81,7 @@ def preprocess_data(
         handle_missing_values,
         handle_outliers,
         handle_features_types,
+        log_transform_large_features,
     ]
     clean_loan_data = loan_data
 
