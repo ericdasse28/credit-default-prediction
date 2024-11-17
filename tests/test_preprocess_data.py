@@ -140,9 +140,8 @@ def test_log_transformation_for_income_feature():
 
     expected_clean_loan_data = pd.DataFrame(
         {
-            "person_income": [59000, 9600, 80000, 6000000],
+            "person_income": np.log(loan_data["person_income"] + 1),
             "person_age": [22, 35, 50, 27],
-            "log_person_income": np.log(loan_data["person_income"]),
         }
     )
     pd.testing.assert_frame_equal(
