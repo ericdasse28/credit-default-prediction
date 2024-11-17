@@ -8,6 +8,7 @@ from credit_default_prediction.preprocess_data import (
     handle_features_types,
     handle_missing_values,
     handle_outliers,
+    log_transform_large_features,
     preprocess_data,
 )
 
@@ -123,6 +124,33 @@ def test_handle_features_types_make_cb_person_default_on_file_a_boolean_column()
     pd.testing.assert_frame_equal(expected_dataframe, actual_dataframe)
 
 
+def test_log_transformation_for_income_feature():
+    """Given a dataframe containing loan applications data,
+    When applying log transformation to it,
+    Then the income feature is log scaled."""
+
+    loan_data = pd.DataFrame(
+        {
+            "person_income": [59000, 9600, 80000, 6000000],
+            "person_age": [22, 35, 50, 27],
+        }
+    )
+
+    actual_clean_loan_data = log_transform_large_features(loan_data)
+
+    expected_clean_loan_data = pd.DataFrame(
+        {
+            "person_income": [59000, 9600, 80000, 6000000],
+            "person_age": [22, 35, 50, 27],
+            "log_person_income": np.log(loan_data["person_income"]),
+        }
+    )
+    pd.testing.assert_frame_equal(
+        expected_clean_loan_data,
+        actual_clean_loan_data,
+    )
+
+
 def test_preprocess_pipeline_executes_steps_in_the_right_order(
     mocker: MockerFixture,
 ):
@@ -132,6 +160,7 @@ def test_preprocess_pipeline_executes_steps_in_the_right_order(
         1. Handle missing values
         2. Handle outliers
         3. Handle features types
+        4. Apply log transformation to large features
     In that order."""
 
     # Arrange
@@ -139,6 +168,7 @@ def test_preprocess_pipeline_executes_steps_in_the_right_order(
         {
             "loan_int_rate": [11.84, np.nan, 12.5, 7.14, np.nan],
             "person_emp_length": [3, 0, 70, 60, 120],
+            "person_income": [83000, 95000, 4000, 10000, 120000],
             "cb_person_default_on_file": ["Y", "N", "N", "Y", "N"],
         }
     )
@@ -146,6 +176,9 @@ def test_preprocess_pipeline_executes_steps_in_the_right_order(
     data_after_outlier_treatment = handle_outliers(data_after_missing_values)
     data_after_default_on_file_as_boolean = handle_features_types(
         data_after_outlier_treatment
+    )
+    data_after_log_transformation = log_transform_large_features(
+        data_after_default_on_file_as_boolean
     )
     # Spy test doubles
     spy_handle_missing_values = mocker.spy(
@@ -159,6 +192,10 @@ def test_preprocess_pipeline_executes_steps_in_the_right_order(
     spy_cb_default_type_change = mocker.spy(
         preprocess_module,
         "handle_features_types",
+    )
+    spy_log_transformation = mocker.spy(
+        preprocess_module,
+        "log_transform_large_features",
     )
 
     # Act
@@ -177,6 +214,10 @@ def test_preprocess_pipeline_executes_steps_in_the_right_order(
         data_after_default_on_file_as_boolean,
     )
     pd.testing.assert_frame_equal(
+        spy_log_transformation.spy_return,
+        data_after_log_transformation,
+    )
+    pd.testing.assert_frame_equal(
         clean_loan_data,
-        data_after_default_on_file_as_boolean,
+        data_after_log_transformation,
     )

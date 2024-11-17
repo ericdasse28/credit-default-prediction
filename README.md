@@ -34,6 +34,18 @@ poetry install
 git config --local core.hooksPath .githooks/
 ```
 
+If you want to remove the hooks:
+
+```
+git config --local --unset core.hooksPath
+```
+
+To bypass the hooks when you push:
+
+```
+git push --no-verify
+```
+
 ## Training pipeline
 
 ### Exploratory Data Analysis
