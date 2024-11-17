@@ -68,7 +68,8 @@ def log_transform_large_features(loan_data: pd.DataFrame) -> pd.DataFrame:
     """Applies log transformation to large features."""
 
     clean_loan_data = loan_data.copy()
-    clean_loan_data["person_income"] = np.log(loan_data["person_income"])
+    clean_loan_data["person_income"] = np.log(loan_data["person_income"] + 1)
+    # Adding 1 to avoid log(0)
 
     return clean_loan_data
 
