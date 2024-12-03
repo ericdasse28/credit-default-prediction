@@ -124,14 +124,15 @@ def test_handle_features_types_make_cb_person_default_on_file_a_boolean_column()
     pd.testing.assert_frame_equal(expected_dataframe, actual_dataframe)
 
 
-def test_log_transformation_for_income_feature():
+def test_log_transformation_for_large_features():
     """Given a dataframe containing loan applications data,
     When applying log transformation to it,
-    Then the income feature is log scaled."""
+    Then the loan amount and income features are log scaled."""
 
     loan_data = pd.DataFrame(
         {
-            "person_income": [59000, 9600, 80000, 6000000],
+            "loan_amnt": [19000.0, 5000.0, 1500.0, 10000.0],
+            "person_income": [59000.0, 9600.0, 80000.0, 6000000.0],
             "person_age": [22, 35, 50, 27],
         }
     )
@@ -140,6 +141,7 @@ def test_log_transformation_for_income_feature():
 
     expected_clean_loan_data = pd.DataFrame(
         {
+            "loan_amnt": np.log(loan_data["loan_amnt"] + 1),
             "person_income": np.log(loan_data["person_income"] + 1),
             "person_age": [22, 35, 50, 27],
         }
@@ -168,6 +170,7 @@ def test_preprocess_pipeline_executes_steps_in_the_right_order(
             "loan_int_rate": [11.84, np.nan, 12.5, 7.14, np.nan],
             "person_emp_length": [3, 0, 70, 60, 120],
             "person_income": [83000, 95000, 4000, 10000, 120000],
+            "loan_amnt": [13000.0, 2300.5, 1400.89, 120000.0, 13000.9],
             "cb_person_default_on_file": ["Y", "N", "N", "Y", "N"],
         }
     )
