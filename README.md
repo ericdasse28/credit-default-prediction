@@ -59,13 +59,24 @@ The **data preprocessing** phase is all about cleaning and preparing raw data to
 1. Missing values handling: Imputing missing data or removing rows/columns with too many missing values (or missing values at suspicious locations)
 2. Outlier treatment
 3. Turn `cb_person_default_on_file` into an actual boolean feature
-4. Log transformation of features with a large distribution (`person_income`)
+4. Log transformation of features with a large distribution (`person_income`, `loan_amnt`)
 5. Min-max scaling of the numerical features
-6. One-hot encoding of the categorical features
+
+### Feature engineering
+
+The **feature engineering** stage's intent is to create new features or modify existing
+ones to _improve model performance_. More specifically, the goal is to enhance the
+predictive power of the dataset by generating features that better represent the
+underlying patterns in the data.
+
+In this project, feature engineering is done according to the following steps:
+
+1. Feature selection: to identify the most relevant features of the model
+2. One-hot encoding of the categorical features
 
 ### Data split
 
-Once the data have been preprocessed, we split them into training and test sets.
+Once the features of the data have been engineered, we split the dataset into training and test sets.
 
 ## Testing the pipeline
 
