@@ -14,7 +14,7 @@ I use [DVC](https://dvc.org/) for data and model versioning as well to orchestra
 
 ### Experiment tracking
 
-All the experiments performed across this project can be retrieved [here](https://studio.dvc.ai/user/ericdasse28/projects/credit-default-prediction-r4c9vq41ky)
+All the experiments performed across this project can be tracked [here](https://studio.dvc.ai/user/ericdasse28/projects/credit-default-prediction-r4c9vq41ky)
 
 ## Development
 
@@ -64,7 +64,7 @@ The **data preprocessing** phase is all about cleaning and preparing raw data to
 
 ### Feature engineering
 
-The **feature engineering** stage's intent is to create new features or modify existing
+The intent behind the **feature engineering** stage is to create new features or modify existing
 ones to _improve model performance_. More specifically, the goal is to enhance the
 predictive power of the dataset by generating features that better represent the
 underlying patterns in the data.
