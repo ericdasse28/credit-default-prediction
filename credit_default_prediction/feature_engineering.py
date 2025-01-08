@@ -10,6 +10,18 @@ def get_important_features() -> list[str]:
     return preprocess_params["important_columns"]
 
 
+def engineer_features(clean_loan_data: pd.DataFrame) -> pd.DataFrame:
+    """Perform feature engineering on input clean loan
+    applications dataframe."""
+
+    # Feature selection
+    feature_engineered_data = clean_loan_data[get_important_features()]
+    # One-hot encoding
+    feature_engineered_data = pd.get_dummies(feature_engineered_data)
+
+    return feature_engineered_data
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--preprocessed-data-path")
@@ -17,6 +29,6 @@ def main():
     args = parser.parse_args()
 
     preprocessed_data = pd.read_csv(args.preprocessed_data_path)
-    preprocessed_data = preprocessed_data[get_important_features()]
-    preprocessed_data = pd.get_dummies(preprocessed_data)
+    preprocessed_data = engineer_features(preprocessed_data)
+    # Save feature engineered features
     preprocessed_data.to_csv(args.feature_store_path, index=False)
