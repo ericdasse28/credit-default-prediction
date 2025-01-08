@@ -6,3 +6,6 @@ __pycache__/
 .env
 
 /model.pkl
+
+# Test coverage
+.coverage
