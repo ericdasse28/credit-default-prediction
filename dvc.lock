@@ -87,8 +87,8 @@ stages:
     deps:
     - path: credit_default_prediction/feature_engineering.py
       hash: md5
-      md5: 767991d1628f8964cae0dfde8238ee5d
-      size: 686
+      md5: dc0bce9927bf2ea5918a3a27e456fbcf
+      size: 1057
     - path: data/clean/clean_cr_loan.csv
       hash: md5
       md5: a6a023fd13576fe797a5481437efe119
