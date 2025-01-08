@@ -12,7 +12,9 @@ from sklearn.metrics import (  # noqa
     roc_auc_score,
 )
 
-from credit_default_prediction.dataset import get_features_and_labels_from_path
+from credit_default_prediction.dataset import get_features_and_labels
+from credit_default_prediction.feature_engineering import engineer_features
+from credit_default_prediction.preprocess_data import preprocess_data
 from dvclive import Live
 
 
@@ -97,7 +99,10 @@ def main():
 
     args = _get_arguments()
     model = joblib.load(args.model_path)
-    X_test, y_test = get_features_and_labels_from_path(args.test_dataset_path)
+    test_data = pd.read_csv(args.test_dataset_path)
+    preprocessed_test_data = preprocess_data(test_data)
+    preprocessed_test_data = engineer_features(preprocessed_test_data)
+    X_test, y_test = get_features_and_labels(preprocessed_test_data)
 
     metrics = evaluate(model, X_test.values, y_test.values)
     save_model_metrics(metrics)
