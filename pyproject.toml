@@ -34,6 +34,7 @@ pytest-mock = "^3.14.0"
 pandas-stubs = "^2.2.3.241009"
 mypy = "^1.13.0"
 types-pyyaml = "^6.0.12.20240917"
+pytest-cov = "^6.0.0"
 
 [tool.isort]
 profile = "black"
