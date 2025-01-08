@@ -5,7 +5,7 @@ import pandas as pd
 from credit_default_prediction.tools import params
 
 
-def get_important_features():
+def get_important_features() -> list[str]:
     preprocess_params = params.load_stage_params("feature_engineering")
     return preprocess_params["important_columns"]
 
