@@ -52,6 +52,11 @@ git push --no-verify
 
 Notebook: https://colab.research.google.com/drive/1t5E7FJKD-UvGw3-vXyJKsJ8LM2fazLns?usp=sharing
 
+### Data split
+
+To avoid data leakage between from test data into training data, we split the raw data into training
+and test **first**.
+
 ### Data preprocessing
 
 The **data preprocessing** phase is all about cleaning and preparing raw data to ensure it's in a usable format for modeling. In this project, the data preprocessing is done following these steps:
@@ -73,10 +78,6 @@ In this project, feature engineering is done according to the following steps:
 
 1. Feature selection: to identify the most relevant features of the model
 2. One-hot encoding of the categorical features
-
-### Data split
-
-Once the features of the data have been engineered, we split the dataset into training and test sets.
 
 ## Testing the pipeline
 

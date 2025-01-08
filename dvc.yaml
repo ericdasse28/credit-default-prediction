@@ -1,47 +1,48 @@
 stages:
-  preprocess:
-    cmd: poetry run preprocess_data --raw-data-path data/raw/cr_loan2.csv --preprocessed-data-path
-      data/clean/clean_cr_loan.csv
+  split:
+    cmd: poetry run split --preprocessed-data-path data/raw/cr_loan2.csv --train-path
+      data/raw/train.csv --test-path data/raw/test.csv
     deps:
-    - credit_default_prediction/preprocess_data.py
+    - credit_default_prediction/split.py
     - data/raw/cr_loan2.csv
     outs:
-    - data/clean/clean_cr_loan.csv
+    - data/raw/train.csv
+    - data/raw/test.csv
+    params:
+    - split
+  preprocess:
+    cmd: poetry run preprocess_data --raw-data-path data/raw/train.csv --preprocessed-data-path
+      data/clean/train.csv
+    deps:
+    - credit_default_prediction/preprocess_data.py
+    - data/raw/train.csv
+    outs:
+    - data/clean/train.csv
   feature_engineering:
-    cmd: poetry run feature_engineering --preprocessed-data-path data/clean/clean_cr_loan.csv
-      --feature-store-path data/clean/feature_store.csv
+    cmd: poetry run feature_engineering --preprocessed-data-path data/clean/train.csv
+      --feature-store-path data/feature_store/train.csv
     deps:
     - credit_default_prediction/feature_engineering.py
-    - data/clean/clean_cr_loan.csv
+    - data/clean/train.csv
     params:
     - feature_engineering
     outs:
-    - data/clean/feature_store.csv
-  split:
-    cmd: poetry run split --preprocessed-data-path data/clean/feature_store.csv --train-path
-      data/train.csv --test-path data/test.csv
-    deps:
-    - credit_default_prediction/split.py
-    - data/clean/clean_cr_loan.csv
-    outs:
-    - data/test.csv
-    - data/train.csv
-    params:
-    - split
+    - data/feature_store/train.csv
   train:
-    cmd: poetry run train --train-dataset-path data/train.csv --model-path model.pkl
+    cmd: poetry run train --train-dataset-path data/feature_store/train.csv --model-path
+      model.pkl
     deps:
     - credit_default_prediction/train.py
-    - data/train.csv
+    - data/feature_store/train.csv
     outs:
     - model.pkl
     params:
     - train
   evaluate:
-    cmd: poetry run evaluate --model-path model.pkl --test-dataset-path data/test.csv
+    cmd: poetry run evaluate --model-path model.pkl --test-dataset-path data/raw/test.csv
     deps:
     - credit_default_prediction/evaluate.py
-    - data/test.csv
+    - data/raw/test.csv
     - model.pkl
 
 plots:
