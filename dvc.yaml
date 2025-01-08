@@ -29,7 +29,8 @@ stages:
     outs:
     - data/feature_store/train.csv
   train:
-    cmd: poetry run train --train-dataset-path data/feature_store/train.csv --model-path model.pkl
+    cmd: poetry run train --train-dataset-path data/feature_store/train.csv --model-path
+      model.pkl
     deps:
     - credit_default_prediction/train.py
     - data/feature_store/train.csv
