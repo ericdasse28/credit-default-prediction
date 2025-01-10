@@ -2,6 +2,7 @@ name: CML
 on:
   push:
     paths:
+      - .github/workflows/cml.yaml
       - data/**
       - credit_default_prediction/**
       - pyproject.toml
@@ -27,20 +28,20 @@ jobs:
           sudo apt install libc6
       - uses: packetcoders/action-setup-cache-python-poetry@main
         with:
-          python-version: 3.12.5
+          python-version: 3.12.7
           poetry-version: 1.8.3
       - uses: iterative/setup-cml@v1
-      - uses: iterative/setup-dvc@v1
+      # - uses: iterative/setup-dvc@v1
       - name: Setup DagsHub DVC remote
         run: |
-          dvc remote modify origin --local access_key_id ${{ secrets.DAGSHUB_TOKEN }}
-          dvc remote modify origin --local secret_access_key ${{ secrets.DAGSHUB_TOKEN }}
+          poetry run dvc remote modify origin --local access_key_id ${{ secrets.DAGSHUB_TOKEN }}
+          poetry run dvc remote modify origin --local secret_access_key ${{ secrets.DAGSHUB_TOKEN }}
       - name: Train Model
         run: |
-          dvc pull --run-cache --allow-missing
-          dvc repro
-          dvc commit --force
-          dvc push
+          poetry run dvc pull --run-cache --allow-missing
+          poetry run dvc repro
+          poetry run dvc commit --force
+          poetry run dvc push
       - name: Commit pipeline changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
@@ -54,5 +55,5 @@ jobs:
           echo "## Metrics: workflow vs. main" >> report.md
           git fetch --depth=1 origin main:main
 
-          dvc metrics diff --md main >> report.md
+          poetry run dvc metrics diff --md main >> report.md
           cml comment create report.md || { echo 'CML comment creation failed'; exit 1; }
