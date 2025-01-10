@@ -2,6 +2,7 @@ name: CML
 on:
   push:
     paths:
+      - .github/workflows/cml.yaml
       - data/**
       - credit_default_prediction/**
       - pyproject.toml
