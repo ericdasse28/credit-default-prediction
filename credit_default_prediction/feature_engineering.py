@@ -1,5 +1,6 @@
 import argparse
 
+import numpy as np
 import pandas as pd
 
 from credit_default_prediction.tools import params
@@ -32,3 +33,15 @@ def main():
     preprocessed_data = engineer_features(preprocessed_data)
     # Save feature engineered features
     preprocessed_data.to_csv(args.feature_store_path, index=False)
+
+
+def log_transform_large_features(loan_data: pd.DataFrame) -> pd.DataFrame:
+    """Applies log transformation to large features."""
+    LARGE_FEATURES = ["person_income", "loan_amnt"]
+
+    clean_loan_data = loan_data.copy()
+    clean_loan_data[LARGE_FEATURES] = loan_data[LARGE_FEATURES].apply(
+        lambda row: np.log(row + 1),  # We add 1 to log argument to avoid log(0) # noqa
+    )
+
+    return clean_loan_data

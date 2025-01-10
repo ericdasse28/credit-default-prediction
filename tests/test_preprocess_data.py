@@ -4,11 +4,11 @@ from pandas.api.types import is_integer_dtype
 from pytest_mock import MockerFixture
 
 from credit_default_prediction import preprocess_data as preprocess_module
+from credit_default_prediction.feature_engineering import log_transform_large_features
 from credit_default_prediction.preprocess_data import (
     handle_features_types,
     handle_missing_values,
     handle_outliers,
-    log_transform_large_features,
     preprocess_data,
 )
 
@@ -122,34 +122,6 @@ def test_handle_features_types_make_cb_person_default_on_file_a_boolean_column()
     )
     assert is_integer_dtype(actual_dataframe[CB_DEFAULT_ON_FILE_COL])
     pd.testing.assert_frame_equal(expected_dataframe, actual_dataframe)
-
-
-def test_log_transformation_for_large_features():
-    """Given a dataframe containing loan applications data,
-    When applying log transformation to it,
-    Then the loan amount and income features are log scaled."""
-
-    loan_data = pd.DataFrame(
-        {
-            "loan_amnt": [19000.0, 5000.0, 1500.0, 10000.0],
-            "person_income": [59000.0, 9600.0, 80000.0, 6000000.0],
-            "person_age": [22, 35, 50, 27],
-        }
-    )
-
-    actual_clean_loan_data = log_transform_large_features(loan_data)
-
-    expected_clean_loan_data = pd.DataFrame(
-        {
-            "loan_amnt": np.log(loan_data["loan_amnt"] + 1),
-            "person_income": np.log(loan_data["person_income"] + 1),
-            "person_age": [22, 35, 50, 27],
-        }
-    )
-    pd.testing.assert_frame_equal(
-        expected_clean_loan_data,
-        actual_clean_loan_data,
-    )
 
 
 def test_preprocess_pipeline_executes_steps_in_the_right_order(
