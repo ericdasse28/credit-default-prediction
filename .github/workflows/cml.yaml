@@ -31,7 +31,7 @@ jobs:
           python-version: 3.12.7
           poetry-version: 1.8.3
       - uses: iterative/setup-cml@v1
-      - uses: iterative/setup-dvc@v1
+      # - uses: iterative/setup-dvc@v1
       - name: Setup DagsHub DVC remote
         run: |
           dvc remote modify origin --local access_key_id ${{ secrets.DAGSHUB_TOKEN }}
