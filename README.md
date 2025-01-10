@@ -64,8 +64,6 @@ The **data preprocessing** phase is all about cleaning and preparing raw data to
 1. Missing values handling: Imputing missing data or removing rows/columns with too many missing values (or missing values at suspicious locations)
 2. Outlier treatment
 3. Turn `cb_person_default_on_file` into an actual boolean feature
-4. Log transformation of features with a large distribution (`person_income`, `loan_amnt`)
-5. Min-max scaling of the numerical features
 
 ### Feature engineering
 
@@ -78,6 +76,8 @@ In this project, feature engineering is done according to the following steps:
 
 1. Feature selection: to identify the most relevant features of the model
 2. One-hot encoding of the categorical features
+3. Log transformation of features with a large distribution (`person_income`, `loan_amnt`)
+4. Min-max scaling of the numerical features
 
 ## Testing the pipeline
 
