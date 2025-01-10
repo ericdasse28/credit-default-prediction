@@ -34,14 +34,14 @@ jobs:
       # - uses: iterative/setup-dvc@v1
       - name: Setup DagsHub DVC remote
         run: |
-          poetry dvc remote modify origin --local access_key_id ${{ secrets.DAGSHUB_TOKEN }}
-          poetry dvc remote modify origin --local secret_access_key ${{ secrets.DAGSHUB_TOKEN }}
+          poetry run dvc remote modify origin --local access_key_id ${{ secrets.DAGSHUB_TOKEN }}
+          poetry run dvc remote modify origin --local secret_access_key ${{ secrets.DAGSHUB_TOKEN }}
       - name: Train Model
         run: |
-          poetry dvc pull --run-cache --allow-missing
-          poetry dvc repro
-          poetry dvc commit --force
-          poetry dvc push
+          poetry run dvc pull --run-cache --allow-missing
+          poetry run dvc repro
+          poetry run dvc commit --force
+          poetry run dvc push
       - name: Commit pipeline changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
@@ -55,5 +55,5 @@ jobs:
           echo "## Metrics: workflow vs. main" >> report.md
           git fetch --depth=1 origin main:main
 
-          poetry dvc metrics diff --md main >> report.md
+          poetry run dvc metrics diff --md main >> report.md
           cml comment create report.md || { echo 'CML comment creation failed'; exit 1; }
