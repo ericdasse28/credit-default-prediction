@@ -4,7 +4,6 @@ from pandas.api.types import is_integer_dtype
 from pytest_mock import MockerFixture
 
 from credit_default_prediction import preprocess_data as preprocess_module
-from credit_default_prediction.feature_engineering import log_transform_large_features
 from credit_default_prediction.preprocess_data import (
     handle_features_types,
     handle_missing_values,
@@ -151,9 +150,6 @@ def test_preprocess_pipeline_executes_steps_in_the_right_order(
     data_after_default_on_file_as_boolean = handle_features_types(
         data_after_outlier_treatment
     )
-    data_after_log_transformation = log_transform_large_features(
-        data_after_default_on_file_as_boolean
-    )
     # Spy test doubles
     spy_handle_missing_values = mocker.spy(
         preprocess_module,
@@ -166,10 +162,6 @@ def test_preprocess_pipeline_executes_steps_in_the_right_order(
     spy_cb_default_type_change = mocker.spy(
         preprocess_module,
         "handle_features_types",
-    )
-    spy_log_transformation = mocker.spy(
-        preprocess_module,
-        "log_transform_large_features",
     )
 
     # Act
@@ -188,10 +180,6 @@ def test_preprocess_pipeline_executes_steps_in_the_right_order(
         data_after_default_on_file_as_boolean,
     )
     pd.testing.assert_frame_equal(
-        spy_log_transformation.spy_return,
-        data_after_log_transformation,
-    )
-    pd.testing.assert_frame_equal(
         clean_loan_data,
-        data_after_log_transformation,
+        data_after_default_on_file_as_boolean,
     )

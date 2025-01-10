@@ -4,8 +4,6 @@ import argparse
 
 import pandas as pd
 
-from credit_default_prediction.feature_engineering import log_transform_large_features
-
 NORMAL_MAX_EMP_LENGTH = 60
 
 
@@ -73,7 +71,6 @@ def preprocess_data(
         handle_missing_values,
         handle_outliers,
         handle_features_types,
-        log_transform_large_features,
     ]
     clean_loan_data = loan_data
 
