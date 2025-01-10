@@ -54,7 +54,7 @@ Notebook: https://colab.research.google.com/drive/1t5E7FJKD-UvGw3-vXyJKsJ8LM2faz
 
 ### Data split
 
-To avoid data leakage between from test data into training data, we split the raw data into training
+To avoid data leakage from test data to training data, we split the raw data into training
 and test **first**.
 
 ### Data preprocessing
