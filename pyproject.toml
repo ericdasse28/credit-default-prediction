@@ -13,6 +13,7 @@ train = "credit_default_prediction.train:main"
 evaluate = "credit_default_prediction.evaluate:main"
 hyperparams_tuning = "credit_default_prediction.hyperparams_tuning:main"
 feature_engineering = "credit_default_prediction.feature_engineering:main"
+cross_validate = "credit_default_prediction.validate:main"
 
 
 [tool.poetry.dependencies]
