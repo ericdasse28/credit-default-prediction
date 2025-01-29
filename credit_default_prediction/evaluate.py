@@ -14,6 +14,7 @@ from sklearn.metrics import (  # noqa
 
 from credit_default_prediction.dataset import get_features_and_labels
 from credit_default_prediction.feature_engineering import engineer_features
+from credit_default_prediction.metrics import save_model_metrics
 from credit_default_prediction.preprocess_data import preprocess_data
 from dvclive import Live
 
@@ -27,12 +28,6 @@ def evaluate(model, X: pd.Series, y: pd.Series) -> dict:
         "recall": recall_score(y, y_pred),
         "ROC_AUC": roc_auc_score(y, model.predict_proba(X)[:, 1]),
     }
-
-
-def save_model_metrics(metrics: dict):
-    with Live(resume=True) as live:
-        for metric in metrics.keys():
-            live.log_metric(f"test/{metric}", metrics[metric])
 
 
 def log_confusion_matrix(model, X: pd.DataFrame, y: pd.Series, live: Live):
