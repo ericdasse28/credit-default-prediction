@@ -44,7 +44,6 @@ stages:
     deps:
     - credit_default_prediction/validate.py
     - data/feature_store/train.csv
-    outs:
     - model.pkl
   evaluate:
     cmd: poetry run evaluate --model-path model.pkl --test-dataset-path data/raw/test.csv
