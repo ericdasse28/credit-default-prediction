@@ -39,8 +39,8 @@ stages:
     params:
     - train
   cross_validation:
-    cmd: poetry run cross_validate --train-dataset-path data/feature_store/train.csv --model-path
-      model.pkl
+    cmd: poetry run cross_validate --train-dataset-path data/feature_store/train.csv
+      --model-path model.pkl
     deps:
     - credit_default_prediction/validate.py
     - data/feature_store/train.csv

@@ -5,5 +5,10 @@
         "recall": 0.7199367088607594,
         "ROC_AUC": 0.944819259575518
     },
-    "step": 0
+    "step": 0,
+    "cross_validation": {
+        "avg_accuracy": 0.9333462922773833,
+        "avg_precision": 0.9549403965422387,
+        "avg_recall": 0.7331323206594418
+    }
 }
