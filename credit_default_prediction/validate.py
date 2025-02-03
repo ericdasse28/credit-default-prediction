@@ -29,21 +29,21 @@ def main():
         y_train,
         cv=kf,
         scoring="accuracy",
-    )
+    ).mean()
     avg_precision = cross_val_score(
         model,
         X_train,
         y_train,
         cv=kf,
         scoring="precision",
-    )
+    ).mean()
     avg_recall = cross_val_score(
         model,
         X_train,
         y_train,
         cv=kf,
         scoring="recall",
-    )
+    ).mean()
     save_model_metrics(
         {
             "avg_accuracy": avg_accuracy,
