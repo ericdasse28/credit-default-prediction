@@ -34,8 +34,9 @@ jobs:
       # - uses: iterative/setup-dvc@v1
       - name: Setup DagsHub DVC remote
         run: |
-          poetry run dvc remote modify origin --local access_key_id ${{ secrets.DAGSHUB_TOKEN }}
-          poetry run dvc remote modify origin --local secret_access_key ${{ secrets.DAGSHUB_TOKEN }}
+          poetry run dvc remote modify origin --local auth basic
+          poetry run dvc remote modify origin --local user ${{ secrets.DAGSHUB_USER }}
+          poetry run dvc remote modify origin --local password ${{ secrets.DAGSHUB_TOKEN }}
       - name: Train Model
         run: |
           poetry run dvc pull --run-cache --allow-missing
