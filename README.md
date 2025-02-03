@@ -59,7 +59,8 @@ and test **first**.
 
 ### Data preprocessing
 
-The **data preprocessing** phase is all about cleaning and preparing raw data to ensure it's in a usable format for modeling. In this project, the data preprocessing is done following these steps:
+The **data preprocessing** phase is all about cleaning and preparing raw data to ensure it's in a usable format for modeling.
+In this project, the data preprocessing is done following these steps:
 
 1. Missing values handling: Imputing missing data or removing rows/columns with too many missing values (or missing values at suspicious locations)
 2. Outlier treatment
@@ -78,6 +79,17 @@ In this project, feature engineering is done according to the following steps:
 2. One-hot encoding of the categorical features
 3. Log transformation of features with a large distribution (`person_income`, `loan_amnt`)
 4. Min-max scaling of the numerical features
+
+### Model validation
+
+At this step, we perform a 5-fold cross-validation of the model on the training data.
+The goal is to enhance our idea of how the model performs on unseen data.
+
+The following metrics are computed:
+
+- Average model accuracy on the folds
+- Average precision
+- Average recall
 
 ## Testing the pipeline
 

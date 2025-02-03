@@ -2,5 +2,4 @@
     autostage = true
     remote = origin
 ['remote "origin"']
-    url = s3://dvc
-    endpointurl = https://dagshub.com/ericdasse28/credit-default-prediction.s3
+    url = https://dagshub.com/ericdasse28/credit-default-prediction.dvc
