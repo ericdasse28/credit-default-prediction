@@ -25,7 +25,7 @@ def split_data(loan_data: pd.DataFrame, split_params: SplitParams):
     return X_train, X_test, y_train, y_test
 
 
-def load_split_params() -> SplitParams:
+def _load_split_params() -> SplitParams:
     pipeline_params = load_stage_params("split")
     return SplitParams(
         test_size=pipeline_params["test_size"],
@@ -51,7 +51,7 @@ def main():
     args = _get_arguments()
 
     loan_data = pd.read_csv(args.preprocessed_data_path)
-    split_params = load_split_params()
+    split_params = _load_split_params()
     X_train, X_test, y_train, y_test = split_data(loan_data, split_params)
 
     save_loan_data(X_train, y_train, args.train_path)
