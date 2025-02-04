@@ -23,8 +23,8 @@ stages:
     deps:
     - path: credit_default_prediction/split.py
       hash: md5
-      md5: 09d516a301319e6c24bdda6938e0fc48
-      size: 1569
+      md5: b5dd0884bd6524339c7e98c29a767ece
+      size: 1994
     - path: data/raw/cr_loan2.csv
       hash: md5
       md5: f55e028c4bc9d2bd4e4e0976599a8994
