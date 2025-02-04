@@ -18,13 +18,13 @@ stages:
       md5: f6b98aa7b520cbc565058c2435fc8867
       size: 1133803
   split:
-    cmd: poetry run split --preprocessed-data-path data/raw/cr_loan2.csv --train-path
-      data/raw/train.csv --test-path data/raw/test.csv
+    cmd: poetry run split --raw-data-path data/raw/cr_loan2.csv --train-path data/raw/train.csv
+      --test-path data/raw/test.csv
     deps:
     - path: credit_default_prediction/split.py
       hash: md5
-      md5: b5dd0884bd6524339c7e98c29a767ece
-      size: 1994
+      md5: 32c358e2f7e4fc90da789cd66b66c308
+      size: 1979
     - path: data/raw/cr_loan2.csv
       hash: md5
       md5: f55e028c4bc9d2bd4e4e0976599a8994
