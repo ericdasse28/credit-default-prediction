@@ -1,6 +1,6 @@
 stages:
   split:
-    cmd: poetry run split --preprocessed-data-path data/raw/cr_loan2.csv --train-path
+    cmd: poetry run split --raw-data-path data/raw/cr_loan2.csv --train-path
       data/raw/train.csv --test-path data/raw/test.csv
     deps:
     - credit_default_prediction/split.py
