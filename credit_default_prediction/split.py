@@ -17,6 +17,16 @@ class SplitParams:
 def split_data(
     loan_data: pd.DataFrame, split_params: SplitParams
 ) -> tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
+    """Splits data into features and targets training and test sets.
+
+    Args:
+        loan_data (pd.DataFrame): Loan applications data containing features and target.
+        split_params (SplitParams): Parameters required to appropriately split the data.
+
+    Returns:
+        tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]: Split data.
+    """
+
     X, y = get_features_and_labels(loan_data)
     X_train, X_test, y_train, y_test = train_test_split(
         X,
