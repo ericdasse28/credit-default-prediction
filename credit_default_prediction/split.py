@@ -14,7 +14,9 @@ class SplitParams:
     random_state: int
 
 
-def split_data(loan_data: pd.DataFrame, split_params: SplitParams) -> tuple:
+def split_data(
+    loan_data: pd.DataFrame, split_params: SplitParams
+) -> tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
     X, y = get_features_and_labels(loan_data)
     X_train, X_test, y_train, y_test = train_test_split(
         X,
