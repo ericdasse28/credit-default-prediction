@@ -11,7 +11,6 @@ preprocess_data = "scripts.preprocess_data:main"
 split = "scripts.split:main"
 train = "scripts.train:main"
 evaluate = "scripts.evaluate:main"
-hyperparams_tuning = "credit_default_prediction.hyperparams_tuning:main"
 feature_engineering = "scripts.feature_engineering:main"
 cross_validate = "scripts.validate:main"
 
