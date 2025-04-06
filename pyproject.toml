@@ -7,12 +7,12 @@ license = "MIT"
 readme = "README.md"
 
 [tool.poetry.scripts]
-preprocess_data = "scripts.preprocess_data:main"
 split = "scripts.split:main"
-train = "scripts.train:main"
-evaluate = "scripts.evaluate:main"
+preprocess_data = "scripts.preprocess_data:main"
 feature_engineering = "scripts.feature_engineering:main"
+train = "scripts.train:main"
 cross_validate = "scripts.validate:main"
+evaluate = "scripts.evaluate:main"
 
 [tool.poetry.dependencies]
 python = "^3.10"
