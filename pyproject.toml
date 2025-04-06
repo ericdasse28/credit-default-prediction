@@ -9,7 +9,7 @@ readme = "README.md"
 [tool.poetry.scripts]
 preprocess_data = "scripts.preprocess_data:main"
 split = "scripts.split:main"
-train = "credit_default_prediction.train:main"
+train = "scripts.train:main"
 evaluate = "credit_default_prediction.evaluate:main"
 hyperparams_tuning = "credit_default_prediction.hyperparams_tuning:main"
 feature_engineering = "credit_default_prediction.feature_engineering:main"
