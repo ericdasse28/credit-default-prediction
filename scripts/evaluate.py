@@ -4,7 +4,7 @@ import joblib
 import pandas as pd
 
 from credit_default_prediction.dataset import get_features_and_labels
-from credit_default_prediction.evaluate import evaluate, log_plots
+from credit_default_prediction.evaluation import evaluate, log_plots
 from credit_default_prediction.feature_engineering import engineer_features
 from credit_default_prediction.metrics import save_model_metrics
 from credit_default_prediction.preprocess_data import preprocess_data

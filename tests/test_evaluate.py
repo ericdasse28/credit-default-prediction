@@ -1,7 +1,7 @@
 import pandas as pd
 import pytest
 
-from credit_default_prediction.evaluate import generate_feature_importance_data
+from credit_default_prediction.evaluation import generate_feature_importance_data
 
 
 @pytest.fixture
