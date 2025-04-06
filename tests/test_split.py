@@ -19,12 +19,12 @@ def test_split_data():
     )
     dummy_parameters = SplitParams(test_size=0.2, random_state=3)
 
-    X_train, X_test, y_train, y_test = split_data(dummy_data, dummy_parameters)
+    training_data, test_data = split_data(dummy_data, dummy_parameters)
 
-    assert len(X_train) == 2
-    assert len(y_train) == 2
-    assert len(X_test) == 1
-    assert len(y_test) == 1
+    assert len(training_data.X) == 2
+    assert len(training_data.y) == 2
+    assert len(test_data.X) == 1
+    assert len(test_data.y) == 1
 
 
 def test_split_data_missing_loan_status():

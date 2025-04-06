@@ -1,8 +1,15 @@
 """Dataset-related functions."""
 
 import os
+from dataclasses import dataclass
 
 import pandas as pd
+
+
+@dataclass
+class Dataset:
+    X: pd.DataFrame
+    y: pd.Series
 
 
 def get_features_and_labels(loan_data: pd.DataFrame) -> tuple[
