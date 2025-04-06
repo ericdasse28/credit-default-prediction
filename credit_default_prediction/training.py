@@ -11,7 +11,7 @@ import xgboost as xgb
 class HyperParams:
     learning_rate: float
     max_depth: 4
-    min_child_wieght: 1
+    min_child_weight: 1
 
 
 def train(X: pd.Series, y: pd.Series, hyper_parameters: HyperParams):
