@@ -3,8 +3,8 @@ import pandas as pd
 from pandas.api.types import is_integer_dtype
 from pytest_mock import MockerFixture
 
-from credit_default_prediction import preprocess_data as preprocess_module
-from credit_default_prediction.preprocess_data import (
+from credit_default_prediction import data_preprocessing as preprocess_module
+from credit_default_prediction.data_preprocessing import (
     handle_features_types,
     handle_missing_values,
     handle_outliers,

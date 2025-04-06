@@ -2,7 +2,7 @@ import argparse
 
 import pandas as pd
 
-from credit_default_prediction.preprocess_data import preprocess_data
+from credit_default_prediction.data_preprocessing import preprocess_data
 
 
 def _get_arguments():
