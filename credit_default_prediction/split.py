@@ -25,10 +25,10 @@ def split_data(
         tuple[Dataset, Dataset]: Split data.
     """
 
-    X, y = get_features_and_labels(loan_data)
+    loan_dataset = get_features_and_labels(loan_data)
     X_train, X_test, y_train, y_test = train_test_split(
-        X,
-        y,
+        loan_dataset.X,
+        loan_dataset.y,
         test_size=split_params.test_size,
         random_state=split_params.random_state,
     )

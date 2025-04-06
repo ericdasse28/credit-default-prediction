@@ -12,14 +12,11 @@ class Dataset:
     y: pd.Series
 
 
-def get_features_and_labels(loan_data: pd.DataFrame) -> tuple[
-    pd.DataFrame,
-    pd.Series,
-]:
+def get_features_and_labels(loan_data: pd.DataFrame) -> Dataset:
     X = loan_data.drop("loan_status", axis=1)
     y = loan_data["loan_status"]
 
-    return X, y
+    return Dataset(X=X, y=y)
 
 
 def get_features_and_labels_from_path(dataset_path: os.PathLike) -> tuple[
