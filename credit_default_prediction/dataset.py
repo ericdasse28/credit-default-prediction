@@ -19,11 +19,8 @@ def get_features_and_labels(loan_data: pd.DataFrame) -> Dataset:
     return Dataset(X=X, y=y)
 
 
-def get_features_and_labels_from_path(dataset_path: os.PathLike) -> tuple[
-    pd.DataFrame,
-    pd.Series,
-]:
+def get_features_and_labels_from_path(dataset_path: os.PathLike) -> Dataset:
     loan_data = pd.read_csv(dataset_path)
     X, y = get_features_and_labels(loan_data)
 
-    return X, y
+    return Dataset(X=X, y=y)
