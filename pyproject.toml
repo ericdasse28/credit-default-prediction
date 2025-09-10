@@ -18,7 +18,7 @@ evaluate = "scripts.evaluate:main"
 python = "^3.10"
 scikit-learn = "^1.5.1"
 seaborn = "^0.13.2"
-dvclive = "^3.48.0"
+dvclive = "^3.48.5"
 xgboost = "^2.1.1"
 
 [tool.poetry.group.dev.dependencies]
