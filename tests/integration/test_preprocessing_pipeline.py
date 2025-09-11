@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+from numpy.testing import assert_array_equal
 
 from credit_default_prediction.preprocessing import build_preprocessing_pipeline
 
@@ -28,7 +29,7 @@ def test_missing_loan_interests_are_dropped():
             [7.14, 65, 20],
         ]
     )
-    assert expected_clean_loan_data.all() == transformed.all()
+    assert_array_equal(transformed, expected_clean_loan_data)
 
 
 def test_missing_person_emp_length_are_imputed():
@@ -58,4 +59,8 @@ def test_missing_person_emp_length_are_imputed():
             [19, 7.8, 3],
         ]
     )
-    assert expected_clean_loan_data.all() == transformed.all()
+    assert_array_equal(
+        transformed,
+        expected_clean_loan_data,
+    )
+
