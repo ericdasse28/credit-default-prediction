@@ -64,3 +64,32 @@ def test_missing_person_emp_length_are_imputed():
         expected_clean_loan_data,
     )
 
+
+def test_rows_with_outlier_employment_lengths_are_dropped():
+    """Given loan applications,
+    When we preprocess them,
+    Then rows with employment lengths greater than 60 years are dropped.
+    """
+
+    loan_applications = pd.DataFrame(
+        {
+            "person_emp_length": [3, 0, 70, 60, 120],
+            "loan_int_rate": [11.5, 8.3, 4.5, 6.9, 7.8],
+            "loan_status": [1, 1, 0, 0, 1],
+        }
+    )
+    preprocessor = build_preprocessing_pipeline()
+
+    transformed = preprocessor.fit_transform(loan_applications)
+
+    expected_clean_loan_applications = np.array(
+        [
+            [3, 11.5, 1],
+            [0, 8.3, 1],
+            [60, 6.9, 0],
+        ]
+    )
+    assert_array_equal(
+        transformed,
+        expected_clean_loan_applications,
+    )
