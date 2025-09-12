@@ -55,7 +55,10 @@ class DropOutliersRows(BaseEstimator, TransformerMixin):
         return X[X[self.column] <= self.max_value]
 
 
-def build_preprocessing_pipeline(categorical_features: list[str]) -> Pipeline:
+def build_preprocessing_pipeline(categorical_features: list[str] = None) -> Pipeline:
+    if not categorical_features:
+        categorical_features = []
+
     emp_length_transformer = ColumnTransformer(
         transformers=[
             (
