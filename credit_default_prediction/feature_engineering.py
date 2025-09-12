@@ -19,11 +19,9 @@ def engineer_features(clean_loan_data: pd.DataFrame) -> pd.DataFrame:
     """Perform feature engineering on input clean loan
     applications dataframe."""
 
-    # One-hot encoding
-    feature_engineered_data = pd.get_dummies(clean_loan_data)
     # Log tranform large features
     feature_engineered_data = log_transform_large_features(
-        feature_engineered_data,
+        clean_loan_data,
     )
 
     return feature_engineered_data
