@@ -15,16 +15,16 @@ def test_engineer_features():
 
     clean_loan_data = pd.DataFrame(
         {
-            "person_age": [21, 25, 23, 24],
             "person_income": [
                 33600,
                 42000,
                 49500,
                 75000,
             ],
-            "person_home_ownership": ["OWN", "MORTGAGE", "RENT", "RENT"],
             "person_emp_length": [5.0, 1.0, 4.0, 8.0],
-            "loan_intent": ["EDUCATION", "MEDICAL", "MEDICAL", "MEDICAL"],
+            "person_age": [21, 25, 23, 24],
+            "loan_percent_income": [0.1, 0.57, 0.53, 0.55],
+            "loan_int_rate": [11.14, 12.87, 15.23, 14.27],
             "loan_grade": ["B", "C", "C", "C"],
             "loan_amnt": [
                 5000,
@@ -32,11 +32,9 @@ def test_engineer_features():
                 6000,
                 9600,
             ],
-            "loan_int_rate": [11.14, 12.87, 15.23, 14.27],
+            "loan_intent": ["EDUCATION", "MEDICAL", "MEDICAL", "MEDICAL"],
+            "person_home_ownership": ["OWN", "MORTGAGE", "RENT", "RENT"],
             "loan_status": [0, 1, 1, 1],
-            "loan_percent_income": [0.1, 0.57, 0.53, 0.55],
-            "cb_person_default_on_file": [0, 0, 0, 1],
-            "cb_person_cred_hist_length": [2, 3, 2, 4],
         }
     )
 
