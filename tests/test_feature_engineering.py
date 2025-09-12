@@ -25,16 +25,20 @@ def test_engineer_features():
             "person_age": [21, 25, 23, 24],
             "loan_percent_income": [0.1, 0.57, 0.53, 0.55],
             "loan_int_rate": [11.14, 12.87, 15.23, 14.27],
-            "loan_grade": ["B", "C", "C", "C"],
             "loan_amnt": [
                 5000,
                 6000,
                 6000,
                 9600,
             ],
-            "loan_intent": ["EDUCATION", "MEDICAL", "MEDICAL", "MEDICAL"],
-            "person_home_ownership": ["OWN", "MORTGAGE", "RENT", "RENT"],
             "loan_status": [0, 1, 1, 1],
+            "loan_grade_B": [True, False, False, False],
+            "loan_grade_C": [False, True, True, True],
+            "loan_intent_EDUCATION": [True, False, False, False],
+            "loan_intent_MEDICAL": [False, True, True, True],
+            "person_home_ownership_MORTGAGE": [False, True, False, False],
+            "person_home_ownership_OWN": [True, False, False, False],
+            "person_home_ownership_RENT": [False, False, True, True],
         }
     )
 
