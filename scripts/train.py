@@ -2,7 +2,7 @@ import argparse
 
 import numpy as np
 
-from credit_default_prediction.dataset import get_features_and_labels_from_path
+from credit_default_prediction.dataset import collect_loan_dataset_from_path
 from credit_default_prediction.tools import params
 from credit_default_prediction.training import save_model_artifact, train
 
@@ -17,7 +17,7 @@ def _get_arguments():
 
 def main():
     args = _get_arguments()
-    X_train, y_train = get_features_and_labels_from_path(
+    X_train, y_train = collect_loan_dataset_from_path(
         args.train_dataset_path,
     )
 

@@ -6,14 +6,14 @@ import numpy as np
 import xgboost as xgb
 from sklearn.model_selection import GridSearchCV
 
-from credit_default_prediction.dataset import get_features_and_labels_from_path
+from credit_default_prediction.dataset import collect_loan_dataset_from_path
 
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--dataset-path")
     args = parser.parse_args()
-    X_train, y_train = get_features_and_labels_from_path(args.dataset_path)
+    X_train, y_train = collect_loan_dataset_from_path(args.dataset_path)
 
     params_to_test = {
         "learning_rate": np.arange(0, 1, 0.1),

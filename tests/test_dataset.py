@@ -4,8 +4,8 @@ from pandas.testing import assert_frame_equal, assert_series_equal
 
 from credit_default_prediction.dataset import (
     Dataset,
-    get_features_and_labels,
-    get_features_and_labels_from_path,
+    collect_loan_dataset,
+    collect_loan_dataset_from_path,
 )
 
 

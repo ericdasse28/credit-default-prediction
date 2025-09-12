@@ -12,15 +12,15 @@ class Dataset:
     y: pd.Series
 
 
-def get_features_and_labels(loan_data: pd.DataFrame) -> Dataset:
+def collect_loan_dataset(loan_data: pd.DataFrame) -> Dataset:
     X = loan_data.drop("loan_status", axis=1)
     y = loan_data["loan_status"]
 
     return Dataset(X=X, y=y)
 
 
-def get_features_and_labels_from_path(dataset_path: os.PathLike) -> Dataset:
+def collect_loan_dataset_from_path(dataset_path: os.PathLike) -> Dataset:
     loan_data = pd.read_csv(dataset_path)
-    loan_dataset = get_features_and_labels(loan_data)
+    loan_dataset = collect_loan_dataset(loan_data)
 
     return Dataset(X=loan_dataset.X, y=loan_dataset.y)
