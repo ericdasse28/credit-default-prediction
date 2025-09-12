@@ -14,7 +14,7 @@ def test_missing_loan_interests_are_dropped():
     loan_applications = pd.DataFrame(
         {
             "loan_int_rate": [11.84, np.nan, 12.5, 7.14, np.nan],
-            "person_age": [20, 50, 18, 65, 19],
+            "person_age": [20, 50, 18, 25, 19],
             "person_emp_length": [2, 15, 1.3, 20, 3],
         }
     )
@@ -26,7 +26,7 @@ def test_missing_loan_interests_are_dropped():
         [
             [2, 11.84, 20],
             [1.3, 12.5, 18],
-            [20, 7.14, 65],
+            [20, 7.14, 25],
         ]
     )
     assert_array_equal(transformed, expected_clean_loan_data)
