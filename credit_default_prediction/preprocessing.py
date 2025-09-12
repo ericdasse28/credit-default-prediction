@@ -5,6 +5,7 @@ from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import OneHotEncoder
 
 from credit_default_prediction.preserve_df import PreserveDF
 
@@ -54,7 +55,7 @@ class DropOutliersRows(BaseEstimator, TransformerMixin):
         return X[X[self.column] <= self.max_value]
 
 
-def build_preprocessing_pipeline() -> Pipeline:
+def build_preprocessing_pipeline(categorical_features: list[str]) -> Pipeline:
     emp_length_transformer = ColumnTransformer(
         transformers=[
             (
@@ -69,6 +70,16 @@ def build_preprocessing_pipeline() -> Pipeline:
         ],
         remainder="passthrough",  # Keep all other columns
     )
+    cat_features_transformer = ColumnTransformer(
+        transformers=[
+            (
+                "encoder",
+                Pipeline([("encoder", OneHotEncoder())]),
+                categorical_features,
+            )
+        ],
+        remainder="passthrough",
+    )
 
     preprocessor = Pipeline(
         steps=[
@@ -78,6 +89,7 @@ def build_preprocessing_pipeline() -> Pipeline:
                 "emp_length_outliers",
                 DropOutliersRows(column="person_emp_length", max_value=60),
             ),
+            ("cat", cat_features_transformer),
         ]
     )
 

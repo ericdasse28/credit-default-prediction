@@ -93,3 +93,38 @@ def test_rows_with_outlier_employment_lengths_are_dropped():
         transformed,
         expected_clean_loan_applications,
     )
+
+
+def test_categorical_features_are_one_hot_encoded():
+    """Given loan applications and a list of categorical features
+    of interest within it,
+    When we preprocess them,
+    Then the provided categorical features are one-hot encoded.
+    """
+
+    loan_applications = pd.DataFrame(
+        {
+            "person_emp_length": [3, 0, 70, 60, 120],
+            "loan_int_rate": [11.5, 8.3, 4.5, 6.9, 7.8],
+            "loan_grade": ["B", "C", "C", "C", "B"],
+            "loan_intent": ["EDUCATION", "MEDICAL", "MEDICAL", "MEDICAL", "MEDICAL"],
+            "loan_status": [1, 1, 0, 0, 1],
+        }
+    )
+    preprocessor = build_preprocessing_pipeline(
+        categorical_features=["loan_grade", "loan_intent"]
+    )
+
+    transformed = preprocessor.fit_transform(loan_applications)
+
+    expected_clean_loan_applications = np.array(
+        [
+            [True, False, True, False, 3, 11.5, 1],
+            [False, True, False, True, 0, 8.3, 1],
+            [False, True, False, True, 60, 6.9, 0],
+        ]
+    )
+    assert_array_equal(
+        transformed,
+        expected_clean_loan_applications,
+    )
