@@ -24,9 +24,9 @@ def test_missing_loan_interests_are_dropped():
 
     expected_clean_loan_data = np.array(
         [
-            [11.84, 20, 2],
-            [12.5, 18, 1.3],
-            [7.14, 65, 20],
+            [2, 11.84, 20],
+            [1.3, 12.5, 18],
+            [20, 7.14, 65],
         ]
     )
     assert_array_equal(transformed, expected_clean_loan_data)
@@ -52,11 +52,11 @@ def test_missing_person_emp_length_are_imputed():
     median_emp_length = loan_applications["person_emp_length"].median()
     expected_clean_loan_data = np.array(
         [
-            [40, 11.5, median_emp_length],
-            [35, 8.3, 12],
-            [50, 4.5, 13],
-            [40, 6.9, 25],
-            [19, 7.8, 3],
+            [median_emp_length, 40, 11.5],
+            [12, 35, 8.3],
+            [13, 50, 4.5],
+            [25, 40, 6.9],
+            [3, 19, 7.8],
         ]
     )
     assert_array_equal(
