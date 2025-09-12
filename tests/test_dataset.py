@@ -26,7 +26,7 @@ def dummy_dataset_path(tmp_path):
     return dataset_csv_path
 
 
-def test_get_features_and_labels():
+def test_collect_loan_dataset():
     dummy_data = pd.DataFrame(
         {
             "person_age": [22, 25, 40],
@@ -44,15 +44,15 @@ def test_get_features_and_labels():
     )
     y = pd.Series([0, 1, 1], name="loan_status")
 
-    actual_dataset = get_features_and_labels(dummy_data)
+    actual_dataset = collect_loan_dataset(dummy_data)
 
     expected_dataset = Dataset(X=X, y=y)
     assert_frame_equal(expected_dataset.X, actual_dataset.X)
     assert_series_equal(expected_dataset.y, actual_dataset.y)
 
 
-def test_get_features_and_labels_from_path(dummy_dataset_path):
-    actual_dataset = get_features_and_labels_from_path(dummy_dataset_path)
+def test_collect_loan_dataset_from_path(dummy_dataset_path):
+    actual_dataset = collect_loan_dataset_from_path(dummy_dataset_path)
 
     X = pd.DataFrame(
         {
