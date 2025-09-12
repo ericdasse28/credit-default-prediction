@@ -19,8 +19,13 @@ def collect_loan_dataset(loan_data: pd.DataFrame) -> Dataset:
     return Dataset(X=X, y=y)
 
 
-def collect_loan_dataset_from_path(dataset_path: os.PathLike) -> Dataset:
+def collect_loan_dataset_from_path(
+    dataset_path: os.PathLike, columns: list[str] = None
+) -> Dataset:
     loan_data = pd.read_csv(dataset_path)
+    if columns:
+        loan_data = loan_data[columns]
+
     loan_dataset = collect_loan_dataset(loan_data)
 
     return Dataset(X=loan_dataset.X, y=loan_dataset.y)

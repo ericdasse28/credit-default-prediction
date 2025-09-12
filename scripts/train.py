@@ -15,12 +15,20 @@ def _get_arguments():
     return parser.parse_args()
 
 
+def get_important_features() -> list[str]:
+    preprocess_params = params.load_stage_params("feature_engineering")
+    return preprocess_params["important_columns"]
+
+
 def main():
     args = _get_arguments()
-    X_train, y_train = collect_loan_dataset_from_path(
-        args.train_dataset_path,
+    train_dataset = collect_loan_dataset_from_path(
+        args.train_dataset_path, columns=get_important_features()
     )
+
+    X_train, y_train = train_dataset.X, train_dataset.y
 
     hyperparameters = params.get_hyperparameters()
     model = train(X_train, np.ravel(y_train), hyperparameters)
+
     save_model_artifact(model, args.model_path)
