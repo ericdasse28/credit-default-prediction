@@ -2,13 +2,6 @@ import numpy as np
 import pandas as pd
 from sklearn.base import BaseEstimator, TransformerMixin
 
-from credit_default_prediction.tools import params
-
-
-def get_important_features() -> list[str]:
-    preprocess_params = params.load_stage_params("feature_engineering")
-    return preprocess_params["important_columns"]
-
 
 def log_transform_large_features(loan_data: pd.DataFrame) -> pd.DataFrame:
     """Applies log transformation to large features."""
@@ -26,10 +19,8 @@ def engineer_features(clean_loan_data: pd.DataFrame) -> pd.DataFrame:
     """Perform feature engineering on input clean loan
     applications dataframe."""
 
-    # Feature selection
-    feature_engineered_data = clean_loan_data[get_important_features()]
     # One-hot encoding
-    feature_engineered_data = pd.get_dummies(feature_engineered_data)
+    feature_engineered_data = pd.get_dummies(clean_loan_data)
     # Log tranform large features
     feature_engineered_data = log_transform_large_features(
         feature_engineered_data,
