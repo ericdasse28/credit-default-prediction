@@ -1,13 +1,11 @@
 import argparse
 
 import joblib
-import pandas as pd
 
-from credit_default_prediction.data_preprocessing import preprocess_data
-from credit_default_prediction.dataset import collect_loan_dataset
+from credit_default_prediction.dataset import collect_loan_dataset_from_path
 from credit_default_prediction.evaluation import evaluate, log_plots
-from credit_default_prediction.feature_engineering import engineer_features
 from credit_default_prediction.metrics import save_model_metrics
+from credit_default_prediction.tools import params
 
 
 def _get_arguments():
@@ -22,10 +20,11 @@ def main():
 
     args = _get_arguments()
     model = joblib.load(args.model_path)
-    test_data = pd.read_csv(args.test_dataset_path)
-    preprocessed_test_data = preprocess_data(test_data)
-    preprocessed_test_data = engineer_features(preprocessed_test_data)
-    X_test, y_test = collect_loan_dataset(preprocessed_test_data)
+    test_dataset = collect_loan_dataset_from_path(
+        args.test_dataset_path,
+        columns=params.get_important_features(),
+    )
+    X_test, y_test = test_dataset.X, test_dataset.y
 
     metrics = evaluate(model, X_test.values, y_test.values)
     save_model_metrics(metrics)
