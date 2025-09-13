@@ -1,8 +1,7 @@
 import argparse
+from pathlib import Path
 
-import pandas as pd
-
-from credit_default_prediction.split import SplitParams, split_data
+from credit_default_prediction.split import SplitParams, split_data_from_path
 from credit_default_prediction.tools.params import load_stage_params
 
 
@@ -23,17 +22,13 @@ def _load_split_params() -> SplitParams:
     )
 
 
-def _save_loan_data(X, y, save_path):
-    loan_data = pd.concat([X, y], axis=1)
-    loan_data.to_csv(save_path, index=False)
-
-
 def main():
     args = _get_arguments()
 
-    loan_data = pd.read_csv(args.raw_data_path)
     split_params = _load_split_params()
-    X_train, X_test, y_train, y_test = split_data(loan_data, split_params)
-
-    _save_loan_data(X_train, y_train, args.train_path)
-    _save_loan_data(X_test, y_test, args.test_path)
+    split_data_dir = Path(args.train_path).parent
+    split_data_from_path(
+        raw_data_path=args.raw_data_path,
+        split_data_dir=split_data_dir,
+        split_params=split_params,
+    )
