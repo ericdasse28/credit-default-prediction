@@ -3,7 +3,7 @@ import argparse
 import joblib
 from sklearn.model_selection import KFold, cross_val_score
 
-from credit_default_prediction.dataset import collect_loan_dataset_from_path
+from credit_default_prediction.dataset import LoanApplications
 from credit_default_prediction.metrics import save_model_metrics
 
 
@@ -18,29 +18,29 @@ def _get_arguments():
 def main():
     args = _get_arguments()
     model = joblib.load(args.model_path)
-    X_train, y_train = collect_loan_dataset_from_path(
+    train_dataset = LoanApplications.from_path(
         args.train_dataset_path,
     )
     kf = KFold(n_splits=5, shuffle=True, random_state=42)
 
     avg_accuracy = cross_val_score(
         model,
-        X_train,
-        y_train,
+        train_dataset.X,
+        train_dataset.y,
         cv=kf,
         scoring="accuracy",
     ).mean()
     avg_precision = cross_val_score(
         model,
-        X_train,
-        y_train,
+        train_dataset.X,
+        train_dataset.y,
         cv=kf,
         scoring="precision",
     ).mean()
     avg_recall = cross_val_score(
         model,
-        X_train,
-        y_train,
+        train_dataset.X,
+        train_dataset.y,
         cv=kf,
         scoring="recall",
     ).mean()
