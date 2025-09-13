@@ -2,6 +2,8 @@ from pathlib import Path
 
 import yaml
 
+from credit_default_prediction.tools import params
+
 PARAMS_FILE_PATH = Path(__file__).parent.parent.parent / "params.yaml"
 
 
@@ -26,3 +28,8 @@ def _get_hyperparameters_from_config(params_file_path):
 
 def get_hyperparameters():
     return _get_hyperparameters_from_config(PARAMS_FILE_PATH)
+
+
+def get_important_features() -> list[str]:
+    preprocess_params = params.load_stage_params("feature_engineering")
+    return preprocess_params["important_columns"]

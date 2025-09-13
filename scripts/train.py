@@ -4,6 +4,7 @@ import numpy as np
 
 from credit_default_prediction.dataset import collect_loan_dataset_from_path
 from credit_default_prediction.tools import params
+from credit_default_prediction.tools.params import get_important_features
 from credit_default_prediction.training import HyperParams, save_model_artifact, train
 
 
@@ -13,11 +14,6 @@ def _get_arguments():
     parser.add_argument("--model-path")
 
     return parser.parse_args()
-
-
-def get_important_features() -> list[str]:
-    preprocess_params = params.load_stage_params("feature_engineering")
-    return preprocess_params["important_columns"]
 
 
 def main():
