@@ -9,7 +9,7 @@ readme = "README.md"
 [tool.poetry.scripts]
 split = "scripts.split:main"
 preprocess_data = "scripts.preprocess_data:main"
-feature_engineering = "scripts.feature_engineering:main"
+feature_engineering = "scripts.engineer_features:main"
 train = "scripts.train:main"
 cross_validate = "scripts.validate:main"
 evaluate = "scripts.evaluate:main"
