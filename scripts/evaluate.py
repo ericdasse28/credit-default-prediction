@@ -3,7 +3,7 @@ import argparse
 import joblib
 
 from credit_default_prediction import params
-from credit_default_prediction.dataset import collect_loan_dataset_from_path
+from credit_default_prediction.dataset import LoanApplications
 from credit_default_prediction.evaluation import evaluate, log_plots
 from credit_default_prediction.metrics import save_model_metrics
 
@@ -20,7 +20,7 @@ def main():
 
     args = _get_arguments()
     model = joblib.load(args.model_path)
-    test_dataset = collect_loan_dataset_from_path(
+    test_dataset = LoanApplications.from_path(
         args.test_dataset_path,
         columns=params.get_important_features(),
     )
