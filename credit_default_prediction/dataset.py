@@ -11,7 +11,12 @@ class Dataset:
     X: pd.DataFrame
     y: pd.Series
 
+    def save_to_csv(self, csv_path: os.PathLike):
+        as_dataframe = pd.concat([self.X, self.y], axis=1)
+        as_dataframe.to_csv(csv_path, index=False)
 
+
+# TODO: move to Dataset dataclass
 def collect_loan_dataset(loan_data: pd.DataFrame) -> Dataset:
     X = loan_data.drop("loan_status", axis=1)
     y = loan_data["loan_status"]

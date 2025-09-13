@@ -1,4 +1,6 @@
+import os
 from dataclasses import dataclass
+from pathlib import Path
 
 import pandas as pd
 from sklearn.model_selection import train_test_split
@@ -36,3 +38,27 @@ def split_data(
     training_data = Dataset(X=X_train, y=y_train)
     test_data = Dataset(X=X_test, y=y_test)
     return training_data, test_data
+
+
+def split_data_from_path(
+    raw_data_path: os.PathLike,
+    split_data_dir: os.PathLike,
+    split_params: SplitParams,
+):
+    """Reads raw loan applications from `raw_data_path`
+    and splits them into training and test datasets.
+
+    Args:
+        raw_data_path (os.PathLike): Path to raw loan applications.
+        split_data_dir (os.PathLike): Directory where training and test datasets CSV files are to be saved.
+        split_params (SplitParams): Parameters required to appropriately split the data.
+    """
+
+    loan_applications = pd.read_csv(raw_data_path)
+    train_path = Path(split_data_dir) / "train.csv"
+    test_path = Path(split_data_dir) / "test.csv"
+
+    training_dataset, test_dataset = split_data(loan_applications, split_params)
+
+    training_dataset.save_to_csv(train_path)
+    test_dataset.save_to_csv(test_path)
