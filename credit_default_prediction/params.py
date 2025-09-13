@@ -7,7 +7,7 @@ from credit_default_prediction.split import SplitParams
 PARAMS_FILE_PATH = Path(__file__).parent.parent / "params.yaml"
 
 
-def load_pipeline_params() -> dict:
+def _load_pipeline_params() -> dict:
     with open(PARAMS_FILE_PATH) as params_file:
         pipeline_params = yaml.safe_load(params_file)
 
@@ -15,7 +15,7 @@ def load_pipeline_params() -> dict:
 
 
 def _load_stage_params(stage_name: str) -> dict:
-    pipeline_params = load_pipeline_params()
+    pipeline_params = _load_pipeline_params()
     return pipeline_params[stage_name]
 
 
