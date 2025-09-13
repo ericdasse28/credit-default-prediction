@@ -3,8 +3,7 @@ import argparse
 import numpy as np
 
 from credit_default_prediction import params
-from credit_default_prediction.dataset import collect_loan_dataset_from_path
-from credit_default_prediction.params import get_important_features
+from credit_default_prediction.dataset import LoanApplications
 from credit_default_prediction.training import HyperParams, save_model_artifact, train
 
 
@@ -18,13 +17,12 @@ def _get_arguments():
 
 def main():
     args = _get_arguments()
-    train_dataset = collect_loan_dataset_from_path(
-        args.train_dataset_path, columns=get_important_features()
+    train_dataset = LoanApplications.from_path(
+        args.train_dataset_path,
+        columns=params.get_important_features(),
     )
 
-    X_train, y_train = train_dataset.X, train_dataset.y
-
     hyperparameters = HyperParams(**params.get_hyperparameters())
-    model = train(X_train, np.ravel(y_train), hyperparameters)
+    model = train(train_dataset.X, np.ravel(train_dataset.y), hyperparameters)
 
     save_model_artifact(model, args.model_path)
