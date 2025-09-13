@@ -92,7 +92,7 @@ def build_preprocessing_pipeline(categorical_features: list[str] = None) -> Pipe
                 "emp_length_outliers",
                 DropOutliersRows(column="person_emp_length", max_value=60),
             ),
-            ("cat", cat_features_transformer),
+            ("cat", PreserveDF(cat_features_transformer)),
         ]
     )
 
