@@ -28,16 +28,16 @@ class DataFrameImputer(BaseEstimator, TransformerMixin):
 
     def __init__(self, strategy="median"):
         self.strategy = strategy
-        self.imputer = SimpleImputer(strategy=strategy)
+        self.imputer_ = SimpleImputer(strategy=strategy)
         self.columns = None
 
     def fit(self, X: pd.DataFrame, y=None):
         self.columns = X.columns
-        self.imputer.fit(X)
+        self.imputer_.fit(X)
         return self
 
     def transform(self, X: pd.DataFrame):
-        X_t = self.imputer.transform(X)
+        X_t = self.imputer_.transform(X)
         return pd.DataFrame(X_t, columns=self.columns, index=X.index)
 
 
