@@ -4,7 +4,7 @@ import numpy as np
 
 from credit_default_prediction import params
 from credit_default_prediction.dataset import LoanApplications
-from credit_default_prediction.training import HyperParams, save_model_artifact, train
+from credit_default_prediction.training import save_model_artifact, train
 
 
 def _get_arguments():
@@ -22,7 +22,7 @@ def main():
         columns=params.get_important_features(),
     )
 
-    hyperparameters = HyperParams.from_dict(params.get_hyperparameters())
+    hyperparameters = params.get_hyperparameters()
     model = train(train_dataset.X, np.ravel(train_dataset.y), hyperparameters)
 
     save_model_artifact(model, args.model_path)

@@ -3,6 +3,7 @@ from pathlib import Path
 import yaml
 
 from credit_default_prediction.split import SplitParams
+from credit_default_prediction.training import HyperParams
 
 PARAMS_FILE_PATH = Path(__file__).parent.parent / "params.yaml"
 
@@ -26,8 +27,10 @@ def _get_hyperparameters_from_config(params_file_path):
     return params["train"]
 
 
-def get_hyperparameters():
-    return _get_hyperparameters_from_config(PARAMS_FILE_PATH)
+def get_hyperparameters() -> HyperParams:
+    hyper_params_dict = _get_hyperparameters_from_config(PARAMS_FILE_PATH)
+
+    return HyperParams.from_dict(hyper_params_dict)
 
 
 def get_important_features() -> list[str]:
