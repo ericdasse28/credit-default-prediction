@@ -5,7 +5,7 @@ from pathlib import Path
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
-from credit_default_prediction.dataset import Dataset
+from credit_default_prediction.dataset import LoanApplications
 
 
 @dataclass
@@ -16,7 +16,7 @@ class SplitParams:
 
 def split_data(
     loan_data: pd.DataFrame, split_params: SplitParams
-) -> tuple[Dataset, Dataset]:
+) -> tuple[LoanApplications, LoanApplications]:
     """Splits loan data into training and test features and labels (X_train, X_test, y_train, y_test).
 
     Args:
@@ -27,7 +27,7 @@ def split_data(
         tuple[Dataset, Dataset]: Split data.
     """
 
-    loan_dataset = Dataset.from_dataframe(loan_data)
+    loan_dataset = LoanApplications.from_dataframe(loan_data)
     X_train, X_test, y_train, y_test = train_test_split(
         loan_dataset.X,
         loan_dataset.y,
@@ -35,8 +35,8 @@ def split_data(
         random_state=split_params.random_state,
     )
 
-    training_data = Dataset(X=X_train, y=y_train)
-    test_data = Dataset(X=X_test, y=y_test)
+    training_data = LoanApplications(X=X_train, y=y_train)
+    test_data = LoanApplications(X=X_test, y=y_test)
     return training_data, test_data
 
 
