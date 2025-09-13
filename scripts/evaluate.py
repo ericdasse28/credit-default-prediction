@@ -2,10 +2,10 @@ import argparse
 
 import joblib
 
+from credit_default_prediction import params
 from credit_default_prediction.dataset import collect_loan_dataset_from_path
 from credit_default_prediction.evaluation import evaluate, log_plots
 from credit_default_prediction.metrics import save_model_metrics
-from credit_default_prediction.tools import params
 
 
 def _get_arguments():

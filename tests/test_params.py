@@ -1,7 +1,7 @@
 import pytest
 import yaml
 
-from credit_default_prediction.tools import params
+from credit_default_prediction import params
 
 
 @pytest.mark.parametrize(
@@ -30,7 +30,7 @@ def test_get_hyperparameters_from_config(tmp_path, params_file_content):
 def test_get_hyperparameters(mocker):
     fake_expected_hyperparameters = {"learning_rate": 0.3}
     mocked_get_hyperparameters_from_config = mocker.patch(
-        "credit_default_prediction.tools.params._get_hyperparameters_from_config",  # noqa
+        "credit_default_prediction.params._get_hyperparameters_from_config",  # noqa
         return_value=fake_expected_hyperparameters,
     )
 

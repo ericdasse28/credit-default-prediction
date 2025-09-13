@@ -2,9 +2,9 @@ import argparse
 
 import numpy as np
 
+from credit_default_prediction import params
 from credit_default_prediction.dataset import collect_loan_dataset_from_path
-from credit_default_prediction.tools import params
-from credit_default_prediction.tools.params import get_important_features
+from credit_default_prediction.params import get_important_features
 from credit_default_prediction.training import HyperParams, save_model_artifact, train
 
 

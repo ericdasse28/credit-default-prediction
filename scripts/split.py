@@ -1,8 +1,8 @@
 import argparse
 from pathlib import Path
 
+from credit_default_prediction import params
 from credit_default_prediction.split import split_data_from_path
-from credit_default_prediction.tools import params
 
 
 def _get_arguments():
