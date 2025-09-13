@@ -1,8 +1,7 @@
 import pandas as pd
 from sklearn.base import BaseEstimator
 
-from credit_default_prediction.tools import params
-from credit_default_prediction.training import train
+from credit_default_prediction.training import HyperParams, train
 
 
 def test_train():
@@ -31,7 +30,7 @@ def test_train():
         }
     )
     y = pd.Series([0, 1, 1, 1], name="loan_status")
-    hyperparameters = params.get_hyperparameters()
+    hyperparameters = HyperParams(learning_rate=0.2, max_depth=5, min_child_weight=7)
 
     trained_model = train(X, y, hyperparameters)
 

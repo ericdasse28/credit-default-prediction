@@ -1,6 +1,6 @@
 """Model training script."""
 
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
 
 import joblib
 import pandas as pd
@@ -18,9 +18,12 @@ class HyperParams:
     max_depth: 4
     min_child_weight: 1
 
+    def to_dict(self) -> dict[str, float]:
+        return asdict(self)
+
 
 def train(X: pd.DataFrame, y: pd.Series, hyper_parameters: HyperParams):
-    loan_default_classifier = xgb.XGBClassifier(**hyper_parameters)
+    loan_default_classifier = xgb.XGBClassifier(**hyper_parameters.to_dict())
     categorical_features = ["loan_grade", "loan_intent", "person_home_ownership"]
     preprocessing_pipeline = build_preprocessing_pipeline(
         categorical_features=categorical_features
