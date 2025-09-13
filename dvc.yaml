@@ -32,7 +32,7 @@ stages:
     cmd: poetry run train --train-dataset-path data/raw/train.csv --model-path
       model.pkl
     deps:
-    - credit_default_prediction/train.py
+    - credit_default_prediction/training.py
     - data/raw/train.csv
     outs:
     - model.pkl
