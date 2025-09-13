@@ -43,6 +43,6 @@ def test_split_data_missing_loan_status():
     dummy_parameters = SplitParams(test_size=0.2, random_state=3)
 
     with pytest.raises(KeyError) as e_info:
-        X_train, X_test, y_train, y_test = split_data(dummy_data, dummy_parameters)
+        split_data(dummy_data, dummy_parameters)
 
     assert "loan_status" in str(e_info.value)
