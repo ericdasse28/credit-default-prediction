@@ -1,5 +1,7 @@
 """Dataset-related functions."""
 
+from __future__ import annotations
+
 import os
 from dataclasses import dataclass
 
@@ -15,13 +17,12 @@ class Dataset:
         as_dataframe = pd.concat([self.X, self.y], axis=1)
         as_dataframe.to_csv(csv_path, index=False)
 
+    @classmethod
+    def from_dataframe(cls, loan_data: pd.DataFrame) -> Dataset:
+        X = loan_data.drop("loan_status", axis=1)
+        y = loan_data["loan_status"]
 
-# TODO: move to Dataset dataclass
-def collect_loan_dataset(loan_data: pd.DataFrame) -> Dataset:
-    X = loan_data.drop("loan_status", axis=1)
-    y = loan_data["loan_status"]
-
-    return Dataset(X=X, y=y)
+        return Dataset(X=X, y=y)
 
 
 def collect_loan_dataset_from_path(
@@ -31,6 +32,6 @@ def collect_loan_dataset_from_path(
     if columns:
         loan_data = loan_data[columns]
 
-    loan_dataset = collect_loan_dataset(loan_data)
+    loan_dataset = Dataset.from_dataframe(loan_data)
 
     return Dataset(X=loan_dataset.X, y=loan_dataset.y)

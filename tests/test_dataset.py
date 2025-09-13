@@ -2,11 +2,7 @@ import pandas as pd
 import pytest
 from pandas.testing import assert_frame_equal, assert_series_equal
 
-from credit_default_prediction.dataset import (
-    Dataset,
-    collect_loan_dataset,
-    collect_loan_dataset_from_path,
-)
+from credit_default_prediction.dataset import Dataset, collect_loan_dataset_from_path
 
 
 @pytest.fixture
@@ -44,7 +40,7 @@ def test_collect_loan_dataset():
     )
     y = pd.Series([0, 1, 1], name="loan_status")
 
-    actual_dataset = collect_loan_dataset(dummy_data)
+    actual_dataset = Dataset.from_dataframe(dummy_data)
 
     expected_dataset = Dataset(X=X, y=y)
     assert_frame_equal(expected_dataset.X, actual_dataset.X)

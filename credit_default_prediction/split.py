@@ -5,7 +5,7 @@ from pathlib import Path
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
-from credit_default_prediction.dataset import Dataset, collect_loan_dataset
+from credit_default_prediction.dataset import Dataset
 
 
 @dataclass
@@ -27,7 +27,7 @@ def split_data(
         tuple[Dataset, Dataset]: Split data.
     """
 
-    loan_dataset = collect_loan_dataset(loan_data)
+    loan_dataset = Dataset.from_dataframe(loan_data)
     X_train, X_test, y_train, y_test = train_test_split(
         loan_dataset.X,
         loan_dataset.y,
