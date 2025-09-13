@@ -22,7 +22,7 @@ def main():
         columns=params.get_important_features(),
     )
 
-    hyperparameters = HyperParams(**params.get_hyperparameters())
+    hyperparameters = HyperParams.from_dict(params.get_hyperparameters())
     model = train(train_dataset.X, np.ravel(train_dataset.y), hyperparameters)
 
     save_model_artifact(model, args.model_path)

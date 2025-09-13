@@ -1,5 +1,7 @@
 """Model training script."""
 
+from __future__ import annotations
+
 from dataclasses import asdict, dataclass
 
 import joblib
@@ -20,6 +22,10 @@ class HyperParams:
 
     def to_dict(self) -> dict[str, float]:
         return asdict(self)
+
+    @classmethod
+    def from_dict(cls, hyper_params: dict) -> HyperParams:
+        return cls(**hyper_params)
 
 
 def train(X: pd.DataFrame, y: pd.Series, hyper_parameters: HyperParams):
