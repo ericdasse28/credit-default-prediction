@@ -1,5 +1,12 @@
 name: Code quality
-on: [push]
+on:
+  push:
+    paths:
+      - credit_default_prediction/**.py
+      - scripts/**.py
+      - .github/workflows/code_quality.yaml
+      - pyproject.toml
+      - poetry.lock
 
 jobs:
   lint:
