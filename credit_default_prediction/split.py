@@ -1,10 +1,14 @@
+from __future__ import annotations
+
 import os
 from dataclasses import dataclass
 from pathlib import Path
 
+import click
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
+from credit_default_prediction import params
 from credit_default_prediction.dataset import LoanApplications
 
 
@@ -12,6 +16,14 @@ from credit_default_prediction.dataset import LoanApplications
 class SplitParams:
     test_size: float
     random_state: int
+
+    @classmethod
+    def from_config(cls) -> SplitParams:
+        pipeline_params = params.load_stage_params("split")
+        return SplitParams(
+            test_size=pipeline_params["test_size"],
+            random_state=pipeline_params["random_state"],
+        )
 
 
 def split_data(
@@ -62,3 +74,18 @@ def split_data_from_path(
 
     training_dataset.save_to_csv(train_path)
     test_dataset.save_to_csv(test_path)
+
+
+@click.command()
+@click.option("--raw-data-path", help="Path to raw data.")
+@click.option(
+    "--split-data-dir", help="Path where training and test CSV datasets will be saved."
+)
+def cli(raw_data_path: str, split_data_dir: str):
+    split_params = params.load_split_params()
+
+    split_data_from_path(
+        raw_data_path=raw_data_path,
+        split_data_dir=split_data_dir,
+        split_params=split_params,
+    )

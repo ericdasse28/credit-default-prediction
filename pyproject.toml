@@ -7,7 +7,7 @@ license = "MIT"
 readme = "README.md"
 
 [tool.poetry.scripts]
-split = "scripts.split:main"
+split = "credit_default_prediction.split:cli"
 preprocess_data = "scripts.preprocess_data:main"
 feature_engineering = "scripts.engineer_features:main"
 train = "credit_default_prediction.training:cli"
