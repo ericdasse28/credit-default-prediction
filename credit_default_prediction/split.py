@@ -81,7 +81,7 @@ def split_data_from_path(
 @click.option(
     "--split-data-dir", help="Path where training and test CSV datasets will be saved."
 )
-def cli(raw_data_path: str, split_data_dir: str):
+def cli(raw_data_path: os.PathLike, split_data_dir: os.PathLike):
     split_params = SplitParams.from_config()
 
     split_data_from_path(

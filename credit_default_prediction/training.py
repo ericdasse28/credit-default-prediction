@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import os
+
 import click
 import joblib
 import numpy as np
@@ -47,7 +49,7 @@ def save_model_artifact(model, model_path):
 @click.command()
 @click.option("--train-dataset-path", help="Path to the training dataset.")
 @click.option("--model-path", help="Path where the model will be saved after training.")
-def cli(train_dataset_path: str, model_path: str):
+def cli(train_dataset_path: os.PathLike, model_path: os.PathLike):
     train_dataset = LoanApplications.from_path(
         train_dataset_path,
         columns=params.get_important_features(),
