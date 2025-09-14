@@ -82,7 +82,7 @@ def split_data_from_path(
     "--split-data-dir", help="Path where training and test CSV datasets will be saved."
 )
 def cli(raw_data_path: str, split_data_dir: str):
-    split_params = params.load_split_params()
+    split_params = SplitParams.from_config()
 
     split_data_from_path(
         raw_data_path=raw_data_path,
