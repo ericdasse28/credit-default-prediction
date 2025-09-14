@@ -64,7 +64,9 @@ def generate_feature_importance_data(
 
 def log_feature_importance_plot(model: Pipeline, live: Live):
     classifier = model.named_steps["classifier"]
-    feature_names = model.named_steps["infered_transformers"].get_feature_names_out()
+    feature_names = list(
+        model.named_steps["infered_transformers"].get_feature_names_out()
+    )
 
     feature_importance = generate_feature_importance_data(classifier, feature_names)
 
