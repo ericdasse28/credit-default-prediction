@@ -2,8 +2,8 @@ from pathlib import Path
 
 import yaml
 
+from credit_default_prediction.hyperparams import HyperParams
 from credit_default_prediction.split import SplitParams
-from credit_default_prediction.training import HyperParams
 
 PARAMS_FILE_PATH = Path(__file__).parent.parent / "params.yaml"
 

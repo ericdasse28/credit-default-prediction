@@ -2,28 +2,17 @@
 
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass
-
+import click
 import joblib
+import numpy as np
 import pandas as pd
 import xgboost as xgb
 from sklearn.pipeline import Pipeline
 
+from credit_default_prediction import params
+from credit_default_prediction.dataset import LoanApplications
+from credit_default_prediction.hyperparams import HyperParams
 from credit_default_prediction.preprocessing import build_infered_transformers
-
-
-@dataclass
-class HyperParams:
-    learning_rate: float
-    max_depth: float = 4
-    min_child_weight: float = 1
-
-    def to_dict(self) -> dict[str, float]:
-        return asdict(self)
-
-    @classmethod
-    def from_dict(cls, hyper_params: dict) -> HyperParams:
-        return cls(**hyper_params)
 
 
 def train(X: pd.DataFrame, y: pd.Series, hyper_parameters: HyperParams):
@@ -53,3 +42,18 @@ def train(X: pd.DataFrame, y: pd.Series, hyper_parameters: HyperParams):
 
 def save_model_artifact(model, model_path):
     joblib.dump(model, model_path)
+
+
+@click.command()
+@click.option("--train-dataset-path", help="Path to the training dataset.")
+@click.option("--model-path", help="Path where the model will be saved after training.")
+def cli(train_dataset_path: str, model_path: str):
+    train_dataset = LoanApplications.from_path(
+        train_dataset_path,
+        columns=params.get_important_features(),
+    )
+
+    hyperparameters = params.get_hyperparameters()
+    model = train(train_dataset.X, np.ravel(train_dataset.y), hyperparameters)
+
+    save_model_artifact(model, model_path)

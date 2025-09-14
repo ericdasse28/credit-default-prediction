@@ -10,7 +10,7 @@ readme = "README.md"
 split = "scripts.split:main"
 preprocess_data = "scripts.preprocess_data:main"
 feature_engineering = "scripts.engineer_features:main"
-train = "scripts.train:main"
+train = "credit_default_prediction.training:cli"
 cross_validate = "scripts.validate:main"
 evaluate = "scripts.evaluate:main"
 

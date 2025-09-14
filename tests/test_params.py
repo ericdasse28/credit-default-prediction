@@ -2,7 +2,7 @@ import pytest
 import yaml
 
 from credit_default_prediction import params
-from credit_default_prediction.training import HyperParams
+from credit_default_prediction.hyperparams import HyperParams
 
 
 @pytest.mark.parametrize(
