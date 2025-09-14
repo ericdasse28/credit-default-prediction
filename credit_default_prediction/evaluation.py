@@ -13,7 +13,7 @@ from sklearn.pipeline import Pipeline
 from dvclive import Live
 
 
-def evaluate(model, X: pd.DataFrame, y: pd.Series) -> dict:
+def evaluate(model: Pipeline, X: pd.DataFrame, y: pd.Series) -> dict:
     y_pred = model.predict(X)
 
     return {
@@ -24,7 +24,7 @@ def evaluate(model, X: pd.DataFrame, y: pd.Series) -> dict:
     }
 
 
-def log_confusion_matrix(model, X: pd.DataFrame, y: pd.Series, live: Live):
+def log_confusion_matrix(model: Pipeline, X: pd.DataFrame, y: pd.Series, live: Live):
     predictions = model.predict(X)
     preds_df = pd.DataFrame()
     preds_df["actual"] = y.values
@@ -41,7 +41,7 @@ def log_confusion_matrix(model, X: pd.DataFrame, y: pd.Series, live: Live):
     )
 
 
-def log_roc_curve(model, X: pd.DataFrame, y: pd.Series, live: Live):
+def log_roc_curve(model: Pipeline, X: pd.DataFrame, y: pd.Series, live: Live):
     y_score = model.predict_proba(X)[:, 1].astype(float)
     y_true = y.to_numpy()
     live.log_sklearn_plot("roc", y_true, y_score)
@@ -70,7 +70,7 @@ def log_feature_importance_plot(model: Pipeline, live: Live):
     )
 
 
-def log_plots(model, X: pd.DataFrame, y: pd.Series):
+def log_plots(model: Pipeline, X: pd.DataFrame, y: pd.Series):
     with Live(resume=True) as live:
         log_confusion_matrix(model, X, y, live)
         log_roc_curve(model, X, y, live)
