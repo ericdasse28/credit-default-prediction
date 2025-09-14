@@ -1,6 +1,5 @@
 import numpy as np
 import pandas as pd
-from sklearn.base import BaseEstimator, TransformerMixin
 
 
 def log_transform_large_features(loan_data: pd.DataFrame) -> pd.DataFrame:
@@ -25,11 +24,3 @@ def engineer_features(clean_loan_data: pd.DataFrame) -> pd.DataFrame:
     )
 
     return feature_engineered_data
-
-
-class FeatureEngineer(BaseEstimator, TransformerMixin):
-    def fit(self, X, y=None):
-        return self
-
-    def transform(self, X: pd.DataFrame):
-        return engineer_features(X)
