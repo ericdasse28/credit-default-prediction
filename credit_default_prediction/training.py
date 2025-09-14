@@ -7,6 +7,7 @@ from dataclasses import asdict, dataclass
 
 import click
 import joblib
+import numpy as np
 import pandas as pd
 import xgboost as xgb
 from sklearn.pipeline import Pipeline
@@ -36,18 +37,15 @@ class HyperParams:
 
 
 def train(X: pd.DataFrame, y: pd.Series, hyper_parameters: HyperParams):
-    loan_default_classifier = xgb.XGBClassifier(**hyper_parameters.to_dict())
+    # Build infered transformers
+    all_numeric_features = X.select_dtypes(include=np.number).columns.to_list()
+    all_categorical_features = X.select_dtypes(include=object).columns.to_list()
     infered_transformers = build_infered_transformers(
-        numeric_features=[
-            "person_income",
-            "person_emp_length",
-            "person_age",
-            "loan_percent_income",
-            "loan_int_rate",
-            "loan_amnt",
-        ],
-        categorical_features=["loan_grade", "loan_intent", "person_home_ownership"],
+        numeric_features=all_numeric_features,
+        categorical_features=all_categorical_features,
     )
+    # Classifier
+    loan_default_classifier = xgb.XGBClassifier(**hyper_parameters.to_dict())
 
     training_pipeline = Pipeline(
         steps=[
