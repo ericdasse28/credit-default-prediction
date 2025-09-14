@@ -30,7 +30,7 @@ class LoanApplications:
 
     @classmethod
     def from_path(
-        cls, dataset_path: os.PathLike, columns: list[str] = None
+        cls, dataset_path: os.PathLike, columns: list[str] | None = None
     ) -> LoanApplications:
         loan_data = pd.read_csv(dataset_path)
         if columns:
