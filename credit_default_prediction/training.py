@@ -6,7 +6,6 @@ import os
 
 import click
 import joblib
-import numpy as np
 import pandas as pd
 import xgboost as xgb
 from sklearn.pipeline import Pipeline
@@ -56,6 +55,6 @@ def cli(train_dataset_path: os.PathLike, model_path: os.PathLike):
     )
 
     hyperparameters = params.get_hyperparameters()
-    model = train(train_dataset.X, np.ravel(train_dataset.y), hyperparameters)
+    model = train(train_dataset.X, train_dataset.y, hyperparameters)
 
     save_model_artifact(model, model_path)
