@@ -56,6 +56,23 @@ stages:
 plots:
 - dvclive/plots/metrics:
     x: step
+- dvclive/plots/custom/confusion_matrix.json:
+    template: confusion
+    x: actual
+    y: predicted
+    x_label: Actual labels
+    y_label: Predicted labels
+- dvclive/plots/sklearn/roc.json:
+    template: simple
+    x: fpr
+    y: tpr
+    title: Receiver operating characteristic (ROC)
+    x_label: False Positive Rate
+    y_label: True Positive Rate
+- dvclive/plots/custom/feature_importance.json:
+    template: bar_horizontal
+    x: feature_importance
+    y: feature_name
 metrics:
 - dvclive/metrics.json
 artifacts:
