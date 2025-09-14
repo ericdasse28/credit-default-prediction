@@ -9,7 +9,7 @@ def log_transform_large_features(loan_data: pd.DataFrame) -> pd.DataFrame:
 
     clean_loan_data = loan_data.copy()
     clean_loan_data[LARGE_FEATURES] = loan_data[LARGE_FEATURES].apply(
-        lambda row: np.log(row + 1),  # We add 1 to log argument to avoid log(0) # noqa
+        lambda row: np.log1p(row),  # We add 1 to log argument to avoid log(0) # noqa
     )
 
     return clean_loan_data
