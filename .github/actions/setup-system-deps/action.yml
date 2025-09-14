@@ -1,0 +1,30 @@
+name: Install system dependencies
+description: Install Poetry along with system dependencies required by the project
+inputs:
+  python-version:
+    required: false
+    description: Python version used across the project
+    default: 3.13.3
+  poetry-version:
+    required: false
+    description: Poetry version used across the project
+    default: 1.8.4
+
+runs:
+  using: composite
+  steps:
+    - name: Install system dependencies
+      shell: bash
+      run: |
+        sudo apt update
+        sudo apt install libc6
+    - uses: actions/setup-python@v5
+      with:
+        python-version: ${{ inputs.python-version }}
+    - name: Install Poetry
+      shell: bash
+      env:
+        POETRY_VERSION: ${{ inputs.poetry-version }}
+      run: |
+        curl -sSL https://install.python-poetry.org | python3 -
+        export PATH="$HOME/.local/bin:$PATH"
