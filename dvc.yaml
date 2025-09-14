@@ -1,6 +1,6 @@
 stages:
   split:
-    cmd: poetry run split --raw-data-path data/raw/cr_loan2.csv --train-path
+    cmd: poetry run split --raw-data-path data/raw/cr_loan2.csv --train-path 
       data/raw/train.csv --test-path data/raw/test.csv
     deps:
     - credit_default_prediction/split.py
@@ -11,16 +11,16 @@ stages:
     params:
     - split
   preprocess:
-    cmd: poetry run preprocess_data --raw-data-path data/raw/train.csv --preprocessed-data-path
-      data/clean/train.csv
+    cmd: poetry run preprocess_data --raw-data-path data/raw/train.csv 
+      --preprocessed-data-path data/clean/train.csv
     deps:
     - credit_default_prediction/preprocessing.py
     - data/raw/train.csv
     outs:
     - data/clean/train.csv
   feature_engineering:
-    cmd: poetry run feature_engineering --preprocessed-data-path data/clean/train.csv
-      --feature-store-path data/feature_store/train.csv
+    cmd: poetry run feature_engineering --preprocessed-data-path 
+      data/clean/train.csv --feature-store-path data/feature_store/train.csv
     deps:
     - credit_default_prediction/feature_engineering.py
     - data/clean/train.csv
@@ -29,8 +29,8 @@ stages:
     outs:
     - data/feature_store/train.csv
   train:
-    cmd: poetry run train --train-dataset-path data/feature_store/train.csv --model-path
-      model.pkl
+    cmd: poetry run train --train-dataset-path data/feature_store/train.csv 
+      --model-path model.pkl
     deps:
     - credit_default_prediction/training.py
     - data/feature_store/train.csv
@@ -39,39 +39,23 @@ stages:
     params:
     - train
   cross_validation:
-    cmd: poetry run cross_validate --train-dataset-path data/feature_store/train.csv
-      --model-path model.pkl
+    cmd: poetry run cross_validate --train-dataset-path 
+      data/feature_store/train.csv --model-path model.pkl
     deps:
     - scripts/validate.py
     - data/feature_store/train.csv
     - model.pkl
   evaluate:
-    cmd: poetry run evaluate --model-path model.pkl --test-dataset-path data/raw/test.csv
+    cmd: poetry run evaluate --model-path model.pkl --test-dataset-path 
+      data/raw/test.csv
     deps:
-    - credit_default_prediction/evaluate.py
+    - credit_default_prediction/evaluation.py
     - data/raw/test.csv
     - model.pkl
 
 plots:
 - dvclive/plots/metrics:
     x: step
-- dvclive/plots/custom/confusion_matrix.json:
-    template: confusion
-    x: actual
-    y: predicted
-    x_label: Actual labels
-    y_label: Predicted labels
-- dvclive/plots/sklearn/roc.json:
-    template: simple
-    x: fpr
-    y: tpr
-    title: Receiver operating characteristic (ROC)
-    x_label: False Positive Rate
-    y_label: True Positive Rate
-- dvclive/plots/custom/feature_importance.json:
-    template: bar_horizontal
-    x: feature_importance
-    y: feature_name
 metrics:
 - dvclive/metrics.json
 artifacts:
