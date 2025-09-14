@@ -50,8 +50,8 @@ stages:
     deps:
     - path: credit_default_prediction/training.py
       hash: md5
-      md5: 79364bc88e8f0ce69d5d681b7ed597ea
-      size: 1818
+      md5: 810721baa7e3bf3f876d06c840659e3a
+      size: 2303
     - path: data/feature_store/train.csv
       hash: md5
       md5: 820bae9abd11e07638e77f7fa5dc36c7
@@ -118,6 +118,10 @@ stages:
     cmd: poetry run cross_validate --train-dataset-path 
       data/feature_store/train.csv --model-path model.pkl
     deps:
+    - path: credit_default_prediction/cross_validation.py
+      hash: md5
+      md5: 7851bf5c353f2744e922aca1f745b7a6
+      size: 1447
     - path: data/feature_store/train.csv
       hash: md5
       md5: 820bae9abd11e07638e77f7fa5dc36c7
@@ -126,7 +130,3 @@ stages:
       hash: md5
       md5: 62fc315799bf0bce370090de658fd636
       size: 161216
-    - path: scripts/validate.py
-      hash: md5
-      md5: acc51de722cb934c1443a4aa2c86772e
-      size: 1309
