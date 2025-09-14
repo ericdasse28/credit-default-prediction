@@ -29,21 +29,21 @@ stages:
     outs:
     - data/feature_store/train.csv
   train:
-    cmd: poetry run train --train-dataset-path data/raw/train.csv --model-path
+    cmd: poetry run train --train-dataset-path data/feature_store/train.csv --model-path
       model.pkl
     deps:
     - credit_default_prediction/training.py
-    - data/raw/train.csv
+    - data/feature_store/train.csv
     outs:
     - model.pkl
     params:
     - train
   cross_validation:
-    cmd: poetry run cross_validate --train-dataset-path data/raw/train.csv
+    cmd: poetry run cross_validate --train-dataset-path data/feature_store/train.csv
       --model-path model.pkl
     deps:
     - credit_default_prediction/validate.py
-    - data/raw/train.csv
+    - data/feature_store/train.csv
     - model.pkl
   evaluate:
     cmd: poetry run evaluate --model-path model.pkl --test-dataset-path data/raw/test.csv
