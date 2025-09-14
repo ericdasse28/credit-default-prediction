@@ -22,16 +22,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Install system dependencies
-        run: |
-          sudo apt update
-          sudo apt install libc6
-      - uses: packetcoders/action-setup-cache-python-poetry@main
-        with:
-          python-version: 3.12.7
-          poetry-version: 1.8.3
+      - uses: ./.github/actions/setup-system-deps
       - uses: iterative/setup-cml@v1
       # - uses: iterative/setup-dvc@v1
+      - name: Install dependencies
+        run: poetry install --only main
       - name: Setup DagsHub DVC remote
         run: |
           poetry run dvc remote modify origin --local auth basic
