@@ -2,7 +2,6 @@ import pytest
 import yaml
 
 from credit_default_prediction import params
-from credit_default_prediction.hyperparams import HyperParams
 
 
 @pytest.mark.parametrize(
@@ -15,32 +14,16 @@ from credit_default_prediction.hyperparams import HyperParams
         {"train": {"min_child_weight": 0.3}},
     ],
 )
-def test_get_hyperparameters_from_config(tmp_path, params_file_content):
+def test_get_hyperparameters(monkeypatch, tmp_path, params_file_content):
     fake_params_file_path = tmp_path / "fake_params.yaml"
     with open(fake_params_file_path, "w") as fake_params_file:
         yaml.dump(params_file_content, fake_params_file)
-
-    actual_hyperparameters = params._get_hyperparameters_from_config(
-        fake_params_file_path,
-    )
-
-    expected_hyperparameters = params_file_content["train"]
-    assert expected_hyperparameters == actual_hyperparameters
-
-
-def test_get_hyperparameters(mocker):
-    fake_expected_hyperparameters = {"learning_rate": 0.3}
-    mocked_get_hyperparameters_from_config = mocker.patch(
-        "credit_default_prediction.params._get_hyperparameters_from_config",  # noqa
-        return_value=fake_expected_hyperparameters,
-    )
+    # Replace params file path by the fake one
+    monkeypatch.setattr(params, "PARAMS_FILE_PATH", fake_params_file_path)
 
     actual_hyperparameters = params.get_hyperparameters()
 
-    mocked_get_hyperparameters_from_config.assert_called_once_with(
-        params.PARAMS_FILE_PATH,
-    )
-    expected_hyperparameters = HyperParams.from_dict(fake_expected_hyperparameters)
+    expected_hyperparameters = params_file_content["train"]
     assert expected_hyperparameters == actual_hyperparameters
 
 

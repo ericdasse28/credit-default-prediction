@@ -54,7 +54,7 @@ def cli(train_dataset_path: os.PathLike, model_path: os.PathLike):
         columns=params.get_important_features(),
     )
 
-    hyperparameters = params.get_hyperparameters()
+    hyperparameters = HyperParams.from_config()
     model = train(train_dataset.X, train_dataset.y, hyperparameters)
 
     save_model_artifact(model, model_path)

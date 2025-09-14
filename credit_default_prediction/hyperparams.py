@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from dataclasses import asdict, dataclass
 
+from credit_default_prediction import params
+
 
 @dataclass
 class HyperParams:
@@ -13,5 +15,10 @@ class HyperParams:
         return asdict(self)
 
     @classmethod
-    def from_dict(cls, hyper_params: dict) -> HyperParams:
+    def from_dict(cls, hyper_params: dict[str, float]) -> HyperParams:
         return cls(**hyper_params)
+
+    @classmethod
+    def from_config(cls) -> HyperParams:
+        hyperparams_config = params.get_hyperparameters()
+        return cls.from_dict(hyperparams_config)

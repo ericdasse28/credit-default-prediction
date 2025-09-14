@@ -2,8 +2,6 @@ from pathlib import Path
 
 import yaml
 
-from credit_default_prediction.hyperparams import HyperParams
-
 PARAMS_FILE_PATH = Path(__file__).parent.parent / "params.yaml"
 
 
@@ -19,17 +17,11 @@ def load_stage_params(stage_name: str) -> dict:
     return pipeline_params[stage_name]
 
 
-def _get_hyperparameters_from_config(params_file_path):
-    with open(params_file_path) as params_file:
+def get_hyperparameters() -> dict[str, float]:
+    with open(PARAMS_FILE_PATH) as params_file:
         params = yaml.safe_load(params_file)
 
     return params["train"]
-
-
-def get_hyperparameters() -> HyperParams:
-    hyper_params_dict = _get_hyperparameters_from_config(PARAMS_FILE_PATH)
-
-    return HyperParams.from_dict(hyper_params_dict)
 
 
 def get_important_features() -> list[str]:
