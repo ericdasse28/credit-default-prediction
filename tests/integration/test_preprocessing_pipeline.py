@@ -4,7 +4,7 @@ from numpy.testing import assert_array_equal
 from pandas.testing import assert_frame_equal
 
 from credit_default_prediction.preprocessing import (
-    build_preprocessing_pipeline,
+    build_infered_transformers,
     rule_based_preprocessing,
 )
 
@@ -34,40 +34,6 @@ def test_missing_loan_interests_are_dropped():
         index=[0, 2, 3],
     )
     assert_frame_equal(transformed, expected_clean_loan_data)
-
-
-# TODO: handle this as a learned transformation
-def test_missing_person_emp_length_are_imputed():
-    """Given loan applications,
-    When we preprocess them,
-    Then rows with missing employment lengths are imputed.
-    """
-
-    loan_applications = pd.DataFrame(
-        {
-            "person_age": [40, 35, 50, 40, 19],
-            "loan_int_rate": [11.5, 8.3, 4.5, 6.9, 7.8],
-            "person_emp_length": [np.nan, 12, 13, 25, 3],
-        }
-    )
-    preprocessor = build_preprocessing_pipeline()
-
-    transformed = preprocessor.fit_transform(loan_applications)
-
-    median_emp_length = loan_applications["person_emp_length"].median()
-    expected_clean_loan_data = np.array(
-        [
-            [median_emp_length, 40, 11.5],
-            [12, 35, 8.3],
-            [13, 50, 4.5],
-            [25, 40, 6.9],
-            [3, 19, 7.8],
-        ]
-    )
-    assert_array_equal(
-        transformed,
-        expected_clean_loan_data,
-    )
 
 
 def test_rows_with_outlier_employment_lengths_are_dropped():
@@ -100,7 +66,42 @@ def test_rows_with_outlier_employment_lengths_are_dropped():
     )
 
 
-# TODO: move it to learned transformations
+def test_missing_person_emp_length_are_imputed():
+    """Given loan applications,
+    When we preprocess them,
+    Then rows with missing employment lengths are imputed.
+    """
+
+    loan_features = pd.DataFrame(
+        {
+            "person_age": [40, 35, 50, 40, 19],
+            "loan_int_rate": [11.5, 8.3, 4.5, 6.9, 7.8],
+            "person_emp_length": [np.nan, 12, 13, 25, 3],
+        }
+    )
+    preprocessor = build_infered_transformers(
+        numeric_features=loan_features.columns,
+        categorical_features=[],
+    )
+
+    transformed = preprocessor.fit_transform(loan_features)
+
+    median_emp_length = loan_features["person_emp_length"].median()
+    expected_clean_loan_data = np.array(
+        [
+            [40, 11.5, median_emp_length],
+            [35, 8.3, 12],
+            [50, 4.5, 13],
+            [40, 6.9, 25],
+            [19, 7.8, 3],
+        ]
+    )
+    assert_array_equal(
+        transformed,
+        expected_clean_loan_data,
+    )
+
+
 def test_categorical_features_are_one_hot_encoded():
     """Given loan applications and a list of categorical features
     of interest within it,
@@ -108,26 +109,26 @@ def test_categorical_features_are_one_hot_encoded():
     Then the provided categorical features are one-hot encoded.
     """
 
-    loan_applications = pd.DataFrame(
+    loan_features = pd.DataFrame(
         {
-            "person_emp_length": [3, 0, 70, 60, 120],
-            "loan_int_rate": [11.5, 8.3, 4.5, 6.9, 7.8],
-            "loan_grade": ["B", "C", "C", "C", "B"],
-            "loan_intent": ["EDUCATION", "MEDICAL", "MEDICAL", "MEDICAL", "MEDICAL"],
-            "loan_status": [1, 1, 0, 0, 1],
+            "person_emp_length": [3, 0, 60],
+            "loan_int_rate": [11.5, 8.3, 6.9],
+            "loan_grade": ["B", "C", "C"],
+            "loan_intent": ["EDUCATION", "MEDICAL", "MEDICAL"],
         }
     )
-    preprocessor = build_preprocessing_pipeline(
-        categorical_features=["loan_grade", "loan_intent"]
+    preprocessor = build_infered_transformers(
+        numeric_features=["person_emp_length", "loan_int_rate"],
+        categorical_features=["loan_grade", "loan_intent"],
     )
 
-    transformed = preprocessor.fit_transform(loan_applications)
+    transformed = preprocessor.fit_transform(loan_features)
 
     expected_clean_loan_applications = np.array(
         [
-            [True, False, True, False, 3, 11.5, 1],
-            [False, True, False, True, 0, 8.3, 1],
-            [False, True, False, True, 60, 6.9, 0],
+            [3, 11.5, True, False, True, False],
+            [0, 8.3, False, True, False, True],
+            [60, 6.9, False, True, False, True],
         ]
     )
     assert_array_equal(

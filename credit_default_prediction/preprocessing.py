@@ -24,6 +24,25 @@ def rule_based_preprocessing(loan_data: pd.DataFrame) -> pd.DataFrame:
     return clean_loan_data
 
 
+def build_infered_transformers(
+    numeric_features: list[str], categorical_features: list[str]
+) -> ColumnTransformer:
+    num_transformer = Pipeline(
+        [
+            ("imputer", SimpleImputer(strategy="median")),
+        ]
+    )
+    cat_transformer = Pipeline([("encoder", OneHotEncoder())])
+
+    infered_transformers = ColumnTransformer(
+        transformers=[
+            ("num", num_transformer, numeric_features),
+            ("cat", cat_transformer, categorical_features),
+        ]
+    )
+    return infered_transformers
+
+
 class DropMissingRows(BaseEstimator, TransformerMixin):
     def __init__(self, columns):
         self.columns = columns
