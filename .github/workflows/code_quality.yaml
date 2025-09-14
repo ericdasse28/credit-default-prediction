@@ -13,14 +13,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.12.5
       - name: Install system dependencies
         run: |
           sudo apt update
           sudo apt install libc6
-      - uses: packetcoders/action-setup-cache-python-poetry@main
-        with:
-          python-version: 3.12.5
-          poetry-version: 1.8.3
-          install-args: --with dev
+      - name: Install Poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 - --version 1.8.3
+          export PATH="$HOME/.local/bin:$PATH"
+      - name: Install dependencies
+        run: poetry install
       - name: Linting
         run: make lint
