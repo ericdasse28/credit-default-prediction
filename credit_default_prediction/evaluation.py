@@ -47,8 +47,13 @@ def log_roc_curve(model: Pipeline, X: pd.DataFrame, y: pd.Series, live: Live):
     live.log_sklearn_plot("roc", y_true, y_score)
 
 
-def generate_feature_importance_data(model: xgb.XGBClassifier) -> pd.DataFrame:
-    importance_per_feature = model.get_booster().get_score()
+def generate_feature_importance_data(
+    model: xgb.XGBClassifier, feature_names: list[str]
+) -> pd.DataFrame:
+    booster = model.get_booster()
+    booster.feature_names = feature_names
+    importance_per_feature = booster.get_score()
+
     feature_importance = pd.DataFrame(
         importance_per_feature.items(),
         columns=["feature_name", "feature_importance"],
@@ -59,7 +64,9 @@ def generate_feature_importance_data(model: xgb.XGBClassifier) -> pd.DataFrame:
 
 def log_feature_importance_plot(model: Pipeline, live: Live):
     classifier = model.named_steps["classifier"]
-    feature_importance = generate_feature_importance_data(classifier)
+    feature_names = model.named_steps["infered_transformers"].get_feature_names_out()
+
+    feature_importance = generate_feature_importance_data(classifier, feature_names)
 
     live.log_plot(
         "feature_importance",

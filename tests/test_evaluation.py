@@ -1,5 +1,6 @@
 import pandas as pd
 import pytest
+from pandas.testing import assert_frame_equal
 
 from credit_default_prediction.evaluation import generate_feature_importance_data
 
@@ -18,12 +19,15 @@ def model():
 
 
 def test_generate_feature_importance_data(model):
-    actual_series = generate_feature_importance_data(model)
+    feature_names = ["feature_1", "feature_2"]
+    actual_series = generate_feature_importance_data(
+        model=model, feature_names=feature_names
+    )
 
     expected_series = pd.DataFrame(
         {
-            "feature_name": ["feature_1", "feature_2"],
+            "feature_name": feature_names,
             "feature_importance": [196.0, 223.0],
         }
     )
-    pd.testing.assert_frame_equal(actual_series, expected_series)
+    assert_frame_equal(actual_series, expected_series)
