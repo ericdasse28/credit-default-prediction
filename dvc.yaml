@@ -14,7 +14,7 @@ stages:
     cmd: poetry run preprocess_data --raw-data-path data/raw/train.csv --preprocessed-data-path
       data/clean/train.csv
     deps:
-    - credit_default_prediction/data_preprocessing.py
+    - credit_default_prediction/preprocessing.py
     - data/raw/train.csv
     outs:
     - data/clean/train.csv
