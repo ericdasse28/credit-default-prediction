@@ -19,7 +19,7 @@ stages:
     outs:
     - data/clean/train.csv
   feature_engineering:
-    cmd: poetry run feature_engineering --preprocessed-data-path 
+    cmd: poetry run engineer_features --preprocessed-data-path 
       data/clean/train.csv --feature-store-path data/feature_store/train.csv
     deps:
     - credit_default_prediction/feature_engineering.py
