@@ -2,7 +2,7 @@ import argparse
 
 import joblib
 
-from credit_default_prediction import params
+from credit_default_prediction import inference, params
 from credit_default_prediction.dataset import LoanApplications
 from credit_default_prediction.evaluation import evaluate, log_plots
 from credit_default_prediction.metrics import save_model_metrics
@@ -19,13 +19,19 @@ def _get_arguments():
 def main():
 
     args = _get_arguments()
-    model = joblib.load(args.model_path)
     test_dataset = LoanApplications.from_path(
         args.test_dataset_path,
         columns=params.get_important_features(),
     )
-    X_test, y_test = test_dataset.X, test_dataset.y
+    # Prepare test dataset
+    prepped_test_data = inference.rule_based_preparation(test_dataset.data)
+    test_dataset = LoanApplications.from_dataframe(prepped_test_data)
 
-    metrics = evaluate(model, X_test.values, y_test.values)
+    # Evaluate trained model on prepped
+    trained_model = joblib.load(args.model_path)
+    X_test, y_test = test_dataset.X, test_dataset.y
+    metrics = evaluate(trained_model, X_test.values, y_test.values)
+
+    # Save metrics and plots
     save_model_metrics(metrics)
-    log_plots(model, X_test, y_test)
+    log_plots(trained_model, X_test, y_test)

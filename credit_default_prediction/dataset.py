@@ -13,6 +13,10 @@ class LoanApplications:
     X: pd.DataFrame
     y: pd.Series
 
+    @property
+    def data(self) -> pd.DataFrame:
+        return pd.concat([self.X, self.y], axis=1)
+
     def save_to_csv(self, csv_path: os.PathLike):
         as_dataframe = pd.concat([self.X, self.y], axis=1)
         as_dataframe.to_csv(csv_path, index=False)
