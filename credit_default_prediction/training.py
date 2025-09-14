@@ -17,8 +17,8 @@ from credit_default_prediction.preserve_df import PreserveDF
 @dataclass
 class HyperParams:
     learning_rate: float
-    max_depth: 4
-    min_child_weight: 1
+    max_depth: float = 4
+    min_child_weight: float = 1
 
     def to_dict(self) -> dict[str, float]:
         return asdict(self)

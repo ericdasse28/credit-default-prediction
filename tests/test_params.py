@@ -2,6 +2,7 @@ import pytest
 import yaml
 
 from credit_default_prediction import params
+from credit_default_prediction.training import HyperParams
 
 
 @pytest.mark.parametrize(
@@ -39,7 +40,8 @@ def test_get_hyperparameters(mocker):
     mocked_get_hyperparameters_from_config.assert_called_once_with(
         params.PARAMS_FILE_PATH,
     )
-    assert fake_expected_hyperparameters == actual_hyperparameters
+    expected_hyperparameters = HyperParams.from_dict(fake_expected_hyperparameters)
+    assert expected_hyperparameters == actual_hyperparameters
 
 
 def test_params_file_presence():
