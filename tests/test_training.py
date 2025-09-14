@@ -1,8 +1,7 @@
 import pandas as pd
 from sklearn.base import BaseEstimator
 
-from credit_default_prediction.hyperparams import HyperParams
-from credit_default_prediction.training import train
+from credit_default_prediction.training import HyperParams, train
 
 
 def test_train():
