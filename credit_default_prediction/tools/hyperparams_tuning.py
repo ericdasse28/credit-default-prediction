@@ -6,14 +6,14 @@ import numpy as np
 import xgboost as xgb
 from sklearn.model_selection import GridSearchCV
 
-from credit_default_prediction.dataset import collect_loan_dataset_from_path
+from credit_default_prediction.dataset import LoanApplications
 
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--dataset-path")
     args = parser.parse_args()
-    X_train, y_train = collect_loan_dataset_from_path(args.dataset_path)
+    train_dataset = LoanApplications.from_path(args.dataset_path)
 
     params_to_test = {
         "learning_rate": np.arange(0, 1, 0.1),
@@ -29,5 +29,5 @@ def main():
         param_grid=params_to_test,
         scoring="roc_auc",
     )
-    gsearch.fit(X_train, y_train)
+    gsearch.fit(train_dataset.X, train_dataset.y)
     print(gsearch.best_params_, gsearch.best_score_)
