@@ -43,7 +43,9 @@ def build_infered_transformers(
     return infered_transformers
 
 
-@click.command(help="Performs deterministic data preprocessing steps.")
+@click.command(
+    help="Performs deterministic data preprocessing steps. Data preprocessing cleans the data so they represent reality faithfully."
+)
 @click.option("--raw-data-path", help="Path to a CSV raw loan applications dataset.")
 @click.option(
     "--preprocessed-data-path",
