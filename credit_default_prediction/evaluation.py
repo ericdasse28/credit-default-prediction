@@ -1,5 +1,9 @@
 """Evaluation script."""
 
+import os
+
+import click
+import joblib
 import pandas as pd
 import xgboost as xgb
 from sklearn.metrics import (  # noqa
@@ -10,6 +14,9 @@ from sklearn.metrics import (  # noqa
 )
 from sklearn.pipeline import Pipeline
 
+from credit_default_prediction import inference, params
+from credit_default_prediction.dataset import LoanApplications
+from credit_default_prediction.metrics import save_model_metrics
 from dvclive import Live
 
 
@@ -84,3 +91,25 @@ def log_plots(model: Pipeline, X: pd.DataFrame, y: pd.Series):
         log_confusion_matrix(model, X, y, live)
         log_roc_curve(model, X, y, live)
         log_feature_importance_plot(model, live)
+
+
+@click.command(help="Evaluates a trained model on the test data.")
+@click.option("--model-path", help="Path to the trained model.")
+@click.option("--test-dataset-path", help="Path to the test data.")
+def cli(model_path: os.PathLike, test_dataset_path: os.PathLike):
+    test_dataset = LoanApplications.from_path(
+        test_dataset_path,
+        columns=params.get_important_features(),
+    )
+    # Prepare test dataset
+    prepped_test_data = inference.rule_based_preparation(test_dataset.data)
+    test_dataset = LoanApplications.from_dataframe(prepped_test_data)
+
+    # Evaluate trained model on prepped
+    trained_model = joblib.load(model_path)
+    X_test, y_test = test_dataset.X, test_dataset.y
+    metrics = evaluate(trained_model, X_test, y_test)
+
+    # Save metrics and plots
+    save_model_metrics(metrics)
+    log_plots(trained_model, X_test, y_test)

@@ -12,7 +12,7 @@ preprocess_data = "credit_default_prediction.preprocessing:cli"
 engineer_features = "credit_default_prediction.feature_engineering:cli"
 train = "credit_default_prediction.training:cli"
 cross_validate = "scripts.validate:main"
-evaluate = "scripts.evaluate:main"
+evaluate = "credit_default_prediction.evaluation:cli"
 
 [tool.poetry.dependencies]
 python = "^3.10"
