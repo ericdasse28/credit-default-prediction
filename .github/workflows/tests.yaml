@@ -1,4 +1,4 @@
-name: Unit tests
+name: Tests
 on: [push]
 
 jobs:
@@ -6,14 +6,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Install system dependencies
-        run: |
-          sudo apt update
-          sudo apt install libc6
-      - uses: packetcoders/action-setup-cache-python-poetry@main
-        with:
-          python-version: 3.12.5
-          poetry-version: 1.8.3
-          install-args: --with dev
+      - uses: ./.github/actions/setup-system-deps
+      - name: Install dependencies
+        run: poetry install
       - name: Tests
         run: poetry run pytest
