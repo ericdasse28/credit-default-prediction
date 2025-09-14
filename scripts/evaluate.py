@@ -30,7 +30,7 @@ def main():
     # Evaluate trained model on prepped
     trained_model = joblib.load(args.model_path)
     X_test, y_test = test_dataset.X, test_dataset.y
-    metrics = evaluate(trained_model, X_test.values, y_test.values)
+    metrics = evaluate(trained_model, X_test, y_test)
 
     # Save metrics and plots
     save_model_metrics(metrics)

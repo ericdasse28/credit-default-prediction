@@ -12,7 +12,7 @@ from sklearn.metrics import (  # noqa
 from dvclive import Live
 
 
-def evaluate(model, X: pd.Series, y: pd.Series) -> dict:
+def evaluate(model, X: pd.DataFrame, y: pd.Series) -> dict:
     y_pred = model.predict(X)
 
     return {
