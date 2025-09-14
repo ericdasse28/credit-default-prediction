@@ -2,7 +2,7 @@ import argparse
 
 import pandas as pd
 
-from credit_default_prediction.data_preprocessing import preprocess_data
+from credit_default_prediction.preprocessing import rule_based_preprocessing
 
 
 def _get_arguments():
@@ -17,5 +17,5 @@ def main():
     args = _get_arguments()
 
     loan_data = pd.read_csv(args.raw_data_path)
-    loan_data = preprocess_data(loan_data)
+    loan_data = rule_based_preprocessing(loan_data)
     loan_data.to_csv(args.preprocessed_data_path, index=False)
