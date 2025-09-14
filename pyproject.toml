@@ -13,6 +13,7 @@ engineer_features = "credit_default_prediction.feature_engineering:cli"
 train = "credit_default_prediction.training:cli"
 cross_validate = "credit_default_prediction.cross_validation:cli"
 evaluate = "credit_default_prediction.evaluation:cli"
+tune_hyperparams = "credit_default_prediction.hyperparams_tuning:cli"
 
 [tool.poetry.dependencies]
 python = "^3.10"
