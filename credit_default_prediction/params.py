@@ -25,5 +25,5 @@ def get_hyperparameters() -> dict[str, float]:
 
 
 def get_important_features() -> list[str]:
-    preprocess_params = load_stage_params("feature_engineering")
-    return preprocess_params["important_columns"]
+    feature_engineering_params = load_stage_params("feature_engineering")
+    return feature_engineering_params["important_columns"]
