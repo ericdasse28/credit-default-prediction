@@ -1,8 +1,12 @@
 import numpy as np
 import pandas as pd
 from numpy.testing import assert_array_equal
+from pandas.testing import assert_frame_equal
 
-from credit_default_prediction.preprocessing import build_preprocessing_pipeline
+from credit_default_prediction.preprocessing import (
+    build_preprocessing_pipeline,
+    rule_based_preprocessing,
+)
 
 
 def test_missing_loan_interests_are_dropped():
@@ -18,20 +22,21 @@ def test_missing_loan_interests_are_dropped():
             "person_emp_length": [2, 15, 1.3, 20, 3],
         }
     )
-    preprocessor = build_preprocessing_pipeline()
 
-    transformed = preprocessor.fit_transform(loan_applications)
+    transformed = rule_based_preprocessing(loan_applications)
 
-    expected_clean_loan_data = np.array(
-        [
-            [2, 11.84, 20],
-            [1.3, 12.5, 18],
-            [20, 7.14, 25],
-        ]
+    expected_clean_loan_data = pd.DataFrame(
+        {
+            "loan_int_rate": [11.84, 12.5, 7.14],
+            "person_age": [20, 18, 25],
+            "person_emp_length": [2, 1.3, 20],
+        },
+        index=[0, 2, 3],
     )
-    assert_array_equal(transformed, expected_clean_loan_data)
+    assert_frame_equal(transformed, expected_clean_loan_data)
 
 
+# TODO: handle this as a learned transformation
 def test_missing_person_emp_length_are_imputed():
     """Given loan applications,
     When we preprocess them,
@@ -78,23 +83,24 @@ def test_rows_with_outlier_employment_lengths_are_dropped():
             "loan_status": [1, 1, 0, 0, 1],
         }
     )
-    preprocessor = build_preprocessing_pipeline()
 
-    transformed = preprocessor.fit_transform(loan_applications)
+    transformed = rule_based_preprocessing(loan_applications)
 
-    expected_clean_loan_applications = np.array(
-        [
-            [3, 11.5, 1],
-            [0, 8.3, 1],
-            [60, 6.9, 0],
-        ]
+    expected_clean_loan_applications = pd.DataFrame(
+        {
+            "person_emp_length": [3, 0, 60],
+            "loan_int_rate": [11.5, 8.3, 6.9],
+            "loan_status": [1, 1, 0],
+        },
+        index=[0, 1, 3],
     )
-    assert_array_equal(
+    assert_frame_equal(
         transformed,
         expected_clean_loan_applications,
     )
 
 
+# TODO: move it to learned transformations
 def test_categorical_features_are_one_hot_encoded():
     """Given loan applications and a list of categorical features
     of interest within it,

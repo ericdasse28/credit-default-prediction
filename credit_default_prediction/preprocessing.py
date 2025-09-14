@@ -9,6 +9,20 @@ from sklearn.preprocessing import OneHotEncoder
 
 from credit_default_prediction.preserve_df import PreserveDF
 
+PERSON_EMP_LENGTH_MAX = 60
+
+
+def rule_based_preprocessing(loan_data: pd.DataFrame) -> pd.DataFrame:
+    # Loan interests are mandatory. Observations
+    # without it are not helpful
+    clean_loan_data = loan_data.dropna(subset="loan_int_rate")
+    # Removing outlier employment lengths
+    clean_loan_data = clean_loan_data[
+        clean_loan_data["person_emp_length"] <= PERSON_EMP_LENGTH_MAX
+    ]
+
+    return clean_loan_data
+
 
 class DropMissingRows(BaseEstimator, TransformerMixin):
     def __init__(self, columns):
