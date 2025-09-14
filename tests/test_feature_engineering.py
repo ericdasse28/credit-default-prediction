@@ -92,8 +92,8 @@ def test_log_transformation_for_large_features():
 
     expected_clean_loan_data = pd.DataFrame(
         {
-            "loan_amnt": np.log(loan_data["loan_amnt"] + 1),
-            "person_income": np.log(loan_data["person_income"] + 1),
+            "loan_amnt": np.log1p(loan_data["loan_amnt"]),
+            "person_income": np.log1p(loan_data["person_income"]),
             "person_age": [22, 35, 50, 27],
         }
     )
