@@ -20,6 +20,7 @@ scikit-learn = "^1.7.2"
 seaborn = "^0.13.2"
 dvclive = "^3.48.5"
 xgboost = "^3.0.5"
+click = "^8.2.1"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.8.0"
