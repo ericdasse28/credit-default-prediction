@@ -8,6 +8,7 @@ from sklearn.metrics import (  # noqa
     recall_score,
     roc_auc_score,
 )
+from sklearn.pipeline import Pipeline
 
 from dvclive import Live
 
@@ -56,8 +57,9 @@ def generate_feature_importance_data(model: xgb.XGBClassifier) -> pd.DataFrame:
     return feature_importance
 
 
-def log_feature_importance_plot(model, live: Live):
-    feature_importance = generate_feature_importance_data(model)
+def log_feature_importance_plot(model: Pipeline, live: Live):
+    classifier = model.named_steps["classifier"]
+    feature_importance = generate_feature_importance_data(classifier)
 
     live.log_plot(
         "feature_importance",
