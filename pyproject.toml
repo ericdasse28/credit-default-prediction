@@ -8,7 +8,7 @@ readme = "README.md"
 
 [tool.poetry.scripts]
 split = "credit_default_prediction.split:cli"
-preprocess_data = "scripts.preprocess_data:main"
+preprocess_data = "credit_default_prediction.preprocessing:cli"
 feature_engineering = "scripts.engineer_features:main"
 train = "credit_default_prediction.training:cli"
 cross_validate = "scripts.validate:main"

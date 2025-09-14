@@ -1,5 +1,8 @@
 """Data preprocessing Transformers and pipelines."""
 
+import os
+
+import click
 import pandas as pd
 from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
@@ -38,3 +41,15 @@ def build_infered_transformers(
         ]
     )
     return infered_transformers
+
+
+@click.command(help="Performs deterministic data preprocessing steps.")
+@click.option("--raw-data-path", help="Path to a CSV raw loan applications dataset.")
+@click.option(
+    "--preprocessed-data-path",
+    help="Path where the preprocessed data CSV will be saved.",
+)
+def cli(raw_data_path: os.PathLike, preprocessed_data_path: os.PathLike):
+    loan_data = pd.read_csv(raw_data_path)
+    loan_data = rule_based_preprocessing(loan_data)
+    loan_data.to_csv(preprocessed_data_path, index=False)
