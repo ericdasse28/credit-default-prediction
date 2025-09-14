@@ -6,8 +6,8 @@ stages:
     deps:
     - path: credit_default_prediction/preprocessing.py
       hash: md5
-      md5: e656fd51d1da3da195ebb26b4e014649
-      size: 1215
+      md5: dd92b31ddc320578b82bc01d8ae8343e
+      size: 1818
     - path: data/raw/train.csv
       hash: md5
       md5: 8e3a2fa60e877a2bfd8da21b2791890d
@@ -18,13 +18,13 @@ stages:
       md5: 1e6236b87fe5fbd39fc6b3655725a941
       size: 1102126
   split:
-    cmd: poetry run split --raw-data-path data/raw/cr_loan2.csv --train-path 
-      data/raw/train.csv --test-path data/raw/test.csv
+    cmd: poetry run split --raw-data-path data/raw/cr_loan2.csv --split-data-dir
+      data/raw/
     deps:
     - path: credit_default_prediction/split.py
       hash: md5
-      md5: 03a94b5ee8bbb26d7688f8c1c4c13f42
-      size: 2017
+      md5: 48a126630587461bba599c51c62993fa
+      size: 2800
     - path: data/raw/cr_loan2.csv
       hash: md5
       md5: f55e028c4bc9d2bd4e4e0976599a8994
@@ -50,8 +50,8 @@ stages:
     deps:
     - path: credit_default_prediction/training.py
       hash: md5
-      md5: 5dc47998624f1bb3db7335d22326ae50
-      size: 1418
+      md5: a553504eba598631a7d05cd32527a6aa
+      size: 1820
     - path: data/feature_store/train.csv
       hash: md5
       md5: 820bae9abd11e07638e77f7fa5dc36c7
@@ -73,8 +73,8 @@ stages:
     deps:
     - path: credit_default_prediction/evaluation.py
       hash: md5
-      md5: 93b6866702a395debe02860bd6b2ddb5
-      size: 2366
+      md5: 0ee2783f69225e847f5647d5eb4708b2
+      size: 3456
     - path: data/raw/test.csv
       hash: md5
       md5: 5ec085eb5cd9dcbda6c9b193cc7e6359
@@ -84,13 +84,13 @@ stages:
       md5: 62fc315799bf0bce370090de658fd636
       size: 161216
   feature_engineering:
-    cmd: poetry run feature_engineering --preprocessed-data-path 
+    cmd: poetry run engineer_features --preprocessed-data-path 
       data/clean/train.csv --feature-store-path data/feature_store/train.csv
     deps:
     - path: credit_default_prediction/feature_engineering.py
       hash: md5
-      md5: fad6ec30eecec89acd0e48e2a7b8addc
-      size: 1019
+      md5: c6a2b35e32228acfcc398c10a9ef133c
+      size: 1544
     - path: data/clean/train.csv
       hash: md5
       md5: 1e6236b87fe5fbd39fc6b3655725a941
