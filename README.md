@@ -14,7 +14,7 @@ I use [DVC](https://dvc.org/) for data and model versioning as well to orchestra
 
 ### Experiment tracking
 
-All the experiments performed across this project can be tracked [here](https://studio.dvc.ai/user/ericdasse28/projects/credit-default-prediction-r4c9vq41ky)
+All the experiments performed across this project can be tracked [here](https://studio.datachain.ai/user/ericdasse28/projects/credit-default-prediction-r4c9vq41ky)
 
 ## Development
 
