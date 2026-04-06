@@ -1,6 +1,8 @@
 from dvclive.live import Live
 
-from experiment_tracking.experiment_tracker import ExperimentTracker
+from credit_default_prediction.experiment_tracking.experiment_tracker import (
+    ExperimentTracker,
+)
 
 
 class DVCExperimentTracker(ExperimentTracker):

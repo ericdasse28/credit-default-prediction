@@ -15,8 +15,10 @@ from sklearn.pipeline import Pipeline
 
 from credit_default_prediction import params
 from credit_default_prediction.dataset import LoanApplications
+from credit_default_prediction.experiment_tracking.dvc_experiment_tracker import (
+    DVCExperimentTracker,
+)
 from credit_default_prediction.preprocessing import build_infered_transformers
-from experiment_tracking.dvc_experiment_tracker import DVCExperimentTracker
 
 
 @dataclass
