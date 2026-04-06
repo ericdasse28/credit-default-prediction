@@ -19,7 +19,7 @@ tune_hyperparams = "credit_default_prediction.hyperparams_tuning:cli"
 python = "^3.10"
 scikit-learn = "^1.7.2"
 seaborn = "^0.13.2"
-dvclive = "^3.48.5"
+dvclive = "^3.49.0"
 xgboost = "^3.0.5"
 click = "^8.2.1"
 

@@ -1372,14 +1372,14 @@ tests = ["pytest (>=7,<9)", "pytest-celery (<1)", "pytest-cov (>=4.1.0)", "pytes
 
 [[package]]
 name = "dvclive"
-version = "3.48.5"
+version = "3.49.0"
 description = "Experiments logger for ML projects."
 optional = false
 python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "dvclive-3.48.5-py3-none-any.whl", hash = "sha256:b5d9e94694fda97f816ffde39d9bc6288d2be11b2efd18fae8149c464dfc1c92"},
-    {file = "dvclive-3.48.5.tar.gz", hash = "sha256:d9942e8341f73eb4092204f611a3b85c6892a7d2989c98f21d317e0cf0763c0a"},
+    {file = "dvclive-3.49.0-py3-none-any.whl", hash = "sha256:217ca54940098617ccecb280b1fe8d858711e957a65b04b384ffacaec252f90e"},
+    {file = "dvclive-3.49.0.tar.gz", hash = "sha256:e5316ffeeed2bab6ebc470d6e754954962d7252a88f97b206106a83841ba5291"},
 ]
 
 [package.dependencies]
@@ -1395,7 +1395,7 @@ scmrepo = ">=3,<4"
 
 [package.extras]
 all = ["dvclive[fastai,huggingface,image,lgbm,lightning,markdown,mmcv,optuna,plots,tf,xgb]"]
-dev = ["dvclive[all,tests]", "mypy (==1.17.1)", "types-PyYAML"]
+dev = ["dvclive[fastai,huggingface,image,lgbm,lightning,markdown,optuna,plots,tests,tf,xgb]", "mypy (==1.17.1)", "types-PyYAML"]
 fastai = ["fastai"]
 huggingface = ["datasets", "transformers"]
 image = ["numpy", "pillow"]
@@ -4714,4 +4714,4 @@ test = ["zope.testing"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.10"
-content-hash = "adb1a666f2e141f82e2749a7ed849c35c0418a3595de4e06272bbc07d64a3afe"
+content-hash = "95fd9f85aceee0a26d7efd48236e097b3bfac5df66e439a17c664a5c2f272410"
