@@ -81,6 +81,6 @@ def cli(train_dataset_path: os.PathLike, model_path: os.PathLike):
         hyperparameters = HyperParams.from_config()
         model = train(train_dataset.X, train_dataset.y, hyperparameters)
 
-        experiment_tracker.log_params(**hyperparameters.to_dict())
+        experiment_tracker.log_params(hyperparameters)
 
     save_model_artifact(model, model_path)
