@@ -1,0 +1,6 @@
+from typing import Protocol
+
+
+class ExperimentTracker(Protocol):
+    def log_params(self, **hyperparameters): ...
+    def log_metrics(self, **metrics): ...
