@@ -3,7 +3,7 @@ from dvclive.live import Live
 from credit_default_prediction.experiment_tracking.experiment_tracker import (
     ExperimentTracker,
 )
-from credit_default_prediction.training import HyperParams
+from credit_default_prediction.hyper_params import HyperParams
 
 
 class DVCExperimentTracker(ExperimentTracker):

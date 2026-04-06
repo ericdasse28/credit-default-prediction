@@ -1,6 +1,6 @@
 from typing import Protocol
 
-from credit_default_prediction.training import HyperParams
+from credit_default_prediction.hyper_params import HyperParams
 
 
 class ExperimentTracker(Protocol):
