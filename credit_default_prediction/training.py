@@ -10,11 +10,13 @@ import joblib
 import numpy as np
 import pandas as pd
 import xgboost as xgb
+from dvclive.live import Live
 from sklearn.pipeline import Pipeline
 
 from credit_default_prediction import params
 from credit_default_prediction.dataset import LoanApplications
 from credit_default_prediction.preprocessing import build_infered_transformers
+from experiment_tracking.dvc_experiment_tracker import DVCExperimentTracker
 
 
 @dataclass
@@ -71,7 +73,12 @@ def cli(train_dataset_path: os.PathLike, model_path: os.PathLike):
         columns=params.get_important_features(),
     )
 
-    hyperparameters = HyperParams.from_config()
-    model = train(train_dataset.X, train_dataset.y, hyperparameters)
+    with Live() as live:
+        experiment_tracker = DVCExperimentTracker(live)
+
+        hyperparameters = HyperParams.from_config()
+        model = train(train_dataset.X, train_dataset.y, hyperparameters)
+
+        experiment_tracker.log_params(**hyperparameters.to_dict())
 
     save_model_artifact(model, model_path)
