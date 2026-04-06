@@ -50,8 +50,8 @@ stages:
     deps:
     - path: credit_default_prediction/training.py
       hash: md5
-      md5: 810721baa7e3bf3f876d06c840659e3a
-      size: 2303
+      md5: 28ed6f623c7244c6f723708bcca43f70
+      size: 2135
     - path: data/feature_store/train.csv
       hash: md5
       md5: 820bae9abd11e07638e77f7fa5dc36c7

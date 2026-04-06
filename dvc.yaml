@@ -53,12 +53,9 @@ stages:
     - data/raw/test.csv
     - model.pkl
 
-plots:
-- dvclive/plots/metrics:
-    x: step
-metrics:
-- dvclive/metrics.json
 artifacts:
   credit-default-predictor:
     path: model.pkl
     type: model
+params:
+- dvclive/params.yaml
