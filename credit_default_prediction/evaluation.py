@@ -6,6 +6,7 @@ import click
 import joblib
 import pandas as pd
 import xgboost as xgb
+from dvclive.live import Live
 from sklearn.metrics import (  # noqa
     accuracy_score,
     precision_score,
@@ -17,7 +18,6 @@ from sklearn.pipeline import Pipeline
 from credit_default_prediction import inference, params
 from credit_default_prediction.dataset import LoanApplications
 from credit_default_prediction.metrics import save_model_metrics
-from dvclive import Live
 
 
 def evaluate(model: Pipeline, X: pd.DataFrame, y: pd.Series) -> dict:
