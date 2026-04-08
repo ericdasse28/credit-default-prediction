@@ -17,7 +17,9 @@ from sklearn.pipeline import Pipeline
 
 from credit_default_prediction import inference, params
 from credit_default_prediction.dataset import LoanApplications
-from credit_default_prediction.metrics import save_model_metrics
+from credit_default_prediction.experiment_tracking.dvc_experiment_tracker import (
+    DVCExperimentTracker,
+)
 
 
 def evaluate(model: Pipeline, X: pd.DataFrame, y: pd.Series) -> dict:
@@ -111,5 +113,8 @@ def cli(model_path: os.PathLike, test_dataset_path: os.PathLike):
     metrics = evaluate(trained_model, X_test, y_test)
 
     # Save metrics and plots
-    save_model_metrics(metrics)
+    # save_model_metrics(metrics)
+    with Live(resume=True) as live:
+        experiment_tracker = DVCExperimentTracker(live)
+        experiment_tracker.log_metrics(metrics, phase="test")
     log_plots(trained_model, X_test, y_test)
