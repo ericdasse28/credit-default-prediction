@@ -1,3 +1,5 @@
+from typing import Literal
+
 from dvclive.live import Live
 
 from credit_default_prediction.experiment_tracking.experiment_tracker import (
@@ -13,6 +15,10 @@ class DVCExperimentTracker(ExperimentTracker):
     def log_params(self, hyperparameters: HyperParams):
         self._live.log_params(hyperparameters.to_dict())  # type: ignore
 
-    def log_metrics(self, metrics: dict[str, float]):
+    def log_metrics(
+        self,
+        metrics: dict[str, float],
+        phase: Literal["cross_validation"] | Literal["test"],
+    ):
         for metric, value in metrics.items():
-            self._live.log_metric(metric, value)
+            self._live.log_metric(f"{phase}/{metric}", value)
