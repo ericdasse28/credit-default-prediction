@@ -13,6 +13,6 @@ class DVCExperimentTracker(ExperimentTracker):
     def log_params(self, hyperparameters: HyperParams):
         self._live.log_params(hyperparameters.to_dict())  # type: ignore
 
-    def log_metrics(self, **metrics):
+    def log_metrics(self, metrics: dict[str, float]):
         for metric, value in metrics.items():
             self._live.log_metric(metric, value)
